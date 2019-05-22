@@ -19,8 +19,8 @@ public interface CommentDao {
   @Delete
   public void delete(Comment comment);
 
-  @Query("DELETE  FROM comment WHERE id = :id")
-  public void delete(int id);
+  @Query("DELETE  FROM comment WHERE productId = :productId")
+  public void delete(int productId);
 
   @Query("SELECT * FROM comment")
   public List<Comment> getCommentList();

@@ -1,7 +1,10 @@
 package project.view;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -298,10 +301,12 @@ public class MainActivity extends AppCompatActivity {
 
   //----------------------------------------- Event Listeners --------------------------------------------
 
+  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   @OnClick(R.id.btnCategory)
   void btnCategoryClicked(View v) {
     Intent intent = new Intent(MainActivity.this, CategoryListActivity.class);
-    this.startActivity(intent);
+    this.startActivity(intent,
+      ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
   }
 
 

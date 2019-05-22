@@ -7,9 +7,18 @@ import android.arch.persistence.room.PrimaryKey;
 public class Comment {
   @PrimaryKey
   private int id;
+  private String comment;
   private int productId;
 
   public Comment() {
+  }
+
+  public String getComment() {
+    return comment;
+  }
+
+  public void setComment(String comment) {
+    this.comment = comment;
   }
 
   public int getId() {

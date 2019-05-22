@@ -3,7 +3,7 @@ package project.comment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,10 +19,17 @@ import com.politecoder.catalog.R;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import project.classes.App;
 import project.classes.Consts;
 import project.product.ProductEventListener;
 import project.utils.Utils;
@@ -87,6 +94,24 @@ public class CommentListActivity extends AppCompatActivity {
     productId = getIntent().getIntExtra("productId", 0);
   }
 
+  private void initXRecyclerView(List<Comment> commentList) {
+    rclv.setLayoutManager(new LinearLayoutManager(this));
+    rclv.setLoadingMoreEnabled(false);
+    rclv.setPullRefreshEnabled(false);
+
+    CommentListAdapter adapter  = null;
+
+    if (commentList == null || commentList.size() == 0){
+      commentList = App.database.getCommentdao().getCommentList(productId);
+      adapter = new CommentListAdapter(this,commentList);
+    }else {
+      adapter = new CommentListAdapter(this,commentList);
+    }
+
+    rclv.setAdapter(adapter);
+    rclv.refresh();
+  }
+
   //---------------------------------------- GET DATA FROM NET -------------------------------------
   private void getDataFromNet() {
 
@@ -99,7 +124,7 @@ public class CommentListActivity extends AppCompatActivity {
     wating = true;
 
     Ion.with(this)
-      .load(Utils.checkVersionAndBuildUrl(Consts.GET_COMMENTS))//TODO set uri for get data
+      .load(Utils.checkVersionAndBuildUrl(Consts.GET_COMMENTS))
       .setBodyParameter("productId", String.valueOf(productId))
       .asString()
       .setCallback(new FutureCallback<String>() {
@@ -113,9 +138,36 @@ public class CommentListActivity extends AppCompatActivity {
             btnNONet.setText("Retry");
             txtNONetTitle.setText("Error in internet Connection!");
             return;
+          }//end if
+          try {
+            JSONObject jsonObject = new JSONObject(result);
+            if (jsonObject.getBoolean("error")) {
+              Toast.makeText(CommentListActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+              return;
+            }
+
+            JSONArray jsonArray = jsonObject.getJSONArray("data");
+            List<Comment> commentList = new ArrayList<>();
+            commentList.clear();
+            App.database.getCommentdao().delete(productId);
+            for (int i = 0; i < jsonArray.length(); i++) {
+              JSONObject object = jsonArray.getJSONObject(i);
+              Comment comment = new Comment();
+              comment.setId(object.getInt("id"));
+              comment.setProductId(object.getInt("productId"));
+              comment.setComment(object.getString("comment"));
+
+              commentList.add(comment);
+              App.database.getCommentdao().insert(comment);
+            }
+
+           initXRecyclerView(commentList);
+
+          } catch (JSONException e1) {
+            e1.printStackTrace();
           }
 
-          Log.i("RESULT", "result: " + result);
+
         }
       });
 
@@ -131,19 +183,19 @@ public class CommentListActivity extends AppCompatActivity {
 
   @OnClick(R.id.fabNewComment)
   void fabNewCommentClicked(View v) {
-    Toast.makeText(this, "fab clicked!", Toast.LENGTH_SHORT).show();
+    //write record new note hear
+    //TODO show a dilog for get comment
+
+
   }
 
   @OnClick(R.id.btnNONet)
   void btnNONetClicked(View v) {
-
     getDataFromNet();
   }
 
   @Subscribe(threadMode = ThreadMode.MAIN)
   public void onCategoryEventListener(ProductEventListener event) {/* Do something */
-
-
   }
 
 }
