@@ -27,19 +27,25 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
   private final List<Product> productList;
   private final Context context;
+  private boolean isHorizontal = false;
 
-  public ProductListAdapter(Context context, List<Product> productList) {
+  public ProductListAdapter(Context context, List<Product> productList, boolean isHorizontal) {
     this.context = context;
     this.productList = productList;
+    this.isHorizontal = isHorizontal;
   }
 
   @NonNull
   @Override
   public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
     View view = LayoutInflater.from(context).inflate(R.layout.item_rclv_product, viewGroup, false);
-    WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
-    double width = windowManager.getDefaultDisplay().getWidth()/2.5;
-    view.setLayoutParams(new RecyclerView.LayoutParams((int) width, RecyclerView.LayoutParams.WRAP_CONTENT));
+
+    if (isHorizontal) {
+      WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+      double width = windowManager.getDefaultDisplay().getWidth() / 2.5;
+      view.setLayoutParams(new RecyclerView.LayoutParams((int) width, RecyclerView.LayoutParams.WRAP_CONTENT));
+    }
+
     return new ViewHolder(view);
   }
 

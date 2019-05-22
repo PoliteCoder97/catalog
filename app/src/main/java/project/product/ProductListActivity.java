@@ -108,10 +108,10 @@ public class ProductListActivity extends AppCompatActivity {
 
     if (productList == null || productList.size() == 0) {
       productList = App.database.getProductDao().getAllProducts(categoryId);
-      productListAdapter = new ProductListAdapter(this, productList);
+      productListAdapter = new ProductListAdapter(this, productList,false);
     }
 
-    productListAdapter = new ProductListAdapter(this, productList);
+    productListAdapter = new ProductListAdapter(this, productList,false);
     rclv.setAdapter(productListAdapter);
     rclv.refresh();
   }

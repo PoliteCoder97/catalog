@@ -173,14 +173,14 @@ public class MainActivity extends AppCompatActivity {
       productList = App.database.getProductDao().getNewestProducts(now, previousDate);//TODO check it
       Log.i("NewstTest", "NewstTest2: " + productList.size());
 
-      productListAdapter = new ProductListAdapter(this, productList);
+      productListAdapter = new ProductListAdapter(this, productList , true);
     }
 
     if (productList.size() == 0 || productList == null) {
       llayNewestGoods.setVisibility(View.GONE);
     }
 
-    productListAdapter = new ProductListAdapter(this, productList);
+    productListAdapter = new ProductListAdapter(this, productList,true);
     rclvNewestGoods.setAdapter(productListAdapter);
 //    rclvNewestGoods.refresh();
   }
@@ -196,12 +196,12 @@ public class MainActivity extends AppCompatActivity {
     ProductListAdapter productListAdapter = null;
     if (productList == null || productList.size() == 0) {
       productList = App.database.getProductDao().getMostVisite();
-      productListAdapter = new ProductListAdapter(this, productList);
+      productListAdapter = new ProductListAdapter(this, productList , true);
     }
     if (productList.size() == 0 || productList == null) {
       llayMostVisits.setVisibility(View.GONE);
     }
-    productListAdapter = new ProductListAdapter(this, productList);
+    productListAdapter = new ProductListAdapter(this, productList,true);
     rclvMostVisited.setAdapter(productListAdapter);
 //    rclvMostVisited.refresh();
   }
