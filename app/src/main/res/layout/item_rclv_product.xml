@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  >
+
+  <android.support.v7.widget.CardView
+    android:id="@+id/lLayProduct"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/view_small"
+    android:layout_marginLeft="@dimen/view_small"
+    android:layout_marginTop="@dimen/view_small"
+    android:layout_marginEnd="@dimen/view_small"
+    android:layout_marginRight="@dimen/view_small"
+    android:layout_marginBottom="@dimen/view_small"
+    app:cardCornerRadius="@dimen/view_xlarg">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/colorCardBackground"
+      android:orientation="vertical"
+      >
+      <!--<RelativeLayout-->
+      <!--android:layout_width="match_parent"-->
+      <!--android:layout_height="wrap_content"-->
+      <!--android:background="@color/colorCardBackground"-->
+      <!--&gt;-->
+      <ImageView
+        android:id="@+id/imgAdapter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/untitled"
+        />
+      <!--<FrameLayout-->
+      <!--android:layout_width="match_parent"-->
+      <!--android:layout_height="wrap_content"-->
+      <!--android:layout_gravity="center"-->
+      <!--android:background="#77000000"-->
+      <!--&gt;-->
+      <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="#77000000"
+        android:gravity="center"
+        android:padding="@dimen/view_small"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_medium"/>
+      <!--</FrameLayout>-->
+    </LinearLayout>
+  </android.support.v7.widget.CardView>
+
+
+</LinearLayout>

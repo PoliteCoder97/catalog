@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context="project.category.CategoryListActivity">
+  <include layout="@layout/app_toolbar"
+           android:id="@+id/app_toolbar"/>
+
+  <com.jcodecraeer.xrecyclerview.XRecyclerView
+    android:id="@+id/rclv"
+    android:layout_below="@id/app_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
+
+<include layout="@layout/app_no_internet"
+         android:layout_alignParentBottom="true"
+         android:id="@+id/app_no_internet"
+         android:layout_height="wrap_content"
+         android:visibility="gone"
+         android:layout_width="match_parent"/>
+
+<include layout="@layout/app_loading"
+         android:layout_alignParentBottom="true"
+         android:id="@+id/llayLoading"
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"/>
+</RelativeLayout>
