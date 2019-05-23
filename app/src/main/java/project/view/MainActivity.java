@@ -40,6 +40,7 @@ import project.category.CategoryListActivity;
 import project.classes.App;
 import project.classes.Consts;
 import project.classes.Slide;
+import project.person.PersonListActivity;
 import project.product.Product;
 import project.product.ProductListAdapter;
 import project.utils.Utils;
@@ -305,6 +306,13 @@ public class MainActivity extends AppCompatActivity {
   @OnClick(R.id.btnCategory)
   void btnCategoryClicked(View v) {
     Intent intent = new Intent(MainActivity.this, CategoryListActivity.class);
+    this.startActivity(intent,
+      ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+  }
+  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+  @OnClick(R.id.btnContactUs)
+  void btnContactUsClicked(View v) {
+    Intent intent = new Intent(MainActivity.this, PersonListActivity.class);
     this.startActivity(intent,
       ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
   }

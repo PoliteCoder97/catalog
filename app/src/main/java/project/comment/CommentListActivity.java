@@ -2,10 +2,15 @@ package project.comment;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -58,6 +63,7 @@ public class CommentListActivity extends AppCompatActivity {
   //filds
   private boolean wating = false;
   private int productId = 0;
+  private CommentListAdapter adapter = null;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -99,13 +105,11 @@ public class CommentListActivity extends AppCompatActivity {
     rclv.setLoadingMoreEnabled(false);
     rclv.setPullRefreshEnabled(false);
 
-    CommentListAdapter adapter  = null;
-
-    if (commentList == null || commentList.size() == 0){
+    if (commentList == null || commentList.size() == 0) {
       commentList = App.database.getCommentdao().getCommentList(productId);
-      adapter = new CommentListAdapter(this,commentList);
-    }else {
-      adapter = new CommentListAdapter(this,commentList);
+      adapter = new CommentListAdapter(this, commentList);
+    } else {
+      adapter = new CommentListAdapter(this, commentList);
     }
 
     rclv.setAdapter(adapter);
@@ -134,9 +138,8 @@ public class CommentListActivity extends AppCompatActivity {
           wating = false;
           if (e != null) {
             e.printStackTrace();
-            app_no_internet.setVisibility(View.VISIBLE);
-            btnNONet.setText("Retry");
-            txtNONetTitle.setText("Error in internet Connection!");
+            initXRecyclerView(null);
+            initNoNetView();
             return;
           }//end if
           try {
@@ -161,13 +164,11 @@ public class CommentListActivity extends AppCompatActivity {
               App.database.getCommentdao().insert(comment);
             }
 
-           initXRecyclerView(commentList);
+            initXRecyclerView(commentList);
 
           } catch (JSONException e1) {
             e1.printStackTrace();
           }
-
-
         }
       });
 
@@ -184,9 +185,85 @@ public class CommentListActivity extends AppCompatActivity {
   @OnClick(R.id.fabNewComment)
   void fabNewCommentClicked(View v) {
     //write record new note hear
-    //TODO show a dilog for get comment
+    View view = LayoutInflater.from(this)
+      .inflate(R.layout.dialog_record_comment, null, false);
+
+    AlertDialog.Builder builder = new AlertDialog.Builder(CommentListActivity.this);
+    builder.setView(view);
+
+    final EditText edtComment = view.findViewById(R.id.edtComment);
+    Button btnSave = view.findViewById(R.id.btnSave);
+    Button btnCancel = view.findViewById(R.id.btnCancel);
+
+    final AlertDialog dialog = builder.create();
+    btnSave.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        dialog.dismiss();
+
+        final String comment = edtComment.getText().toString().trim();
+        if (TextUtils.isEmpty(comment) || comment.length() == 0) {
+          Toast.makeText(CommentListActivity.this, "You Most To Write Somthing...", Toast.LENGTH_SHORT).show();
+          edtComment.requestFocus();
+          return;
+        }
+
+        //send a Req to Server for Record
+        app_loading.setVisibility(View.VISIBLE);
+        if (wating)
+          return;
+
+        wating = true;
+
+        Ion.with(CommentListActivity.this)
+          .load(Utils.checkVersionAndBuildUrl(Consts.RECORD_COMMENTS))
+          .setBodyParameter("productId", String.valueOf(productId))
+          .setBodyParameter("comment", comment)
+          .asString()
+          .setCallback(new FutureCallback<String>() {
+            @Override
+            public void onCompleted(Exception e, String result) {
+              wating = false;
+              app_loading.setVisibility(View.GONE);
+              if (e != null) {
+                e.printStackTrace();
+                return;
+              }
+
+              Log.i("RESULT", "result: " + result);
+              Comment cm = new Comment();
+              cm.setComment(comment);
+              cm.setProductId(productId);
+              App.database.getCommentdao().insert(cm);
+
+              if (adapter != null) {
+                initXRecyclerView(null);
+              }
+
+            }
+          });
 
 
+      }
+    });
+
+    btnCancel.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        edtComment.setText("");
+        dialog.dismiss();
+      }
+    });
+
+    dialog.getWindow().getDecorView().setBackgroundResource(android.R.color.transparent);
+    dialog.show();
+
+  }
+
+  private void initNoNetView() {
+    app_no_internet.setVisibility(View.VISIBLE);
+    btnNONet.setText("Retry");
+    txtNONetTitle.setText("Error in internet Connection!");
   }
 
   @OnClick(R.id.btnNONet)

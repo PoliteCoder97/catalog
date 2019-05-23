@@ -10,6 +10,7 @@ public class Person {
   private int id;
   private int isMentor;
   private String name;
+  private String img;
   private String desc;
 
 
@@ -46,6 +47,14 @@ public class Person {
 
   public void setIsMentor(int isMentor) {
     this.isMentor = isMentor;
+  }
+
+  public String getImg() {
+    return img;
+  }
+
+  public void setImg(String img) {
+    this.img = img;
   }
 
   @Override

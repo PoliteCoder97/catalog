@@ -110,7 +110,7 @@
     android:background="@drawable/btn_call_background"
     android:text="Call"
     android:textAllCaps="false"
-    android:textColor="@color/black"
+    android:textColor="@color/white"
     android:textSize="@dimen/text_larg"
     />
 </RelativeLayout>

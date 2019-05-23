@@ -20,6 +20,8 @@ public interface PersonDao {
   public void delete(Person people);
   @Query("DELETE  FROM person WHERE id = :id")
   public void delete(int id);
+  @Query("DELETE  FROM person ")
+  public void delete();
 
 
   @Query("SELECT * FROM person ")

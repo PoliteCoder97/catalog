@@ -16,5 +16,6 @@ public class Consts {
   public static final String GET_MAIN_INF = "CatalogApp_Api/v1/get_main_inf.php";
   public static final String GET_COMMENTS = "CatalogApp_Api/v1/product/get_comments.php";
   public static final String RECORD_COMMENTS = "CatalogApp_Api/v1/product/record_comment.php";
+  public static final String GET_PERSONS = "CatalogApp_Api/v1/person/get_persons.php";
   public static final int DEFUALT_TIME_OUT = 8000;
 }
