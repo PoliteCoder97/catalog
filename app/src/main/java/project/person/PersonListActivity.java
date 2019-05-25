@@ -1,5 +1,6 @@
 package project.person;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -94,11 +95,11 @@ public class PersonListActivity extends AppCompatActivity {
     rclv.setPullRefreshEnabled(false);
     rclv.setLoadingMoreEnabled(false);
 
-    if (personList == null){
+    if (personList == null) {
       personList = App.database.getPersonDao().getAllPeople();
     }
 
-    PersonListAdapter adapter = new PersonListAdapter(this,personList);
+    PersonListAdapter adapter = new PersonListAdapter(this, personList);
     rclv.setAdapter(adapter);
     rclv.refresh();
 
@@ -124,7 +125,7 @@ public class PersonListActivity extends AppCompatActivity {
           wating = false;
           app_loading.setVisibility(View.GONE);
           if (e != null) {
-            Log.e("ERROR","error: "+e.toString());
+            Log.e("ERROR", "error: " + e.toString());
             initXRecyclerView(null);
             app_no_internet.setVisibility(View.VISIBLE);
             btnNONet.setText("Retry");
@@ -172,6 +173,15 @@ public class PersonListActivity extends AppCompatActivity {
   //---------------------------------- EVENTS -----------------------------------
   @Subscribe(threadMode = ThreadMode.MAIN)
   public void onCategoryEventListener(PersonEventListener event) {/* Do something */
+
+    Intent intent = new Intent(PersonListActivity.this, PersonContactActivity.class);
+    intent.putExtra("id", event.getPerson().getId());
+    intent.putExtra("name", event.getPerson().getName());
+    intent.putExtra("desc", event.getPerson().getDesc());
+    intent.putExtra("img", event.getPerson().getImg());
+    intent.putExtra("isMentor", event.getPerson().getIsMentor());
+
+    this.startActivity(intent);
   }
 
   @OnClick(R.id.btnNONet)
