@@ -1,27 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+
+<android.support.v7.widget.CardView
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:orientation="horizontal"
+  android:layout_margin="@dimen/view_small"
+  app:cardCornerRadius="@dimen/view_medium"
+
   >
 
-  <TextView
-    android:id="@+id/txtId"
-    android:layout_width="0dp"
-    android:layout_weight="0.1"
+  <LinearLayout
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/view_small"
-    android:textColor="@color/black"
-    android:textSize="@dimen/text_medium"/>
+    android:background="#eeeeee"
+    android:minHeight="50dp"
+    android:orientation="horizontal"
+    android:gravity="center"
+    >
 
-  <TextView
-    android:id="@+id/txtComment"
-    android:layout_width="0dp"
-    android:layout_weight="0.9"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/view_small"
-    android:textColor="@color/black"
-    android:textSize="@dimen/text_medium"/>
+    <ImageView
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/view_small"
+      android:layout_weight="0.1"
+      android:src="@drawable/ic_store_white_24dp"
+      />
 
-</LinearLayout>
+    <TextView
+      android:id="@+id/txtComment"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/view_small"
+      android:layout_weight="0.9"
+      android:textColor="@color/black"
+      android:textSize="@dimen/text_medium"/>
+  </LinearLayout>
+</android.support.v7.widget.CardView>

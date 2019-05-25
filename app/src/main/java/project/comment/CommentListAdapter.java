@@ -42,7 +42,6 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
       return;
     }
 
-    holder.txtId.setText(" "+comment.getId()+":");
     holder.txtComment.setText(""+comment.getComment());
 
   }
@@ -55,8 +54,6 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
   public class ViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.txtComment)
     TextView txtComment;
-    @BindView(R.id.txtId)
-    TextView txtId;
 
     public ViewHolder(@NonNull View itemView) {
       super(itemView);

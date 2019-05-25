@@ -105,12 +105,10 @@ public class CommentListActivity extends AppCompatActivity {
     rclv.setLoadingMoreEnabled(false);
     rclv.setPullRefreshEnabled(false);
 
-    if (commentList == null || commentList.size() == 0) {
+    if (commentList == null) {
       commentList = App.database.getCommentdao().getCommentList(productId);
-      adapter = new CommentListAdapter(this, commentList);
-    } else {
-      adapter = new CommentListAdapter(this, commentList);
     }
+      adapter = new CommentListAdapter(this, commentList);
 
     rclv.setAdapter(adapter);
     rclv.refresh();
@@ -255,7 +253,7 @@ public class CommentListActivity extends AppCompatActivity {
       }
     });
 
-    dialog.getWindow().getDecorView().setBackgroundResource(android.R.color.transparent);
+//    dialog.getWindow().getDecorView().setBackgroundResource(android.R.color.transparent);
     dialog.show();
 
   }
