@@ -6,25 +6,31 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   tools:context="project.category.CategoryListActivity">
-  <include layout="@layout/app_toolbar"
-           android:id="@+id/app_toolbar"/>
+
+  <include
+    android:id="@+id/app_toolbar"
+    layout="@layout/app_toolbar"/>
 
   <com.jcodecraeer.xrecyclerview.XRecyclerView
     android:id="@+id/rclv"
-    android:layout_below="@id/app_toolbar"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+    android:layout_height="match_parent"
+    android:layout_below="@id/app_toolbar"/>
 
-<include layout="@layout/app_no_internet"
-         android:layout_alignParentBottom="true"
-         android:id="@+id/app_no_internet"
-         android:layout_height="wrap_content"
-         android:visibility="gone"
-         android:layout_width="match_parent"/>
+  <include
+    android:id="@+id/app_no_internet"
+    layout="@layout/app_no_internet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:visibility="gone"/>
 
-<include layout="@layout/app_loading"
-         android:layout_alignParentBottom="true"
-         android:id="@+id/llayLoading"
-         android:layout_height="wrap_content"
-         android:layout_width="match_parent"/>
+  <include
+    android:id="@+id/llayLoading"
+    layout="@layout/app_loading"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:visibility="gone"
+    />
 </RelativeLayout>

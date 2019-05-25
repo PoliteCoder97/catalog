@@ -106,7 +106,7 @@ public class ProductListActivity extends AppCompatActivity {
 
     ProductListAdapter productListAdapter = null;
 
-    if (productList == null || productList.size() == 0) {
+    if (productList == null) {
       productList = App.database.getProductDao().getAllProducts(categoryId);
       productListAdapter = new ProductListAdapter(this, productList,false);
     }

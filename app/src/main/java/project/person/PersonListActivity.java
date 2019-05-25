@@ -31,7 +31,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import project.classes.App;
 import project.classes.Consts;
-import project.product.ProductEventListener;
 import project.utils.Utils;
 
 public class PersonListActivity extends AppCompatActivity {
@@ -63,8 +62,8 @@ public class PersonListActivity extends AppCompatActivity {
 
     initFilds();
     initWidgets();
-    getDataFromNet();
 
+    getDataFromNet();
   }
 
   @Override
@@ -82,7 +81,7 @@ public class PersonListActivity extends AppCompatActivity {
   //---------------------------------- INITIALS -----------------------------------
   private void initWidgets() {
     imgLeft.setImageDrawable(getResources().getDrawable(R.drawable.ic_arrow_back));
-    txtTitle.setText("Contacr Us");
+    txtTitle.setText("Contact Us");
   }
 
   private void initFilds() {
@@ -94,7 +93,14 @@ public class PersonListActivity extends AppCompatActivity {
     rclv.setLayoutManager(new LinearLayoutManager(this));
     rclv.setPullRefreshEnabled(false);
     rclv.setLoadingMoreEnabled(false);
-    //TODO comp;ete this
+
+    if (personList == null){
+      personList = App.database.getPersonDao().getAllPeople();
+    }
+
+    PersonListAdapter adapter = new PersonListAdapter(this,personList);
+    rclv.setAdapter(adapter);
+    rclv.refresh();
 
   }
 
@@ -118,12 +124,12 @@ public class PersonListActivity extends AppCompatActivity {
           wating = false;
           app_loading.setVisibility(View.GONE);
           if (e != null) {
-            e.printStackTrace();
+            Log.e("ERROR","error: "+e.toString());
+            initXRecyclerView(null);
             app_no_internet.setVisibility(View.VISIBLE);
             btnNONet.setText("Retry");
-            btnNONet.setText("" + PersonListActivity.this.getResources()
+            txtNONetTitle.setText("" + PersonListActivity.this.getResources()
               .getString(R.string.no_net_error));
-
             return;
           }
 
@@ -132,6 +138,7 @@ public class PersonListActivity extends AppCompatActivity {
             JSONObject jsonObject = new JSONObject(result);
             if (jsonObject.getBoolean("error")) {
               Toast.makeText(PersonListActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+              initXRecyclerView(null);
               return;
             }
 
@@ -164,7 +171,7 @@ public class PersonListActivity extends AppCompatActivity {
 
   //---------------------------------- EVENTS -----------------------------------
   @Subscribe(threadMode = ThreadMode.MAIN)
-  public void onCategoryEventListener(ProductEventListener event) {/* Do something */
+  public void onCategoryEventListener(PersonEventListener event) {/* Do something */
   }
 
   @OnClick(R.id.btnNONet)

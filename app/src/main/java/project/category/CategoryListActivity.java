@@ -82,15 +82,12 @@ public class CategoryListActivity extends AppCompatActivity {
   //----------------------------------- INITIALS ----------------------------------------
   private void initFilds() {
     parentId = getIntent().getIntExtra("parentId", -1);
-    if (getIntent().getStringExtra("title") != null)
-      txtTitle.setText(" " + getIntent().getStringExtra("title"));
-    else
-      txtTitle.setText("Category");
+
   }
 
   private void initWidjets() {
-
     imgLeft.setImageDrawable(getResources().getDrawable(R.drawable.ic_arrow_back));
+    txtTitle.setText("Category");
   }
 
   private void initXRecyclerView() {
@@ -126,6 +123,7 @@ public class CategoryListActivity extends AppCompatActivity {
   private void getDataFromNet() {
     app_no_internet.setVisibility(View.GONE);
     llayLoading.setVisibility(View.VISIBLE);
+
     if (wating)
       return;
 
@@ -177,6 +175,7 @@ public class CategoryListActivity extends AppCompatActivity {
         }
       });
   }
+
   //-------------------------------- EVENTS --------------------------------
   @OnClick(R.id.btnNONet)
   void btnNoNetClicked(View v) {
@@ -197,8 +196,8 @@ public class CategoryListActivity extends AppCompatActivity {
       CategoryListActivity.this.startActivity(intent);
     } else {
       Intent intent = new Intent(CategoryListActivity.this, ProductListActivity.class);
-      intent.putExtra("categoryId",event.getCategory().getId());
-      intent.putExtra("title",event.getCategory().getTitle());
+      intent.putExtra("categoryId", event.getCategory().getId());
+      intent.putExtra("title", event.getCategory().getTitle());
       CategoryListActivity.this.startActivity(intent);
     }
 

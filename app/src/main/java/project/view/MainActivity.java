@@ -4,7 +4,6 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -158,35 +157,24 @@ public class MainActivity extends AppCompatActivity {
     LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
     rclvNewestGoods.setHasFixedSize(true);
     rclvNewestGoods.setLayoutManager(manager);
-//    rclvNewestGoods.setPullRefreshEnabled(false);
-//    rclvNewestGoods.setLoadingMoreEnabled(false);
 
-    ProductListAdapter productListAdapter = null;
 
-    if (productList == null || productList.size() == 0) {
+    if (productList == null) {
       Date now = Calendar.getInstance().getTime();
-//      SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-//      String formattedDate = df.format(d);
-//      System.out.println("Current date => " + formattedDate);
       Calendar c = Calendar.getInstance();
       c.setTime(now);
       c.add(Calendar.DATE, -7);
       Date previousDate = c.getTime();
-//      String formattedDateBefor = df.format(previousDate);
-//      System.out.println("Current date => " + formattedDateBefor);
+
+      Log.i("DATE_TEST","Now: "+now+"\npreviousDate: "+previousDate);
       productList = App.database.getProductDao().getNewestProducts(now, previousDate);//TODO check it
-      Log.i("NewstTest", "NewstTest2: " + productList.size());
 
-      productListAdapter = new ProductListAdapter(this, productList , true);
-    }
-
-    if (productList.size() == 0 || productList == null) {
       llayNewestGoods.setVisibility(View.GONE);
+      return;
     }
 
-    productListAdapter = new ProductListAdapter(this, productList,true);
+    ProductListAdapter productListAdapter = new ProductListAdapter(this, productList,true);
     rclvNewestGoods.setAdapter(productListAdapter);
-//    rclvNewestGoods.refresh();
   }
 
   private void initialMostSeenRclv(List<Product> productList) {
@@ -195,19 +183,13 @@ public class MainActivity extends AppCompatActivity {
     LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
     rclvMostVisited.setHasFixedSize(true);
     rclvMostVisited.setLayoutManager(manager);
-//    rclvMostVisited.setPullRefreshEnabled(false);
-//    rclvMostVisited.setLoadingMoreEnabled(false);
-    ProductListAdapter productListAdapter = null;
-    if (productList == null || productList.size() == 0) {
+    if (productList == null) {
       productList = App.database.getProductDao().getMostVisite();
-      productListAdapter = new ProductListAdapter(this, productList , true);
-    }
-    if (productList.size() == 0 || productList == null) {
       llayMostVisits.setVisibility(View.GONE);
+      return;
     }
-    productListAdapter = new ProductListAdapter(this, productList,true);
+    ProductListAdapter productListAdapter = new ProductListAdapter(this, productList,true);
     rclvMostVisited.setAdapter(productListAdapter);
-//    rclvMostVisited.refresh();
   }
 
   //------------------------------------------- GET FROM NET -----------------------------------------------
@@ -291,8 +273,10 @@ public class MainActivity extends AppCompatActivity {
 
               mostVisitedProducts.add(product);
             }
+
             initialNewstGoodsRclv(newestGoods);
             initialMostSeenRclv(mostVisitedProducts);
+
           } catch (JSONException e1) {
             e1.printStackTrace();
           }
@@ -301,20 +285,27 @@ public class MainActivity extends AppCompatActivity {
   }
 
   //----------------------------------------- Event Listeners --------------------------------------------
-
-  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   @OnClick(R.id.btnCategory)
   void btnCategoryClicked(View v) {
     Intent intent = new Intent(MainActivity.this, CategoryListActivity.class);
-    this.startActivity(intent,
-      ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+
+    if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.N_MR1) {
+      this.startActivity(intent,
+        ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+    }else {
+      this.startActivity(intent);
+    }
   }
-  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   @OnClick(R.id.btnContactUs)
   void btnContactUsClicked(View v) {
     Intent intent = new Intent(MainActivity.this, PersonListActivity.class);
-    this.startActivity(intent,
-      ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+    if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.N_MR1) {
+      this.startActivity(intent,
+        ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+    }else {
+      this.startActivity(intent);
+    }
+
   }
 
 

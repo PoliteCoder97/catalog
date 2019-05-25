@@ -16,7 +16,8 @@
     android:supportsRtl="false"
     android:theme="@style/AppTheme"
     android:usesCleartextTraffic="true">
-
+    <activity android:name="project.person.PersonContactActivity">
+    </activity>
     <activity android:name="project.view.SplashActivity">
     </activity>
     <activity android:name="project.category.CategoryListActivity">
