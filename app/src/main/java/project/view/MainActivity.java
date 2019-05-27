@@ -21,6 +21,9 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.politecoder.catalog.R;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,6 +44,9 @@ import project.classes.Consts;
 import project.classes.Slide;
 import project.person.PersonListActivity;
 import project.product.Product;
+import project.product.ProductActivity;
+import project.product.ProductEventListener;
+import project.product.ProductListActivity;
 import project.product.ProductListAdapter;
 import project.utils.Utils;
 
@@ -96,7 +102,21 @@ public class MainActivity extends AppCompatActivity {
     getDataFromNet();
   }
 
+  @Override
+  public void onStart() {
+    super.onStart();
+    EventBus.getDefault().register(this);
+  }
 
+  @Override
+  public void onStop() {
+    super.onStop();
+    EventBus.getDefault().unregister(this);
+  }
+  @Override
+  protected void onResume() {
+    super.onResume();
+  }
   //----------------------------------------- INITIALS --------------------------------------------
   private void initWidgets() {
     imgRight.setImageDrawable(getResources().getDrawable(R.drawable.menu));
@@ -285,6 +305,22 @@ public class MainActivity extends AppCompatActivity {
   }
 
   //----------------------------------------- Event Listeners --------------------------------------------
+
+  @Subscribe(threadMode = ThreadMode.MAIN)
+  public void onCategoryEventListener(ProductEventListener event) {/* Do something */
+
+    Intent intent = new Intent(MainActivity.this, ProductActivity.class);
+    intent.putExtra("id", event.getProduct().getId());
+    intent.putExtra("title", event.getProduct().getTitle());
+    intent.putExtra("categoryId", event.getProduct().getCategoryId());
+    intent.putExtra("desc", event.getProduct().getDesc());
+    intent.putExtra("img", event.getProduct().getImg());
+    intent.putExtra("price", event.getProduct().getPrice());
+    intent.putExtra("posted_date", event.getProduct().getPosted_date());
+
+    MainActivity.this.startActivity(intent);
+  }
+
   @OnClick(R.id.btnCategory)
   void btnCategoryClicked(View v) {
     Intent intent = new Intent(MainActivity.this, CategoryListActivity.class);

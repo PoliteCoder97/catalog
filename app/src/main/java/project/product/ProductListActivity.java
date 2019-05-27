@@ -63,7 +63,7 @@ public class ProductListActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_product_list);
+    setContentView(R.layout.activity_list);
     ButterKnife.bind(this);
 
     initFilds();
@@ -82,6 +82,10 @@ public class ProductListActivity extends AppCompatActivity {
   public void onStop() {
     super.onStop();
     EventBus.getDefault().unregister(this);
+  }
+  @Override
+  protected void onResume() {
+    super.onResume();
   }
   //--------------------------------- INITIALS ---------------------------------------------
 
@@ -155,7 +159,7 @@ public class ProductListActivity extends AppCompatActivity {
               return;
             }
 
-            App.database.getProductDao().delete(categoryId);
+            App.database.getProductDao().delete();
             productList.clear();
             JSONArray jsonArray = jsonObject.getJSONArray("data");
             for (int i = 0; i < jsonArray.length(); i++) {

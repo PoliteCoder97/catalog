@@ -1,102 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
->
-
-<android.support.v7.widget.CardView
-  android:id="@+id/lLayProduct"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:layout_margin="@dimen/view_small"
-  app:cardCornerRadius="@dimen/view_xlarg"
-  >
-  <LinearLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorCardBackground"
-    android:orientation="vertical"
-    android:gravity="bottom"
-    android:layout_gravity="bottom"
-    >
-    <!--<RelativeLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:background="@color/colorCardBackground"-->
-    <!--&gt;-->
-    <ImageView
-      android:id="@+id/imgAdapter"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:adjustViewBounds="true"
-      android:scaleType="centerInside"
-      />
-    <!--<FrameLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:background="#77000000"-->
-    <!--&gt;-->
-    <TextView
-      android:id="@+id/txtTitle"
-      android:layout_width="match_parent"
-      android:textColor="@color/white"
-      android:textSize="@dimen/text_medium"
-      android:gravity="center"
-      android:background="#77000000"
-      android:layout_gravity="bottom"
-      android:layout_height="wrap_content"/>
-    <!--</FrameLayout>-->
-  </LinearLayout>
-</android.support.v7.widget.CardView>
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/lLayProduct"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/view_small"
+        app:cardCornerRadius="@dimen/view_xlarg">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorCardBackground">
+            <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@color/colorCardBackground"-->
+            <!--&gt;-->
+            <ImageView
+                android:id="@+id/imgAdapter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside" />
+            <!--<FrameLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:background="#77000000"-->
+            <!--&gt;-->
+            <TextView
+                android:id="@+id/txtTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#77000000"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:layout_alignParentBottom="true"
+                android:textSize="@dimen/text_medium" />
+            <!--</FrameLayout>-->
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
 
 
-  </RelativeLayout>
-<!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<LinearLayout-->
-  <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-  <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-  <!--android:layout_width="match_parent"-->
-  <!--android:layout_height="wrap_content"-->
-  <!--&gt;-->
+</RelativeLayout><!--<?xml version="1.0" encoding="utf-8"?>--><!--<LinearLayout--><!--xmlns:android="http://schemas.android.com/apk/res/android"--><!--xmlns:app="http://schemas.android.com/apk/res-auto"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--&gt;-->
 
-  <!--<android.support.v7.widget.CardView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_margin="@dimen/view_small"-->
-    <!--app:cardCornerRadius="@dimen/view_xlarg"-->
-    <!--&gt;-->
-<!--<RelativeLayout-->
-  <!--android:layout_width="match_parent"-->
-  <!--android:layout_height="wrap_content">-->
-    <!--<ImageView-->
-      <!--android:id="@+id/imgAdapter"-->
-      <!--android:layout_width="match_parent"-->
-      <!--android:layout_height="wrap_content"-->
-      <!--android:adjustViewBounds="true"-->
-      <!--android:scaleType="centerInside"-->
-      <!--/>-->
-    <!--<FrameLayout-->
-      <!--android:layout_width="match_parent"-->
-      <!--android:layout_height="wrap_content"-->
-      <!--android:layout_gravity="center"-->
-      <!--android:background="#77000000"-->
-      <!--android:layout_alignParentBottom="true"-->
-      <!--&gt;-->
-      <!--<TextView-->
-        <!--android:id="@+id/txtTitle"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:textColor="@color/white"-->
-        <!--android:textSize="@dimen/text_medium"-->
-        <!--android:gravity="center"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:layout_height="wrap_content"/>-->
-    <!--</FrameLayout>-->
-<!--</RelativeLayout>-->
-  <!--</android.support.v7.widget.CardView>-->
+    <!--<android.support.v7.widget.CardView--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:layout_margin="@dimen/view_small"--><!--app:cardCornerRadius="@dimen/view_xlarg"--><!--&gt;--><!--<RelativeLayout--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content">--><!--<ImageView--><!--android:id="@+id/imgAdapter"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:adjustViewBounds="true"--><!--android:scaleType="centerInside"--><!--/>--><!--<FrameLayout--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:layout_gravity="center"--><!--android:background="#77000000"--><!--android:layout_alignParentBottom="true"--><!--&gt;--><!--<TextView--><!--android:id="@+id/txtTitle"--><!--android:layout_width="wrap_content"--><!--android:textColor="@color/white"--><!--android:textSize="@dimen/text_medium"--><!--android:gravity="center"--><!--android:layout_gravity="center"--><!--android:layout_height="wrap_content"/>--><!--</FrameLayout>--><!--</RelativeLayout>--><!--</android.support.v7.widget.CardView>-->
 
 
-<!--</LinearLayout>-->
+    <!--</LinearLayout>-->
 

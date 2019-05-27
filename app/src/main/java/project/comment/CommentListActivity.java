@@ -150,7 +150,7 @@ public class CommentListActivity extends AppCompatActivity {
             JSONArray jsonArray = jsonObject.getJSONArray("data");
             List<Comment> commentList = new ArrayList<>();
             commentList.clear();
-            App.database.getCommentdao().delete(productId);
+            App.database.getCommentdao().delete();
             for (int i = 0; i < jsonArray.length(); i++) {
               JSONObject object = jsonArray.getJSONObject(i);
               Comment comment = new Comment();

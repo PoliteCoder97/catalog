@@ -23,6 +23,8 @@ public interface ProductDao {
 
   @Query("DELETE  FROM product WHERE categoryId = :categoryId")
   public void delete(int categoryId);
+  @Query("DELETE  FROM product")
+  public void delete();
 
 
   @Query("SELECT * FROM product")

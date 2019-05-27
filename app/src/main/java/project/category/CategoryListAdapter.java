@@ -19,9 +19,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import project.classes.Consts;
+import project.classes.EmptyListCallback;
 import project.utils.Utils;
 
-public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapter.ViewHolder> {
+public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapter.ViewHolder> implements EmptyListCallback {
   private final Context context;
   private final List<Category> categoryList;
 
@@ -69,5 +70,10 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
       super(itemView);
       ButterKnife.bind(this, itemView);
     }
+  }
+
+  @Override
+  public int setOnListItemCountListener() {
+    return getItemCount();
   }
 }
