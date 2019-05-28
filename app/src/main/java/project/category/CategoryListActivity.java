@@ -108,10 +108,6 @@ public class CategoryListActivity extends AppCompatActivity {
 
         CategoryListAdapter adapter = null;
         try {
-            for (Category category : App.database.getCategorydao().getCategoryList(parentId)) {
-                Log.i("CATEGORYLIST", "category id: " + category.getId());
-            }
-
             adapter = new CategoryListAdapter(this, App.database.getCategorydao().getCategoryList(parentId));
         } catch (Exception e) {
             e.printStackTrace();
@@ -125,7 +121,7 @@ public class CategoryListActivity extends AppCompatActivity {
         }
 
         //get list item count for showing empty list
-        if (adapter.setOnListItemCountListener() == 0) {
+        if (adapter.setOnListEmptyListener()) {
             app_empty_list.setVisibility(View.VISIBLE);
             rclv.setVisibility(View.GONE);
         } else {

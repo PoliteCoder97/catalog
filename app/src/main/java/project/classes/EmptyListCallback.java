@@ -1,5 +1,5 @@
 package project.classes;
 
 public interface EmptyListCallback {
-    public int setOnListItemCountListener();
+    public boolean setOnListEmptyListener();
 }

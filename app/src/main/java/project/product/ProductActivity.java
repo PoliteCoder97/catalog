@@ -75,7 +75,7 @@ public class ProductActivity extends AppCompatActivity {
 
   @OnClick(R.id.btnCall)
   void btnCallClicked(View v) {
-    Toast.makeText(this, "Call clicked!", Toast.LENGTH_SHORT).show();
+    Utils.call(this,Consts.MARKETING_MANAGER);
   }
 
   @OnClick(R.id.imgLeft)
@@ -90,4 +90,6 @@ public class ProductActivity extends AppCompatActivity {
     intent.putExtra("title", txtTitle.getText().toString().trim());
     this.startActivity(intent);
   }
+
+
 }

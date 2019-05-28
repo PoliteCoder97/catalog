@@ -1,10 +1,10 @@
 package project.classes;
 
 public class Consts {
-  public static final String HTTP_REQUEST = "http://amaloffice.com/";
-  public static final String HTTPS_REQUEST = "http://amaloffice.com/";
-//  public static final String HTTP_REQUEST = "http://politecoder97.ir/";
-//  public static final String HTTPS_REQUEST = "https://politecoder97.ir/";
+//  public static final String HTTP_REQUEST = "http://amaloffice.com/";
+//  public static final String HTTPS_REQUEST = "http://amaloffice.com/";
+  public static final String HTTP_REQUEST = "http://politecoder97.ir/";
+  public static final String HTTPS_REQUEST = "https://politecoder97.ir/";
 
   public static final String GET_CATEGORY = "CatalogApp_Api/v1/category/get_category.php";
   public static final String GET_PRODUCT = "CatalogApp_Api/v1/product/get_products.php";
@@ -19,4 +19,5 @@ public class Consts {
   public static final String GET_PERSONS = "CatalogApp_Api/v1/person/get_persons.php";
   public static final String GET_CONTACT = "CatalogApp_Api/v1/person/get_contacts.php";
   public static final int DEFUALT_TIME_OUT = 8000;
+  public static final String MARKETING_MANAGER = "00989133671154";
 }

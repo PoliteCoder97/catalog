@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.QuickContactBadge;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,30 @@ public class PersonContactActivity extends AppCompatActivity {
     Button btnNONet;
     @BindView(R.id.txtNONetTitle)
     TextView txtNONetTitle;
+    @BindView(R.id.lLayPhone)
+    LinearLayout lLayPhone;
+    @BindView(R.id.lLayTelegram)
+    LinearLayout lLayTelegram;
+    @BindView(R.id.lLayWhatsApp)
+    LinearLayout lLayWhatsApp;
+    @BindView(R.id.lLayFacebook)
+    LinearLayout lLayFacebook;
+    @BindView(R.id.lLayEmail)
+    LinearLayout lLayEmail;
+    @BindView(R.id.lLayWeb)
+    LinearLayout lLayWeb;
+    @BindView(R.id.txtPhone)
+    TextView txtPhone;
+    @BindView(R.id.txtTelegram)
+    TextView txtTelegram;
+    @BindView(R.id.txtWhatsapp)
+    TextView txtWhatsapp;
+    @BindView(R.id.txtFacebook)
+    TextView txtFacebook;
+    @BindView(R.id.txtEmail)
+    TextView txtEmail;
+    @BindView(R.id.txtWeb)
+    TextView txtWeb;
 
 
     //filds
@@ -71,6 +96,80 @@ public class PersonContactActivity extends AppCompatActivity {
             contact = App.database.getContactDao().getContact(person.getId());
         }
 
+        if (!contact.getPhoneNumber().equals("-")) {
+            lLayPhone.setVisibility(View.VISIBLE);
+            Contact finalContact = contact;
+            lLayPhone.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Utils.call(PersonContactActivity.this, finalContact.getPhoneNumber());
+                }
+            });
+            txtPhone.setText(" " + contact.getPhoneNumber());
+        } else {
+            lLayPhone.setVisibility(View.GONE);
+        }
+        if (!contact.getTelegram().equals("-")) {
+            lLayTelegram.setVisibility(View.VISIBLE);
+            Contact finalContact = contact;
+            lLayTelegram.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Utils.openTelegram(PersonContactActivity.this, finalContact.getTelegram());
+                }
+            });
+            txtTelegram.setText(" " + contact.getPhoneNumber());
+        } else {
+            lLayTelegram.setVisibility(View.GONE);
+        }
+        if (!contact.getWhatsApp().equals("-")) {
+            lLayWhatsApp.setVisibility(View.VISIBLE);
+            Contact finalContact = contact;
+            lLayWhatsApp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Utils.openWhatsapp(PersonContactActivity.this, finalContact.getWhatsApp());
+                }
+            });
+            txtWhatsapp.setText(" " + contact.getPhoneNumber());
+        } else {
+            lLayWhatsApp.setVisibility(View.GONE);
+        }
+        if (!contact.getFacebook().equals("-")) {
+            lLayFacebook.setVisibility(View.VISIBLE);
+            //TODO set email click listener
+            txtFacebook.setText(" " + contact.getPhoneNumber());
+        } else {
+            lLayFacebook.setVisibility(View.GONE);
+        }
+        if (!contact.getEmail().equals("-")) {
+            lLayEmail.setVisibility(View.VISIBLE);
+            Contact finalContact = contact;
+            lLayEmail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Utils.openEmail(PersonContactActivity.this, finalContact.getEmail());
+                }
+            });
+            txtEmail.setText(" " + contact.getPhoneNumber());
+        } else {
+            lLayEmail.setVisibility(View.GONE);
+        }
+        if (!contact.getWeb().equals("-")) {
+            lLayWeb.setVisibility(View.VISIBLE);
+            Contact finalContact = contact;
+            lLayWeb.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Utils.openWeb(PersonContactActivity.this, finalContact.getWeb());
+                }
+            });
+            txtWeb.setText(" " + contact.getPhoneNumber());
+        } else {
+            lLayWeb.setVisibility(View.GONE);
+        }
+
+
     }
 
     private void getIntentExtras() {
@@ -84,15 +183,6 @@ public class PersonContactActivity extends AppCompatActivity {
 
     //------------------------------- GET DATA FROM Net --------------------------
     private void getDataFromNet() {
-
-//    List<PersonContact> personContactList = new ArrayList<>();
-//
-//    if (person != null)
-//      personContactList = App.database.getPersonContactdao().getPersonContacts(person.getId());
-//
-//    if (personContactList != null)
-//      personContact = personContactList.get(0);
-
         app_loading.setVisibility(View.VISIBLE);
         app_no_internet.setVisibility(View.GONE);
         if (wating) {
@@ -149,7 +239,6 @@ public class PersonContactActivity extends AppCompatActivity {
                         } catch (JSONException e1) {
                             e1.printStackTrace();
                         }
-
                     }
                 });
     }
@@ -164,6 +253,4 @@ public class PersonContactActivity extends AppCompatActivity {
     void btnNONetClicked(View v) {
         getDataFromNet();
     }
-
-
 }

@@ -1,6 +1,10 @@
 package project.utils;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -13,44 +17,44 @@ import project.classes.Slide;
 
 public class Utils {
 
-  public static String checkVersionAndBuildUrl(String uri) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      return Consts.HTTPS_REQUEST + uri;
+    public static String checkVersionAndBuildUrl(String uri) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            return Consts.HTTPS_REQUEST + uri;
+        }
+        return Consts.HTTP_REQUEST + uri;
     }
-    return Consts.HTTP_REQUEST + uri;
-  }
 
-  public static List<Slide> extractSlides(String data) {
-    List<Slide> slides = new ArrayList<>();
-    try {
-      JSONArray jaSlides = new JSONArray(data);
-      for (int j = 0; j < jaSlides.length(); j++) {
-        JSONObject joSlide = jaSlides.getJSONObject(j);
-        Slide slide = new Slide();
+    public static List<Slide> extractSlides(String data) {
+        List<Slide> slides = new ArrayList<>();
         try {
-          slide.setImageName(joSlide.getString("image"));
-        } catch (Exception ignored) {
-        }
+            JSONArray jaSlides = new JSONArray(data);
+            for (int j = 0; j < jaSlides.length(); j++) {
+                JSONObject joSlide = jaSlides.getJSONObject(j);
+                Slide slide = new Slide();
+                try {
+                    slide.setImageName(joSlide.getString("image"));
+                } catch (Exception ignored) {
+                }
 
-        try {
-          slide.setAction(joSlide.getString("action"));
-        } catch (Exception ignored) {
+                try {
+                    slide.setAction(joSlide.getString("action"));
+                } catch (Exception ignored) {
+                }
+                try {
+                    slide.setActionData(joSlide.getString("actionData"));
+                } catch (Exception ignored) {
+                }
+                try {
+                    slide.setId(joSlide.getLong("id"));
+                } catch (Exception ignored) {
+                }
+                slides.add(slide);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        try {
-          slide.setActionData(joSlide.getString("actionData"));
-        } catch (Exception ignored) {
-        }
-        try {
-          slide.setId(joSlide.getLong("id"));
-        } catch (Exception ignored) {
-        }
-        slides.add(slide);
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
+        return slides;
     }
-    return slides;
-  }
 
 
 //
@@ -192,6 +196,54 @@ public class Utils {
 //    }
 //  };
 
+    public static void call(Context context, String phoneNumber) {
+        try {
+            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+            context.startActivity(intent);
+        } catch (Exception ignored) {
+        }
+    }
+
+    public static void openTelegram(Context context, String telegram) {
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tg://resolve?domain=" + telegram));
+            context.startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(context, "No app such as telegram", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public static void openWhatsapp(Context context, String whatsapp) {
+        try {
+            String url = "https://api.whatsapp.com/send?phone=" + whatsapp;
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            context.startActivity(i);
+        } catch (Exception e) {
+            Toast.makeText(context, "No app such as whatsapp", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public static void openEmail(Context context, String email) {
+        try {
+            Intent emailIntent = new Intent(Intent.ACTION_SEND);
+            emailIntent.setType("plain/text");
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{email});
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Email From Application");
+            emailIntent.putExtra(Intent.EXTRA_TEXT, " ");
+            context.startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+        } catch (Exception ignored) {
+        }
+    }
+
+    public static void openWeb(Context context, String web) {
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(web));
+            context.startActivity(intent);
+        } catch (Exception ignored) {
+        }
+    }
 
 
 }
