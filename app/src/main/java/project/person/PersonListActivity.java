@@ -2,8 +2,10 @@ package project.person;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -53,6 +55,7 @@ public class PersonListActivity extends AppCompatActivity {
 
   //filds
   private boolean wating = false;
+  private int heightScrooled = 0;
 
 
   @Override
@@ -103,6 +106,18 @@ public class PersonListActivity extends AppCompatActivity {
     rclv.setAdapter(adapter);
     rclv.refresh();
 
+    rclv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+      @Override
+      public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+        heightScrooled += dy;
+        if (heightScrooled>60){
+          app_no_internet.animate().translationY(app_no_internet.getHeight()+10);
+        }else {
+          app_no_internet.animate().translationY(0);
+        }
+        super.onScrolled(recyclerView, dx, dy);
+      }
+    });
   }
 
 

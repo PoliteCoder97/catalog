@@ -2,7 +2,9 @@ package project.category;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
@@ -97,6 +99,7 @@ public class CategoryListActivity extends AppCompatActivity {
         txtTitle.setText("Category");
     }
 
+    private int heightScrooled = 0;
     private void initXRecyclerView() {
 
         StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
@@ -129,6 +132,18 @@ public class CategoryListActivity extends AppCompatActivity {
             rclv.setVisibility(View.VISIBLE);
         }
 
+        rclv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                heightScrooled += dy;
+                if (heightScrooled>60){
+                    app_no_internet.animate().translationY(app_no_internet.getHeight()+10);
+                }else {
+                    app_no_internet.animate().translationY(0);
+                }
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
     }
 
     //-------------------------------- GET DATA FROM NET --------------------------------

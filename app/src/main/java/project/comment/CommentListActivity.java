@@ -1,10 +1,12 @@
 package project.comment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -64,6 +66,7 @@ public class CommentListActivity extends AppCompatActivity {
   private boolean wating = false;
   private int productId = 0;
   private CommentListAdapter adapter = null;
+  private int heightScrooled = 0;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +115,19 @@ public class CommentListActivity extends AppCompatActivity {
 
     rclv.setAdapter(adapter);
     rclv.refresh();
+
+    rclv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+      @Override
+      public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+        heightScrooled += dy;
+        if (heightScrooled>60){
+          app_no_internet.animate().translationY(app_no_internet.getHeight()+10);
+        }else {
+          app_no_internet.animate().translationY(0);
+        }
+        super.onScrolled(recyclerView, dx, dy);
+      }
+    });
   }
 
   //---------------------------------------- GET DATA FROM NET -------------------------------------
