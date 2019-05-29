@@ -6,17 +6,17 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity(tableName = "personCotact")
 public class PersonContact {
   @PrimaryKey(autoGenerate = true)
-  private int id;
-  private int personId;
-  private int isMentor;
-  private String name;
-  private String desc;
-  private String phoneNumber;
-  private String telegram;
-  private String whatsApp;
-  private String facebool;
-  private String email;
-  private String web;
+  private int id = 0;
+  private int personId = 0;
+  private int isMentor= 0;
+  private String name = "name";
+  private String desc = "desc";
+  private String phoneNumber = "phoneNumber";
+  private String telegram = "telegram";
+  private String whatsApp = "whatsapp";
+  private String facebool = "facebook";
+  private String email = "email";
+  private String web = "web";
 
   public int getId() {
     return id;

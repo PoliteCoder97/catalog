@@ -6,10 +6,10 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity(tableName = "category")
 public class Category {
   @PrimaryKey
-  private int id;
-  private int parentId;
-  private String title;
-  private String img;
+  private int id = 0;
+  private int parentId = 0;
+  private String title = "title";
+  private String img = "img";
 
   public Category() {
   }

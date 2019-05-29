@@ -20,4 +20,5 @@ public class Consts {
   public static final String GET_CONTACT = "CatalogApp_Api/v1/person/get_contacts.php";
   public static final int DEFUALT_TIME_OUT = 8000;
   public static final String MARKETING_MANAGER = "00989133671154";
+  public static final String USER_REGISTER = "CatalogApp_Api/v1/register/register.php";
 }

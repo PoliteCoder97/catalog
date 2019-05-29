@@ -35,8 +35,9 @@ import butterknife.OnClick;
 import project.classes.App;
 import project.classes.Consts;
 import project.utils.Utils;
+import project.view.BaseActivity;
 
-public class PersonListActivity extends AppCompatActivity {
+public class PersonListActivity extends BaseActivity {
   //widgets
   @BindView(R.id.app_no_internet)
   LinearLayout app_no_internet;
@@ -67,7 +68,13 @@ public class PersonListActivity extends AppCompatActivity {
     initFilds();
     initWidgets();
 
-    getDataFromNet();
+    App.gethandler().postDelayed(new Runnable() {
+      @Override
+      public void run() {
+        getDataFromNet();
+      }
+    }, 100);
+
   }
 
   @Override

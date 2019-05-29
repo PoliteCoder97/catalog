@@ -42,8 +42,10 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
         final Category category = categoryList.get(i);
 
         viewHolder.txtTitle.setText(" " + category.getTitle());
-        GlideApp.with(context).load(Utils.checkVersionAndBuildUrl(Consts.GET_IMAGE_CATEGORY + category.getImg())).into(viewHolder.imgAdapter);
-
+        GlideApp.with(context)
+                .load(Utils.checkVersionAndBuildUrl(Consts.GET_IMAGE_CATEGORY + category.getImg()))
+                .placeholder(context.getResources().getDrawable(R.drawable.logo))
+                .into(viewHolder.imgAdapter);
         viewHolder.imgAdapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +76,6 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
 
     @Override
     public boolean setOnListEmptyListener() {
-        return getItemCount() == 0 ;
+        return getItemCount() == 0;
     }
 }

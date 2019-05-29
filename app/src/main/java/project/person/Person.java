@@ -7,11 +7,11 @@ import android.arch.persistence.room.PrimaryKey;
 public class Person {
 
   @PrimaryKey
-  private int id;
-  private int isMentor;
-  private String name;
-  private String img;
-  private String desc;
+  private int id = 0;
+  private int isMentor = 0;
+  private String name = "name";
+  private String img = "img";
+  private String desc = "desc";
 
 
   public Person() {

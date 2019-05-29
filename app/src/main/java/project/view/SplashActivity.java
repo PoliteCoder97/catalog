@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.politecoder.catalog.R;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {

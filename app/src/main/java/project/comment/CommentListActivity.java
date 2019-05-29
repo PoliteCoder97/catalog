@@ -40,8 +40,11 @@ import project.classes.App;
 import project.classes.Consts;
 import project.product.ProductEventListener;
 import project.utils.Utils;
+import project.view.BaseActivity;
 
-public class CommentListActivity extends AppCompatActivity {
+import static android.view.View.INVISIBLE;
+
+public class CommentListActivity extends BaseActivity {
 
 
   //widgets
@@ -77,7 +80,12 @@ public class CommentListActivity extends AppCompatActivity {
     initFilds();
     initWidgets();
 
-    getDataFromNet();
+    App.gethandler().postDelayed(new Runnable() {
+      @Override
+      public void run() {
+        getDataFromNet();
+      }
+    }, 100);
 
   }
 

@@ -6,9 +6,9 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity(tableName = "comment")
 public class Comment {
   @PrimaryKey(autoGenerate = true)
-  private int id;
-  private String comment;
-  private int productId;
+  private int id = 0;
+  private String comment = "comment";
+  private int productId = 0;
 
   public Comment() {
   }

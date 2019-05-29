@@ -10,13 +10,13 @@ import java.util.Date;
 public class Product {
 
   @PrimaryKey
-  private int id;
-  private String title;
-  private String desc;
-  private String img;
-  private String price;
-  private int categoryId;
-  private int seen;
+  private int id = 0;
+  private String title = "title";
+  private String desc = "desc";
+  private String img = "img";
+  private String price = "price";
+  private int categoryId = 0;
+  private int seen = 0;
   private Date posted_date;
 
   public int getSeen() {

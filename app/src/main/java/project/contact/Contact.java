@@ -7,14 +7,14 @@ import android.arch.persistence.room.PrimaryKey;
 public class Contact {
 
   @PrimaryKey
-  private int id;
-  private int personId;
-  private String phoneNumber;
-  private String telegram;
-  private String whatsApp;
-  private String facebook;
-  private String email;
-  private String web;
+  private int id = 0;
+  private int personId = 0;
+  private String phoneNumber = "phoneNumber";
+  private String telegram ="telegram";
+  private String whatsApp="whatsApp";
+  private String facebook="facebook";
+  private String email="email";
+  private String web="web";
 
   public int getId() {
     return id;

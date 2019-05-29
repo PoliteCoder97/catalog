@@ -33,8 +33,11 @@ import project.classes.App;
 import project.classes.Consts;
 import project.product.ProductListActivity;
 import project.utils.Utils;
+import project.view.BaseActivity;
 
-public class CategoryListActivity extends AppCompatActivity {
+import static android.view.View.INVISIBLE;
+
+public class CategoryListActivity extends BaseActivity {
 
     //widjets
     @BindView(R.id.rclv)
@@ -68,7 +71,13 @@ public class CategoryListActivity extends AppCompatActivity {
         initFilds();
         initWidjets();
 
-        getDataFromNet();
+        App.gethandler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getDataFromNet();
+            }
+        }, 100);
+
     }
 
     @Override
@@ -83,11 +92,6 @@ public class CategoryListActivity extends AppCompatActivity {
         EventBus.getDefault().unregister(this);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
     //----------------------------------- INITIALS ----------------------------------------
     private void initFilds() {
         parentId = getIntent().getIntExtra("parentId", -1);
@@ -100,6 +104,7 @@ public class CategoryListActivity extends AppCompatActivity {
     }
 
     private int heightScrooled = 0;
+
     private void initXRecyclerView() {
 
         StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
@@ -136,9 +141,9 @@ public class CategoryListActivity extends AppCompatActivity {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 heightScrooled += dy;
-                if (heightScrooled>60){
-                    app_no_internet.animate().translationY(app_no_internet.getHeight()+10);
-                }else {
+                if (heightScrooled > 60) {
+                    app_no_internet.animate().translationY(app_no_internet.getHeight() + 10);
+                } else {
                     app_no_internet.animate().translationY(0);
                 }
                 super.onScrolled(recyclerView, dx, dy);
@@ -149,7 +154,7 @@ public class CategoryListActivity extends AppCompatActivity {
     //-------------------------------- GET DATA FROM NET --------------------------------
     private void getDataFromNet() {
         app_loading.setVisibility(View.VISIBLE);
-        app_no_internet.setVisibility(View.GONE);
+        app_no_internet.setVisibility(INVISIBLE);
 
         if (wating) {
             return;
@@ -162,7 +167,7 @@ public class CategoryListActivity extends AppCompatActivity {
                 .setCallback(new FutureCallback<String>() {
                     @Override
                     public void onCompleted(Exception e, String result) {
-                        app_loading.setVisibility(View.GONE);
+                        app_loading.setVisibility(INVISIBLE);
                         wating = false;
                         if (e != null) {
                             e.printStackTrace();

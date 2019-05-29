@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
-        android:src="@drawable/untitled"
+        android:src="@drawable/logo"
         />
 
       <LinearLayout

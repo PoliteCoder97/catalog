@@ -1,13 +1,18 @@
 package project.person;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.QuickContactBadge;
+import android.widget.ScrollView;
+import android.widget.Scroller;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,12 +70,15 @@ public class PersonContactActivity extends AppCompatActivity {
     TextView txtEmail;
     @BindView(R.id.txtWeb)
     TextView txtWeb;
+    @BindView(R.id.sv)
+    ScrollView sv;
 
 
     //filds
-    private Person person;
+    private Person person = new Person();
     private PersonContact personContact;
     private boolean wating = false;
+    private int heightScrooled = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +88,15 @@ public class PersonContactActivity extends AppCompatActivity {
 
         initFilds();
         initWidgets(null);
-        getDataFromNet();
+
+
+        App.gethandler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getDataFromNet();
+            }
+        }, 100);
+
     }
 
     //------------------------------- INITIALS --------------------------
@@ -88,6 +104,7 @@ public class PersonContactActivity extends AppCompatActivity {
         getIntentExtras();
     }
 
+    @SuppressLint("NewApi")
     private void initWidgets(Contact contact) {
         imgLeft.setImageDrawable(getResources().getDrawable(R.drawable.ic_arrow_back));
         txtTitle.setText(" " + person.getName());
@@ -96,89 +113,108 @@ public class PersonContactActivity extends AppCompatActivity {
             contact = App.database.getContactDao().getContact(person.getId());
         }
 
-        if (!contact.getPhoneNumber().equals("-")) {
-            lLayPhone.setVisibility(View.VISIBLE);
-            Contact finalContact = contact;
-            lLayPhone.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Utils.call(PersonContactActivity.this, finalContact.getPhoneNumber());
-                }
-            });
-            txtPhone.setText(" " + contact.getPhoneNumber());
-        } else {
-            lLayPhone.setVisibility(View.GONE);
-        }
-        if (!contact.getTelegram().equals("-")) {
-            lLayTelegram.setVisibility(View.VISIBLE);
-            Contact finalContact = contact;
-            lLayTelegram.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Utils.openTelegram(PersonContactActivity.this, finalContact.getTelegram());
-                }
-            });
-            txtTelegram.setText(" " + contact.getPhoneNumber());
-        } else {
-            lLayTelegram.setVisibility(View.GONE);
-        }
-        if (!contact.getWhatsApp().equals("-")) {
-            lLayWhatsApp.setVisibility(View.VISIBLE);
-            Contact finalContact = contact;
-            lLayWhatsApp.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Utils.openWhatsapp(PersonContactActivity.this, finalContact.getWhatsApp());
-                }
-            });
-            txtWhatsapp.setText(" " + contact.getPhoneNumber());
-        } else {
-            lLayWhatsApp.setVisibility(View.GONE);
-        }
-        if (!contact.getFacebook().equals("-")) {
-            lLayFacebook.setVisibility(View.VISIBLE);
-            //TODO set email click listener
-            txtFacebook.setText(" " + contact.getPhoneNumber());
-        } else {
-            lLayFacebook.setVisibility(View.GONE);
-        }
-        if (!contact.getEmail().equals("-")) {
-            lLayEmail.setVisibility(View.VISIBLE);
-            Contact finalContact = contact;
-            lLayEmail.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Utils.openEmail(PersonContactActivity.this, finalContact.getEmail());
-                }
-            });
-            txtEmail.setText(" " + contact.getPhoneNumber());
-        } else {
-            lLayEmail.setVisibility(View.GONE);
-        }
-        if (!contact.getWeb().equals("-")) {
-            lLayWeb.setVisibility(View.VISIBLE);
-            Contact finalContact = contact;
-            lLayWeb.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Utils.openWeb(PersonContactActivity.this, finalContact.getWeb());
-                }
-            });
-            txtWeb.setText(" " + contact.getPhoneNumber());
-        } else {
-            lLayWeb.setVisibility(View.GONE);
-        }
+        sv.setVisibility(View.INVISIBLE);
+        if (contact != null) {
+            sv.setVisibility(View.VISIBLE);
+            if (!contact.getPhoneNumber().equals("-")) {
+                lLayPhone.setVisibility(View.VISIBLE);
+                Contact finalContact = contact;
+                lLayPhone.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Utils.call(PersonContactActivity.this, finalContact.getPhoneNumber());
+                    }
+                });
+                txtPhone.setText(" " + contact.getPhoneNumber());
+            } else {
+                lLayPhone.setVisibility(View.GONE);
+            }
+            if (!contact.getTelegram().equals("-")) {
+                lLayTelegram.setVisibility(View.VISIBLE);
+                Contact finalContact = contact;
+                lLayTelegram.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Utils.openTelegram(PersonContactActivity.this, finalContact.getTelegram());
+                    }
+                });
+                txtTelegram.setText(" " + contact.getTelegram());
+            } else {
+                lLayTelegram.setVisibility(View.GONE);
+            }
+            if (!contact.getWhatsApp().equals("-")) {
+                lLayWhatsApp.setVisibility(View.VISIBLE);
+                Contact finalContact = contact;
+                lLayWhatsApp.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Utils.openWhatsapp(PersonContactActivity.this, finalContact.getWhatsApp());
+                    }
+                });
+                txtWhatsapp.setText(" " + contact.getWhatsApp());
+            } else {
+                lLayWhatsApp.setVisibility(View.GONE);
+            }
+            if (!contact.getFacebook().equals("-")) {
+                lLayFacebook.setVisibility(View.VISIBLE);
+                //TODO set email click listener
+                txtFacebook.setText(" " + contact.getFacebook());
+            } else {
+                lLayFacebook.setVisibility(View.GONE);
+            }
+            if (!contact.getEmail().equals("-")) {
+                lLayEmail.setVisibility(View.VISIBLE);
+                Contact finalContact = contact;
+                lLayEmail.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Utils.openEmail(PersonContactActivity.this, finalContact.getEmail());
+                    }
+                });
+                txtEmail.setText(" " + contact.getEmail());
+            } else {
+                lLayEmail.setVisibility(View.GONE);
+            }
+            if (!contact.getWeb().equals("-")) {
+                lLayWeb.setVisibility(View.VISIBLE);
+                Contact finalContact = contact;
+                lLayWeb.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Utils.openWeb(PersonContactActivity.this, finalContact.getWeb());
+                    }
+                });
+                txtWeb.setText(" " + contact.getWeb());
+            } else {
+                lLayWeb.setVisibility(View.GONE);
+            }
 
 
+        }
+
+        sv.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                heightScrooled += scrollY;
+                if (heightScrooled > 30) {
+                    app_no_internet.animate().translationY(app_no_internet.getHeight() + 10);
+                } else {
+                    app_no_internet.animate().translationY(0);
+                }
+            }
+        });
     }
 
     private void getIntentExtras() {
-        person = new Person();
-        person.setId(getIntent().getIntExtra("id", 0));
-        person.setName(getIntent().getStringExtra("name"));
-        person.setImg(getIntent().getStringExtra("img"));
-        person.setDesc(getIntent().getStringExtra("desc"));
-        person.setIsMentor(getIntent().getIntExtra("isMentor", 0));
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            person.setId(getIntent().getIntExtra("id", 0));
+            person.setName(getIntent().getStringExtra("name"));
+            person.setImg(getIntent().getStringExtra("img"));
+            person.setDesc(getIntent().getStringExtra("desc"));
+            person.setIsMentor(getIntent().getIntExtra("isMentor", 0));
+        }
+        Log.i("PERSON", "personId: " + person.getId());
     }
 
     //------------------------------- GET DATA FROM Net --------------------------
@@ -190,13 +226,9 @@ public class PersonContactActivity extends AppCompatActivity {
         }
         wating = true;
 
-        int id = 0;
-        if (person != null)
-            id = person.getId();
-
         Ion.with(this)
                 .load(Utils.checkVersionAndBuildUrl(Consts.GET_CONTACT))
-                .setBodyParameter("personId", String.valueOf(id))
+                .setBodyParameter("personId", String.valueOf(person.getId()))
                 .asString()
                 .setCallback(new FutureCallback<String>() {
                     @Override

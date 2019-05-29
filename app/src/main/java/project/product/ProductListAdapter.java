@@ -56,7 +56,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     GlideApp.with(context)
       .load(Utils.checkVersionAndBuildUrl(Consts.GET_IMAGE_PRODUCT + product.getImg()))
-      .placeholder(context.getResources().getDrawable(R.drawable.ic_store_white_24dp))
+      .placeholder(context.getResources().getDrawable(R.drawable.logo))
       .into(viewHolder.imgAdapter);
     viewHolder.lLayProduct.setOnClickListener(new View.OnClickListener() {
       @Override

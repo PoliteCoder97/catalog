@@ -45,7 +45,7 @@ public class PersonListAdapter extends RecyclerView.Adapter<PersonListAdapter.Vi
 
     GlideApp.with(context)
       .load(Utils.checkVersionAndBuildUrl(Consts.GET_IMAGE_PERSON + person.getImg()))
-      .placeholder(context.getResources().getDrawable(R.drawable.ic_store_white_24dp))
+      .placeholder(context.getResources().getDrawable(R.drawable.logo))
       .into(viewHolder.imageView);
     viewHolder.llayPerson.setOnClickListener(new View.OnClickListener() {
       @Override
