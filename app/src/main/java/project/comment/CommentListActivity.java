@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -42,8 +41,6 @@ import project.product.ProductEventListener;
 import project.utils.Utils;
 import project.view.BaseActivity;
 
-import static android.view.View.INVISIBLE;
-
 public class CommentListActivity extends BaseActivity {
 
 
@@ -80,7 +77,7 @@ public class CommentListActivity extends BaseActivity {
     initFilds();
     initWidgets();
 
-    App.gethandler().postDelayed(new Runnable() {
+    App.getHandler().postDelayed(new Runnable() {
       @Override
       public void run() {
         getDataFromNet();

@@ -3,10 +3,8 @@ package project.category;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -71,7 +69,7 @@ public class CategoryListActivity extends BaseActivity {
         initFilds();
         initWidjets();
 
-        App.gethandler().postDelayed(new Runnable() {
+        App.getHandler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 getDataFromNet();

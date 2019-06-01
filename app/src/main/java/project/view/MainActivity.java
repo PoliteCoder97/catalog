@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -43,19 +42,20 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import project.category.CategoryListActivity;
+import project.certificate.CertificateActivity;
 import project.classes.App;
 import project.classes.Consts;
 import project.classes.Slide;
+import project.management_panel.MainPanelActivity;
 import project.person.PersonListActivity;
 import project.product.Product;
 import project.product.ProductActivity;
 import project.product.ProductEventListener;
-import project.product.ProductListActivity;
 import project.product.ProductListAdapter;
 import project.register.SignInActivity;
 import project.utils.Utils;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     //widgets
     //toolbar
@@ -89,11 +89,15 @@ public class MainActivity extends AppCompatActivity {
 //  XRecyclerView rclvNewestGoods;
     @BindView(R.id.app_loading)
     LinearLayout app_loading;
+    @BindView(R.id.btnPanel)
+    LinearLayout btnPanel;
 
 
     //filds
     int displayWidth = 0;
     private boolean wating = false;
+    private boolean isShowShareButton = false;
+    private boolean isShowPanelButton = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +108,14 @@ public class MainActivity extends AppCompatActivity {
         initFilds();
         initWidgets();
 
-        getDataFromNet();
+        App.getHandler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getDataFromNet();
+            }
+        }, 100);
+
+
     }
 
     @Override
@@ -121,6 +132,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        if (App.preferences.getBoolean(Consts.IS_SIGN_UP, false)) {
+            btnLogIn.setVisibility(View.GONE);
+            btnPanel.setVisibility(View.VISIBLE);
+        }
         super.onResume();
     }
 
@@ -256,6 +271,14 @@ public class MainActivity extends AppCompatActivity {
                             List<Product> mostVisitedProducts = new ArrayList<>();
                             List<Product> newestGoods = new ArrayList<>();
 
+                            isShowShareButton = jsonObject.getBoolean("showShareButton");
+                            isShowPanelButton = jsonObject.getBoolean("showPanelButton");
+
+                            if (!isShowPanelButton) {
+                                btnLogIn.setVisibility(View.GONE);
+                            } else {
+                                btnLogIn.setVisibility(View.VISIBLE);
+                            }
 
                             for (int i = 0; i < newestGoodsja.length(); i++) {
                                 JSONObject jo = newestGoodsja.getJSONObject(i);
@@ -316,34 +339,61 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.imgRight)
     void imgRightClicked(View v) {
-    View menuDialog = LayoutInflater.from(this).inflate(R.layout.dialog_menu,null,false);
+        View menuDialog = LayoutInflater.from(this).inflate(R.layout.dialog_menu, null, false);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(menuDialog);
         AlertDialog dialog = builder.create();
 
-        Button llayShareApplication = menuDialog.findViewById(R.id.llayShareApplication);
-        Button llayAboutUs = menuDialog.findViewById(R.id.llayAboutUs);
-        Button llayProgramer = menuDialog.findViewById(R.id.llayProgramer);
+        Button btnShareApplication = menuDialog.findViewById(R.id.btnShareApplication);
+        LinearLayout llayShareApplication = menuDialog.findViewById(R.id.lLayoutShareApplication);
+        Button btnAboutUs = menuDialog.findViewById(R.id.btnAboutUs);
+        Button btnProgramer = menuDialog.findViewById(R.id.btnProgramer);
+        Button btnLogOut = menuDialog.findViewById(R.id.btnLogOut);
+        LinearLayout llayLogout = menuDialog.findViewById(R.id.llayLogout);
 
-        llayShareApplication.setOnClickListener(new View.OnClickListener() {
+        if (isShowShareButton) {
+            llayShareApplication.setVisibility(View.VISIBLE);
+        }else {
+            llayShareApplication.setVisibility(View.GONE);
+        }
+
+        if (App.preferences.getBoolean(Consts.IS_SIGN_UP, false)) {
+            llayLogout.setVisibility(View.VISIBLE);
+        } else {
+            llayLogout.setVisibility(View.GONE);
+        }
+
+
+        btnShareApplication.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
                 Toast.makeText(MainActivity.this, "share app", Toast.LENGTH_SHORT).show();
             }
         });
-        llayAboutUs.setOnClickListener(new View.OnClickListener() {
+        btnAboutUs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
                 Toast.makeText(MainActivity.this, "llayAboutUs", Toast.LENGTH_SHORT).show();
             }
         });
-        llayProgramer.setOnClickListener(new View.OnClickListener() {
+        btnProgramer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
                 Toast.makeText(MainActivity.this, "llayProgramer", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                App.preferences.edit().clear().apply();
+                btnLogIn.setVisibility(View.VISIBLE);
+                btnPanel.setVisibility(View.GONE);
+                llayLogout.setVisibility(View.GONE);
+                dialog.dismiss();
             }
         });
 
@@ -390,6 +440,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
     @OnClick(R.id.btnLogIn)
     void btnLogInClicked(View v) {
         Intent intent = new Intent(MainActivity.this, SignInActivity.class);
@@ -402,5 +453,27 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @OnClick(R.id.btnPanel)
+    void btnPanelClicked(View v) {
+        Intent intent = new Intent(MainActivity.this, MainPanelActivity.class);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            this.startActivity(intent,
+                    ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        } else {
+            this.startActivity(intent);
+        }
 
+    }
+
+    @OnClick(R.id.btnCertificate)
+    void btnCertificateClicked(View v) {
+        Intent intent = new Intent(MainActivity.this, CertificateActivity.class);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            this.startActivity(intent,
+                    ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        } else {
+            this.startActivity(intent);
+        }
+
+    }
 }

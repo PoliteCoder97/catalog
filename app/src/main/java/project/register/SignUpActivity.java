@@ -1,5 +1,6 @@
 package project.register;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import project.classes.App;
 import project.classes.Consts;
+import project.management_panel.MainPanelActivity;
 import project.utils.Utils;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -126,7 +128,6 @@ public class SignUpActivity extends AppCompatActivity {
                         }//end if
 
                         Log.i("SIGNUP", "result: " + result);
-
                         try {
                             JSONObject jsonObject = new JSONObject(result);
                             if (jsonObject.getBoolean("error")) {
@@ -134,14 +135,23 @@ public class SignUpActivity extends AppCompatActivity {
                                 return;
                             }
 
-                            //TODO write your code hear
+                            if (jsonObject.getInt("isRegisterd") == 1) {
+                                App.preferences.edit().putBoolean(Consts.IS_SIGN_UP, true).apply();
+                                Intent intent = new Intent(SignUpActivity.this, MainPanelActivity.class);
+                                intent.putExtra("name", name);
+                                SignUpActivity.this.startActivity(intent);
+                                SignUpActivity.this.finish();
+                                return;
+                            }
+
+                            SignUpActivity.this.finish();
+                            return;
 
                         } catch (JSONException e1) {
                             e1.printStackTrace();
                         }
                     }
                 });
-
     }
 
     //----------------------- EVENTS ------------------------------------------
@@ -152,14 +162,14 @@ public class SignUpActivity extends AppCompatActivity {
         String password = edtPassword.getText().toString().trim();
 
         if (!TextUtils.isEmpty(name) || !name.equals("")) {
-            if ( !TextUtils.isEmpty(password) || !password.equals("")) {
-                App.gethandler().postDelayed(new Runnable() {
+            if (!TextUtils.isEmpty(password) || !password.equals("")) {
+                App.getHandler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         getDataFromNet(name, password, view);
                     }
                 }, 100);
-            }else {
+            } else {
                 edtPassword.requestFocus();
                 Toast.makeText(this, "pls fill the fields ", Toast.LENGTH_SHORT).show();
                 view.setBackgroundColor(Color.parseColor("#FF0000"));

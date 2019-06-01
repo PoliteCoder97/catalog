@@ -21,4 +21,8 @@ public class Consts {
   public static final int DEFUALT_TIME_OUT = 8000;
   public static final String MARKETING_MANAGER = "00989133671154";
   public static final String USER_REGISTER = "CatalogApp_Api/v1/register/register.php";
+  public static final String IS_SIGN_UP = "isSignUp";
+  public static final String PERSON_ID = "personId";
+  public static final String GET_CERTIFICATES = "CatalogApp_Api/v1/get_certificates.php";
+  public static final String GET_IMAGE_CERTIFICATE = "CatalogApp_Api/files/certificate/";
 }

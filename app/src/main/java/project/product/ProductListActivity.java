@@ -3,7 +3,6 @@ package project.product;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -40,8 +39,6 @@ import project.classes.Consts;
 import project.utils.Utils;
 import project.view.BaseActivity;
 
-import static android.view.View.INVISIBLE;
-
 public class ProductListActivity extends BaseActivity {
 
   //widgets
@@ -75,7 +72,7 @@ public class ProductListActivity extends BaseActivity {
     initFilds();
     initWidgets();
 
-    App.gethandler().postDelayed(new Runnable() {
+    App.getHandler().postDelayed(new Runnable() {
       @Override
       public void run() {
         getDataFromNet();

@@ -2,17 +2,13 @@ package project.person;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.QuickContactBadge;
 import android.widget.ScrollView;
-import android.widget.Scroller;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -90,7 +86,7 @@ public class PersonContactActivity extends AppCompatActivity {
         initWidgets(null);
 
 
-        App.gethandler().postDelayed(new Runnable() {
+        App.getHandler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 getDataFromNet();

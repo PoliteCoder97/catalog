@@ -14,9 +14,11 @@
         android:supportsRtl="false"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name="project.certificate.ShowCertificateActivity"></activity>
+        <activity android:name="project.management_panel.MainPanelActivity" />
         <activity
             android:name=".ui.login.MainPanelActivity"
-            android:label="@string/title_activity_main_panel"></activity>
+            android:label="@string/title_activity_main_panel" />
         <activity android:name="project.register.PasswordActivity" />
         <activity android:name="project.register.SignUpActivity" />
         <activity android:name="project.register.SignInActivity" />

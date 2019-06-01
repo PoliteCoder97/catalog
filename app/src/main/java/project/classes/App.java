@@ -30,7 +30,7 @@ public class App extends Application {
     preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
   }
 
-  public static Handler gethandler(){
+  public static Handler getHandler(){
     return handler;
   }
 }

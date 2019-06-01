@@ -114,7 +114,6 @@ public class SignInActivity extends AppCompatActivity {
 
                             TextView textView = app_no_internet.findViewById(R.id.txtNONetTitle);
                             textView.setText(getResources().getString(R.string.no_net_error));
-
                             return;
                         }//end if
 
@@ -158,7 +157,7 @@ public class SignInActivity extends AppCompatActivity {
         String phoneNumber = edtPhone.getText().toString().trim();
 
         if (!TextUtils.isEmpty(phoneNumber) || !phoneNumber.equals("")) {
-            App.gethandler().postDelayed(new Runnable() {
+            App.getHandler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     getDataFromNet(phoneNumber, view);

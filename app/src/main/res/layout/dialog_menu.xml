@@ -18,14 +18,15 @@
             android:orientation="vertical">
 
             <LinearLayout
-
+                android:id="@+id/lLayoutShareApplication"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/view_small"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <Button
-                    android:id="@+id/llayShareApplication"
+                    android:id="@+id/btnShareApplication"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.9"
@@ -62,7 +63,7 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/llayAboutUs"
+                    android:id="@+id/btnAboutUs"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.9"
@@ -99,7 +100,7 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/llayProgramer"
+                    android:id="@+id/btnProgramer"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.9"
@@ -127,9 +128,10 @@
                 android:layout_marginLeft="@dimen/view_small"
                 android:layout_marginRight="@dimen/view_small"
                 android:background="@color/colorPrimary"
-                android:visibility="gone" />
+                android:visibility="visible" />
 
             <LinearLayout
+                android:id="@+id/llayLogout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/view_small"
@@ -137,12 +139,13 @@
                 android:visibility="gone">
 
                 <Button
+                    android:id="@+id/btnLogOut"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.9"
                     android:background="@color/colorPrimaryDark"
                     android:gravity="center"
-                    android:text="Share Aplication"
+                    android:text="Log out"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_larg" />
