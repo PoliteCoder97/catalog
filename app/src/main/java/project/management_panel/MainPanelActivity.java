@@ -41,7 +41,6 @@ public class MainPanelActivity extends AppCompatActivity {
 
     //filds
     private boolean wating = false;
-    private String phoneNumber;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,12 +50,6 @@ public class MainPanelActivity extends AppCompatActivity {
         initFilds();
         initWidgets();
 
-        App.getHandler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                getDataFromNet();
-            }
-        }, 100);
     }
 
     //------------------------ INITIALS ------------------------
@@ -67,61 +60,6 @@ public class MainPanelActivity extends AppCompatActivity {
 
     private void initWidgets() {
 
-    }
-
-    //------------------------ GET DATA FROM NET ----------------
-    private void getDataFromNet() {
-
-        app_loading.setVisibility(View.VISIBLE);
-        app_no_internet.setVisibility(View.INVISIBLE);
-
-        if (wating)
-            return;
-
-        wating = true;
-
-        HashMap<String, List<String>> params = new HashMap<>();
-        params.put("action", Collections.singletonList("check_password"));
-
-        Ion.with(this)
-                .load(Utils.checkVersionAndBuildUrl(Consts.USER_REGISTER))
-                .setTimeout(Consts.DEFUALT_TIME_OUT)
-                .setBodyParameters(params)
-                .asString()
-                .setCallback(new FutureCallback<String>() {
-                    @Override
-                    public void onCompleted(Exception e, String result) {
-                        wating = false;
-                        app_loading.setVisibility(View.INVISIBLE);
-
-                        if (e != null) {
-                            e.printStackTrace();
-                            app_no_internet.setVisibility(View.VISIBLE);
-                            app_no_internet.findViewById(R.id.btnNONet).setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    getDataFromNet();
-                                }
-                            });
-
-                            TextView textView = app_no_internet.findViewById(R.id.txtNONetTitle);
-                            textView.setText(getResources().getString(R.string.no_net_error));
-
-                            return;
-                        }//end if
-
-                        Log.i("MainPanelActivity", "result: " + result);
-
-                        try {
-                            JSONObject jsonObject = new JSONObject(result);
-
-
-                        } catch (JSONException e1) {
-                            e1.printStackTrace();
-                        }
-
-                    }
-                });
     }
 
     //------------------------ EVENTS ---------------------------

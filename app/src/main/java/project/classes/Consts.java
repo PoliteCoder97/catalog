@@ -25,4 +25,8 @@ public class Consts {
   public static final String PERSON_ID = "personId";
   public static final String GET_CERTIFICATES = "CatalogApp_Api/v1/get_certificates.php";
   public static final String GET_IMAGE_CERTIFICATE = "CatalogApp_Api/files/certificate/";
+
+  public static final String TOKEN = "token";
+  public static final String REFRESH_TOKEN = "refresh_token";
+
 }

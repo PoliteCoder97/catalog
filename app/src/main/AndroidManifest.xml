@@ -14,7 +14,8 @@
         android:supportsRtl="false"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name="project.certificate.ShowCertificateActivity"></activity>
+        <activity android:name="project.management_panel.PanelProductsListActivity"></activity>
+        <activity android:name="project.certificate.ShowCertificateActivity" />
         <activity android:name="project.management_panel.MainPanelActivity" />
         <activity
             android:name=".ui.login.MainPanelActivity"

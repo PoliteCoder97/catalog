@@ -98,6 +98,8 @@ public class PasswordActivity extends AppCompatActivity {
         params.put("action", Collections.singletonList("check_password"));
         params.put("phoneNumber", Collections.singletonList(phoneNumber));
         params.put("password", Collections.singletonList(password));
+        params.put("token", Collections.singletonList(App.preferences.getString(Consts.TOKEN, "")));
+        params.put("refresh_token", Collections.singletonList(App.preferences.getString(Consts.REFRESH_TOKEN, "")));
 
         Ion.with(this)
                 .load(Utils.checkVersionAndBuildUrl(Consts.USER_REGISTER))
@@ -138,10 +140,14 @@ public class PasswordActivity extends AppCompatActivity {
                             if (jsonObject.getBoolean("isChecked")) {
                                 App.preferences.edit().putBoolean(Consts.IS_SIGN_UP, true).apply();
                                 App.preferences.edit().putInt(Consts.PERSON_ID, jsonObject.getInt("personId")).apply();
+                                App.preferences.edit().putString(Consts.TOKEN, jsonObject.getString("token")).apply();
+                                App.preferences.edit().putString(Consts.REFRESH_TOKEN, jsonObject.getString("refresh_token")).apply();
+
                                 Intent intent = new Intent(PasswordActivity.this, MainPanelActivity.class);
                                 intent.putExtra("phoneNumber", phoneNumber);
                                 PasswordActivity.this.startActivity(intent);
                                 PasswordActivity.this.finish();
+
                                 return;
                             }
 

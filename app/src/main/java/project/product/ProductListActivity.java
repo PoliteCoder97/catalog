@@ -28,7 +28,9 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -148,10 +150,14 @@ public class ProductListActivity extends BaseActivity {
       return;
     }
     wating = true;
+    HashMap<String, List<String>> params = new HashMap<>();
+    params.put("token", Collections.singletonList(App.preferences.getString(Consts.TOKEN, "")));
+    params.put("refresh_token", Collections.singletonList(App.preferences.getString(Consts.REFRESH_TOKEN, "")));
+    params.put("categoryId", Collections.singletonList(String.valueOf(categoryId)));
 
     Ion.with(this)
       .load(Utils.checkVersionAndBuildUrl(Consts.GET_PRODUCT))
-      .setBodyParameter("categoryId", String.valueOf(categoryId))
+      .setBodyParameters(params)
       .asString()
       .setCallback(new FutureCallback<String>() {
         @Override

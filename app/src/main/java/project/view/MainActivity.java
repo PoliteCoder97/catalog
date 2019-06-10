@@ -35,7 +35,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -245,9 +247,15 @@ public class MainActivity extends BaseActivity {
 
         wating = true;
 
+        HashMap<String, List<String>> params = new HashMap<>();
+        params.put("token", Collections.singletonList(App.preferences.getString(Consts.TOKEN, "")));
+        params.put("refresh_token", Collections.singletonList(App.preferences.getString(Consts.REFRESH_TOKEN, "")));
+        params.put("personId", Collections.singletonList(String.valueOf(App.preferences.getInt(Consts.PERSON_ID, 0))));
+
         Ion.with(this)
                 .load(Utils.checkVersionAndBuildUrl(Consts.GET_MAIN_INF))
                 .setTimeout(Consts.DEFUALT_TIME_OUT)
+                .setBodyParameters(params)
                 .asString()
                 .setCallback(new FutureCallback<String>() {
                     @Override
@@ -264,6 +272,8 @@ public class MainActivity extends BaseActivity {
                         Log.i("MAIN", "result: " + result);
                         try {
                             JSONObject jsonObject = new JSONObject(result);
+
+                            App.preferences.edit().putString(Consts.REFRESH_TOKEN, jsonObject.getString("refresh_token")).apply();
 
                             JSONArray mostVisitedProductsJa = jsonObject.getJSONArray("mostVisitedProducts");
                             JSONArray newestGoodsja = jsonObject.getJSONArray("newestGoods");
@@ -334,6 +344,62 @@ public class MainActivity extends BaseActivity {
                 });
     }
 
+    private void logOut(LinearLayout llayLogout, AlertDialog dialog) {
+        app_loading.setVisibility(View.VISIBLE);
+
+        if (wating) {
+            return;
+        }
+
+        wating = true;
+
+        HashMap<String, List<String>> params = new HashMap<>();
+        params.put("action", Collections.singletonList("log_out"));
+        params.put("token", Collections.singletonList(App.preferences.getString(Consts.TOKEN, "")));
+        params.put("refresh_token", Collections.singletonList(App.preferences.getString(Consts.REFRESH_TOKEN, "")));
+        params.put("personId", Collections.singletonList(String.valueOf(App.preferences.getInt(Consts.PERSON_ID, 0))));
+        Log.i("LOG_OUT", "personId: " + App.preferences.getInt(Consts.PERSON_ID, 0));
+
+        Ion.with(this)
+                .load(Utils.checkVersionAndBuildUrl(Consts.USER_REGISTER))
+                .setTimeout(Consts.DEFUALT_TIME_OUT)
+                .setBodyParameters(params)
+                .asString()
+                .setCallback(new FutureCallback<String>() {
+                    @Override
+                    public void onCompleted(Exception e, String result) {
+                        app_loading.setVisibility(View.INVISIBLE);
+                        wating = false;
+
+                        if (e != null) {
+                            e.printStackTrace();
+                            dialog.dismiss();
+                            return;
+                        }
+
+                        Log.i("LOG_OUT", "result: " + result);
+                        try {
+                            JSONObject jsonObject = new JSONObject(result);
+                            if (jsonObject.getBoolean("error")) {
+                                Toast.makeText(MainActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                                return;
+                            }
+
+                            App.preferences.edit().clear().apply();
+                            btnLogIn.setVisibility(View.VISIBLE);
+                            btnPanel.setVisibility(View.GONE);
+                            llayLogout.setVisibility(View.GONE);
+                            dialog.dismiss();
+
+                        } catch (JSONException e1) {
+                            e1.printStackTrace();
+                        }
+
+
+                    }
+                });
+    }
     //----------------------------------------- Event Listeners --------------------------------------------
 
 
@@ -353,7 +419,7 @@ public class MainActivity extends BaseActivity {
 
         if (isShowShareButton) {
             llayShareApplication.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             llayShareApplication.setVisibility(View.GONE);
         }
 
@@ -389,11 +455,8 @@ public class MainActivity extends BaseActivity {
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                App.preferences.edit().clear().apply();
-                btnLogIn.setVisibility(View.VISIBLE);
-                btnPanel.setVisibility(View.GONE);
-                llayLogout.setVisibility(View.GONE);
-                dialog.dismiss();
+
+                logOut(llayLogout, dialog);
             }
         });
 

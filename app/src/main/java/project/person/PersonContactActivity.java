@@ -19,6 +19,10 @@ import com.politecoder.catalog.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -222,9 +226,14 @@ public class PersonContactActivity extends AppCompatActivity {
         }
         wating = true;
 
+        HashMap<String, List<String>> params = new HashMap<>();
+        params.put("token", Collections.singletonList(App.preferences.getString(Consts.TOKEN, "")));
+        params.put("refresh_token", Collections.singletonList(App.preferences.getString(Consts.REFRESH_TOKEN, "")));
+        params.put("personId", Collections.singletonList(String.valueOf(person.getId())));
+
         Ion.with(this)
                 .load(Utils.checkVersionAndBuildUrl(Consts.GET_CONTACT))
-                .setBodyParameter("personId", String.valueOf(person.getId()))
+                .setBodyParameters(params)
                 .asString()
                 .setCallback(new FutureCallback<String>() {
                     @Override

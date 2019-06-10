@@ -24,6 +24,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -158,9 +162,13 @@ public class CategoryListActivity extends BaseActivity {
             return;
         }
         wating = true;
+        HashMap<String, List<String>> params = new HashMap<>();
+        params.put("token", Collections.singletonList(App.preferences.getString(Consts.TOKEN, "")));
+        params.put("refresh_token", Collections.singletonList(App.preferences.getString(Consts.REFRESH_TOKEN, "")));
 
         Ion.with(this)
                 .load(Utils.checkVersionAndBuildUrl(Consts.GET_CATEGORY))
+                .setBodyParameters(params)
                 .asString()
                 .setCallback(new FutureCallback<String>() {
                     @Override

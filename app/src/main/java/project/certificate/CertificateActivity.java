@@ -23,6 +23,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.security.cert.Certificate;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -85,8 +88,14 @@ public class CertificateActivity extends BaseActivity {
             return;
 
         wating = true;
+
+        HashMap<String, List<String>> params = new HashMap<>();
+        params.put("token", Collections.singletonList(App.preferences.getString(Consts.TOKEN, "")));
+        params.put("refresh_token", Collections.singletonList(App.preferences.getString(Consts.REFRESH_TOKEN, "")));
+
         Ion.with(this)
                 .load(Utils.checkVersionAndBuildUrl(Consts.GET_CERTIFICATES))
+                .setBodyParameters(params)
                 .asString()
                 .setCallback(new FutureCallback<String>() {
                     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)

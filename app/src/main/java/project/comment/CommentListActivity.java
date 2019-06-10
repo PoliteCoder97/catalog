@@ -30,6 +30,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -145,10 +147,14 @@ public class CommentListActivity extends BaseActivity {
       return;
     }
     wating = true;
+    HashMap<String,List<String>> params = new HashMap<>();
+    params.put("token", Collections.singletonList(App.preferences.getString(Consts.TOKEN, "")));
+    params.put("refresh_token", Collections.singletonList(App.preferences.getString(Consts.REFRESH_TOKEN, "")));
+    params.put("productId", Collections.singletonList(String.valueOf(productId)));
 
     Ion.with(this)
       .load(Utils.checkVersionAndBuildUrl(Consts.GET_COMMENTS))
-      .setBodyParameter("productId", String.valueOf(productId))
+      .setBodyParameters(params)
       .asString()
       .setCallback(new FutureCallback<String>() {
         @Override
@@ -233,11 +239,15 @@ public class CommentListActivity extends BaseActivity {
           return;
 
         wating = true;
+        HashMap<String,List<String>> params = new HashMap<>();
+        params.put("token", Collections.singletonList(App.preferences.getString(Consts.TOKEN, "")));
+        params.put("refresh_token", Collections.singletonList(App.preferences.getString(Consts.REFRESH_TOKEN, "")));
+        params.put("productId", Collections.singletonList(App.preferences.getString(Consts.REFRESH_TOKEN, "")));
+        params.put("comment", Collections.singletonList(comment));
 
         Ion.with(CommentListActivity.this)
           .load(Utils.checkVersionAndBuildUrl(Consts.RECORD_COMMENTS))
-          .setBodyParameter("productId", String.valueOf(productId))
-          .setBodyParameter("comment", comment)
+          .setBodyParameters(params)
           .asString()
           .setCallback(new FutureCallback<String>() {
             @Override

@@ -90,6 +90,8 @@ public class SignInActivity extends AppCompatActivity {
         HashMap<String, List<String>> params = new HashMap<>();
         params.put("action", Collections.singletonList("sign_in"));
         params.put("phoneNumber", Collections.singletonList(phoneNumber));
+        params.put("token", Collections.singletonList(App.preferences.getString(Consts.TOKEN, "")));
+        params.put("refresh_token", Collections.singletonList(App.preferences.getString(Consts.REFRESH_TOKEN, "")));
 
         Ion.with(this)
                 .load(Utils.checkVersionAndBuildUrl(Consts.USER_REGISTER))
