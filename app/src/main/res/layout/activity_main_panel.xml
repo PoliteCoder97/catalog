@@ -24,6 +24,15 @@
             android:text="Products"
             android:textAllCaps="false"
             android:textColor="@color/black" />
+        <Button
+            android:id="@+id/btnCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/view_medium"
+            android:background="@drawable/btn_certificate_background"
+            android:text="Categories"
+            android:textAllCaps="false"
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/btnPerson"

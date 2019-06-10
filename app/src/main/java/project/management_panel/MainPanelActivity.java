@@ -1,32 +1,21 @@
 package project.management_panel;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 import com.politecoder.catalog.R;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import project.classes.App;
-import project.classes.Consts;
-import project.utils.Utils;
+import project.management_panel.product.PanelProductsListActivity;
+import project.view.BaseActivity;
 
-public class MainPanelActivity extends AppCompatActivity {
+public class MainPanelActivity extends BaseActivity {
 
     //widgets
     @BindView(R.id.imgLeft)
@@ -41,6 +30,7 @@ public class MainPanelActivity extends AppCompatActivity {
 
     //filds
     private boolean wating = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,17 +44,33 @@ public class MainPanelActivity extends AppCompatActivity {
 
     //------------------------ INITIALS ------------------------
     private void initFilds() {
-        imgLeft.setImageDrawable(getResources().getDrawable(R.drawable.ic_arrow_back));
-        txtTitle.setText("Panel");
+
     }
 
     private void initWidgets() {
-
+        imgLeft.setImageDrawable(getResources().getDrawable(R.drawable.ic_arrow_back));
+        txtTitle.setText("Panel");
     }
 
     //------------------------ EVENTS ---------------------------
     @OnClick(R.id.imgLeft)
     void imgLeftClicked(View v) {
         this.onBackPressed();
+    }
+
+    @OnClick(R.id.btnProduct)
+    void btnProductClicked(View v) {
+        Intent intent = new Intent(MainPanelActivity.this, PanelProductsListActivity.class);
+        this.startActivity(intent);
+    }
+
+    @OnClick(R.id.btnCategory)
+    void btnCategoryClicked(View v) {
+
+    }
+
+    @OnClick(R.id.btnPerson)
+    void btnPersonClicked(View v) {
+
     }
 }
