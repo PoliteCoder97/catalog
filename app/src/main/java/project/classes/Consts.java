@@ -8,6 +8,8 @@ public class Consts {
 
   public static final String GET_CATEGORY = "CatalogApp_Api/v1/category/get_category.php";
   public static final String GET_PRODUCT = "CatalogApp_Api/v1/product/get_products.php";
+  public static final String GET_PANEL_PRODUCT = "CatalogApp_Api/v1/panel/get_all_products.php";
+  public static final String GET_PANEL_CATEGORIES = "CatalogApp_Api/v1/panel/get_all_categories.php";
 
   public static final String GET_IMAGE = "CatalogApp_Api/files/";
   public static final String GET_IMAGE_CATEGORY = "CatalogApp_Api/files/category/";

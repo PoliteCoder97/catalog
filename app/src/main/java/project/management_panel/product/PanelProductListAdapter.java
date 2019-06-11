@@ -3,6 +3,7 @@ package project.management_panel.product;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TabWidget;
+import android.widget.Toast;
 
 import com.glide.slider.library.svg.GlideApp;
 import com.politecoder.catalog.R;
@@ -35,10 +38,12 @@ public class PanelProductListAdapter extends RecyclerView.Adapter<PanelProductLi
     private final List<Product> productList;
     private final List<Category> categoryList;
 
+
     public PanelProductListAdapter(Context context, List<Product> productList, List<Category> categoryList) {
         this.context = context;
         this.productList = productList;
         this.categoryList = categoryList;
+
     }
 
     @NonNull
@@ -48,7 +53,7 @@ public class PanelProductListAdapter extends RecyclerView.Adapter<PanelProductLi
         return new ViewHolder(view);
     }
 
-    int categoryId = 0;
+
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
@@ -70,14 +75,32 @@ public class PanelProductListAdapter extends RecyclerView.Adapter<PanelProductLi
         ArrayAdapter<Category> aa = new ArrayAdapter<Category>(context, android.R.layout.simple_spinner_item, categoryList);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+
         viewHolder.spCategory.setAdapter(aa);
 
-        viewHolder.spCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        viewHolder.spCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                categoryId = categoryList.get(position).getId();
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                Category category = (Category) adapterView.getItemAtPosition(position);
+                Toast.makeText(context, "category id: " + category.getId(), Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Category category = (Category) adapterView.getItemAtPosition(0);
+                Toast.makeText(context, "category id: " + category.getId(), Toast.LENGTH_SHORT).show();
             }
         });
+
+        viewHolder.btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //todo update product
+//                Toast.makeText(context, "category id: " + categoryId, Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
     }
 

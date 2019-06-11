@@ -156,6 +156,48 @@ public class MainActivity extends BaseActivity {
         displayWidth = displayMetrics.widthPixels;
     }
 
+    private void initialNewstGoodsRclv(List<Product> productList) {
+        llayNewestGoods.setVisibility(View.VISIBLE);
+
+        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        rclvNewestGoods.setHasFixedSize(true);
+        rclvNewestGoods.setLayoutManager(manager);
+
+
+        if (productList == null) {
+            Date now = Calendar.getInstance().getTime();
+            Calendar c = Calendar.getInstance();
+            c.setTime(now);
+            c.add(Calendar.DATE, -7);
+            Date previousDate = c.getTime();
+
+            Log.i("DATE_TEST", "Now: " + now + "\npreviousDate: " + previousDate);
+            productList = App.database.getProductDao().getNewestProducts(now, previousDate);//TODO check it
+
+            llayNewestGoods.setVisibility(View.GONE);
+            return;
+        }
+
+        ProductListAdapter productListAdapter = new ProductListAdapter(this, productList, true);
+        rclvNewestGoods.setAdapter(productListAdapter);
+    }
+
+    private void initialMostSeenRclv(List<Product> productList) {
+        llayMostVisits.setVisibility(View.VISIBLE);
+
+        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        rclvMostVisited.setHasFixedSize(true);
+        rclvMostVisited.setLayoutManager(manager);
+        if (productList == null) {
+            productList = App.database.getProductDao().getMostVisite();
+            llayMostVisits.setVisibility(View.GONE);
+            return;
+        }
+        ProductListAdapter productListAdapter = new ProductListAdapter(this, productList, true);
+        rclvMostVisited.setAdapter(productListAdapter);
+    }
+
+    //-------------- Slider -------------------------------------
     private void setupSlider(LinearLayout container, String data) {
         SliderLayout sliderLayout = new SliderLayout(MainActivity.this);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -201,48 +243,6 @@ public class MainActivity extends BaseActivity {
         view.setLayoutParams(params);
         rootView.addView(view);
     }
-
-    private void initialNewstGoodsRclv(List<Product> productList) {
-        llayNewestGoods.setVisibility(View.VISIBLE);
-
-        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        rclvNewestGoods.setHasFixedSize(true);
-        rclvNewestGoods.setLayoutManager(manager);
-
-
-        if (productList == null) {
-            Date now = Calendar.getInstance().getTime();
-            Calendar c = Calendar.getInstance();
-            c.setTime(now);
-            c.add(Calendar.DATE, -7);
-            Date previousDate = c.getTime();
-
-            Log.i("DATE_TEST", "Now: " + now + "\npreviousDate: " + previousDate);
-            productList = App.database.getProductDao().getNewestProducts(now, previousDate);//TODO check it
-
-            llayNewestGoods.setVisibility(View.GONE);
-            return;
-        }
-
-        ProductListAdapter productListAdapter = new ProductListAdapter(this, productList, true);
-        rclvNewestGoods.setAdapter(productListAdapter);
-    }
-
-    private void initialMostSeenRclv(List<Product> productList) {
-        llayMostVisits.setVisibility(View.VISIBLE);
-
-        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        rclvMostVisited.setHasFixedSize(true);
-        rclvMostVisited.setLayoutManager(manager);
-        if (productList == null) {
-            productList = App.database.getProductDao().getMostVisite();
-            llayMostVisits.setVisibility(View.GONE);
-            return;
-        }
-        ProductListAdapter productListAdapter = new ProductListAdapter(this, productList, true);
-        rclvMostVisited.setAdapter(productListAdapter);
-    }
-
     //------------------------------------------- GET FROM NET -----------------------------------------------
 
     private void getDataFromNet() {
@@ -297,7 +297,14 @@ public class MainActivity extends BaseActivity {
                             if (!isShowPanelButton) {
                                 btnLogIn.setVisibility(View.GONE);
                             } else {
-                                btnLogIn.setVisibility(View.VISIBLE);
+                                if (App.preferences.getBoolean(Consts.IS_SIGN_UP, false)) {
+                                    btnPanel.setVisibility(View.VISIBLE);
+                                    btnLogIn.setVisibility(View.GONE);
+                                }
+                                else {
+                                    btnLogIn.setVisibility(View.VISIBLE);
+                                    btnPanel.setVisibility(View.GONE);
+                                }
                             }
 
                             for (int i = 0; i < newestGoodsja.length(); i++) {

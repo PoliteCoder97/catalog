@@ -48,8 +48,6 @@ public class Category {
 
   @Override
   public String toString() {
-    return "Category{" +
-      "title='" + title + '\'' +
-      '}';
+    return  title ;
   }
 }
