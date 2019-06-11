@@ -29,4 +29,6 @@ public class Consts {
   public static final String TOKEN = "token";
   public static final String REFRESH_TOKEN = "refresh_token";
 
+  public static final String SLIDER = "slider";
+    public static final String GET_SLIDER_IMAGE ="CatalogApp_Api/files/slider/";
 }

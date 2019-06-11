@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.request.RequestOptions;
 import com.glide.slider.library.SliderLayout;
 import com.glide.slider.library.SliderTypes.DefaultSliderView;
 import com.koushikdutta.async.future.FutureCallback;
@@ -146,7 +147,7 @@ public class MainActivity extends BaseActivity {
         imgRight.setImageDrawable(getResources().getDrawable(R.drawable.menu));
         txtTitle.setText("Amal Office");
 
-        setupSlider(llRowHolder);
+//        setupSlider(llRowHolder);
     }
 
     private void initFilds() {
@@ -155,20 +156,26 @@ public class MainActivity extends BaseActivity {
         displayWidth = displayMetrics.widthPixels;
     }
 
-    private void setupSlider(LinearLayout container) {
+    private void setupSlider(LinearLayout container, String data) {
         SliderLayout sliderLayout = new SliderLayout(MainActivity.this);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        sliderLayout.setLayoutParams(layoutParams);
+
 //                    int height = (int) (joRow.getInt("height") * scale + 0.5f);
         sliderLayout.getPagerIndicator().setDefaultIndicatorColor(getResources().getColor(R.color.slider_indivator_current), getResources().getColor(R.color.slider_indivator_second));
         addView(sliderLayout, container, 0, displayWidth / 2);
-        addView(new LinearLayout(MainActivity.this), container, 12, 5); //add for extra margin on button of slider
-        fillSlider(sliderLayout, Utils.extractSlides("[]"));//TODO get slider data and fill it
+//        addView(new LinearLayout(MainActivity.this), container, 12, 5); //add for extra margin on button of slider
+        fillSlider(sliderLayout, Utils.extractSlides(data));
+//        fillSlider(sliderLayout, Utils.extractSlides(App.preferences.getString(Consts.SLIDER,"[]"));
     }
 
     private void fillSlider(SliderLayout sliderLayout, List<Slide> slides) {
+        RequestOptions centerCrop = new RequestOptions().optionalCenterCrop();
         for (int i = 0; i < slides.size(); i++) {
             DefaultSliderView defaultSliderView = new DefaultSliderView(this);
             defaultSliderView
-                    .image("image url" + slides.get(i).getImageName())//TODO set image slider
+                    .image(Utils.checkVersionAndBuildUrl(Consts.GET_SLIDER_IMAGE + slides.get(i).getImageName()))//TODO set image slider
+                    .setRequestOption(centerCrop)
                     .setOnSliderClickListener(null);
             //add your extra information
             defaultSliderView.bundle(new Bundle());
@@ -283,6 +290,9 @@ public class MainActivity extends BaseActivity {
 
                             isShowShareButton = jsonObject.getBoolean("showShareButton");
                             isShowPanelButton = jsonObject.getBoolean("showPanelButton");
+
+//                            App.preferences.edit().putString(Consts.SLIDER,jsonObject.getJSONArray("slider").toString()).apply();
+                            setupSlider(llRowHolder, jsonObject.getJSONArray("slider").toString());
 
                             if (!isShowPanelButton) {
                                 btnLogIn.setVisibility(View.GONE);
