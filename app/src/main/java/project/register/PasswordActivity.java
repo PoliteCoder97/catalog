@@ -68,7 +68,7 @@ public class PasswordActivity extends AppCompatActivity {
     //----------------------- INITIALS ------------------------------------------
     private void initWidgets() {
         imgLeft.setImageDrawable(getResources().getDrawable(R.drawable.ic_arrow_back));
-        txtTitle.setText(" ");
+        txtTitle.setText("Enter Password");
         txtPhoneNumber.setText(" " + phoneNumber);
     }
 
@@ -150,8 +150,6 @@ public class PasswordActivity extends AppCompatActivity {
 
                                 return;
                             }
-
-                            Toast.makeText(PasswordActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
 
                         } catch (JSONException e1) {
                             e1.printStackTrace();

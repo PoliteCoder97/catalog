@@ -1,4 +1,4 @@
-package project.management_panel.product;
+package project.management_panel.category;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -19,19 +19,19 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import project.category.Category;
 import project.classes.Consts;
-import project.product.Product;
 import project.utils.Utils;
 
-public class PanelProductListAdapter extends RecyclerView.Adapter<PanelProductListAdapter.ViewHolder> {
+public class PanelCategoryListAdapter extends RecyclerView.Adapter<PanelCategoryListAdapter.ViewHolder> {
 
     private final Context context;
-    private final List<Product> productList;
+    private final List<Category> categoryList;
 
 
-    public PanelProductListAdapter(Context context, List<Product> productList) {
+    public PanelCategoryListAdapter(Context context, List<Category> categoryList) {
         this.context = context;
-        this.productList = productList;
+        this.categoryList = categoryList;
 
     }
 
@@ -46,19 +46,19 @@ public class PanelProductListAdapter extends RecyclerView.Adapter<PanelProductLi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        Product product = productList.get(i);
+        Category category = categoryList.get(i);
 
-        viewHolder.txtTitle.setText(" "+product.getTitle());
+        viewHolder.txtTitle.setText(" "+category.getTitle());
         GlideApp.with(context)
-                .load(Utils.checkVersionAndBuildUrl(Consts.GET_IMAGE_PRODUCT + product.getImg()))
+                .load(Utils.checkVersionAndBuildUrl(Consts.GET_IMAGE_CATEGORY + category.getImg()))
                 .placeholder(context.getResources().getDrawable(R.drawable.logo))
                 .into(viewHolder.img);
 
-        viewHolder.lLayPanelProduct.setOnClickListener(new View.OnClickListener() {
+        viewHolder.lLayPanel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //todo pick the image from gallery and show that to this imgView
-                EventBus.getDefault().post(new PanelProductListEventListener(product));
+                EventBus.getDefault().post(new PanelCategoryListEventListener(category));
             }
         });
 
@@ -95,12 +95,12 @@ public class PanelProductListAdapter extends RecyclerView.Adapter<PanelProductLi
 
     @Override
     public int getItemCount() {
-        return productList == null ? 0 : productList.size();
+        return categoryList == null ? 0 : categoryList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.lLayPanel)
-        LinearLayout lLayPanelProduct;
+        LinearLayout lLayPanel;
         @BindView(R.id.img)
         ImageView img;
         @BindView(R.id.txtTitle)

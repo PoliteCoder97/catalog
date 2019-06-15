@@ -12,6 +12,7 @@ import com.politecoder.catalog.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import project.management_panel.category.PanelCategoryListActivity;
 import project.management_panel.product.PanelProductsListActivity;
 import project.view.BaseActivity;
 
@@ -66,7 +67,8 @@ public class MainPanelActivity extends BaseActivity {
 
     @OnClick(R.id.btnCategory)
     void btnCategoryClicked(View v) {
-
+        Intent intent = new Intent(MainPanelActivity.this, PanelCategoryListActivity.class);
+        this.startActivity(intent);
     }
 
     @OnClick(R.id.btnPerson)

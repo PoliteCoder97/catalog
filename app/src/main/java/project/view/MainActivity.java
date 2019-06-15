@@ -147,6 +147,11 @@ public class MainActivity extends BaseActivity {
         imgRight.setImageDrawable(getResources().getDrawable(R.drawable.menu));
         txtTitle.setText("Amal Office");
 
+        if (App.preferences.getBoolean(Consts.IS_SIGN_UP, false)) {
+            btnLogIn.setVisibility(View.VISIBLE);
+            btnPanel.setVisibility(View.GONE);
+        }
+
 //        setupSlider(llRowHolder);
     }
 
@@ -300,8 +305,7 @@ public class MainActivity extends BaseActivity {
                                 if (App.preferences.getBoolean(Consts.IS_SIGN_UP, false)) {
                                     btnPanel.setVisibility(View.VISIBLE);
                                     btnLogIn.setVisibility(View.GONE);
-                                }
-                                else {
+                                } else {
                                     btnLogIn.setVisibility(View.VISIBLE);
                                     btnPanel.setVisibility(View.GONE);
                                 }
@@ -535,14 +539,64 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.btnPanel)
     void btnPanelClicked(View v) {
-        Intent intent = new Intent(MainActivity.this, MainPanelActivity.class);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-            this.startActivity(intent,
-                    ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-        } else {
-            this.startActivity(intent);
+        app_loading.setVisibility(View.VISIBLE);
+
+        if (wating) {
+            return;
         }
 
+        wating = true;
+
+        HashMap<String, List<String>> params = new HashMap<>();
+        params.put("action", Collections.singletonList("check_user"));
+        params.put("token", Collections.singletonList(App.preferences.getString(Consts.TOKEN, "")));
+        params.put("refresh_token", Collections.singletonList(App.preferences.getString(Consts.REFRESH_TOKEN, "")));
+        params.put("personId", Collections.singletonList(String.valueOf(App.preferences.getInt(Consts.PERSON_ID, 0))));
+
+        Ion.with(this)
+                .load(Utils.checkVersionAndBuildUrl(Consts.USER_REGISTER))
+                .setTimeout(Consts.DEFUALT_TIME_OUT)
+                .setBodyParameters(params)
+                .asString()
+                .setCallback(new FutureCallback<String>() {
+                    @Override
+                    public void onCompleted(Exception e, String result) {
+                        app_loading.setVisibility(View.INVISIBLE);
+                        wating = false;
+
+                        if (e != null) {
+                            e.printStackTrace();
+                            return;
+                        }
+
+                        Log.i("PANEL", "result: " + result);
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(result);
+                            if (jsonObject.getBoolean("error")) {
+                                Toast.makeText(MainActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                                App.preferences.edit().clear().apply();
+                                initWidgets();
+                                return;
+                            }
+
+                            if (jsonObject.getBoolean("isChecked")) {
+                                Intent intent = new Intent(MainActivity.this, MainPanelActivity.class);
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                                    MainActivity.this.startActivity(intent,
+                                            ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
+                                } else {
+                                    MainActivity.this.startActivity(intent);
+                                }
+                            }
+
+                        } catch (JSONException e1) {
+                            e1.printStackTrace();
+                        }
+
+
+                    }
+                });
     }
 
     @OnClick(R.id.btnCertificate)

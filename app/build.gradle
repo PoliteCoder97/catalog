@@ -32,6 +32,9 @@ dependencies {
 
     implementation 'com.koushikdutta.ion:ion:2.2.1'
 
+    //library for request the permissions
+    implementation 'com.master.android:permissionhelper:2.0'
+
 //--- glide
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
