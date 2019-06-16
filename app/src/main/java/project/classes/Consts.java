@@ -10,6 +10,7 @@ public class Consts {
   public static final String GET_PRODUCT = "CatalogApp_Api/v1/product/get_products.php";
   public static final String GET_PANEL_PRODUCT = "CatalogApp_Api/v1/panel/get_all_products.php";
   public static final String GET_PANEL_CATEGORIES = "CatalogApp_Api/v1/panel/get_all_categories.php";
+  public static final String GET_PANEL_PERSONS = "CatalogApp_Api/v1/panel/get_all_persons.php";
   public static final String UPDATE_PANEL_PRODUCT= "CatalogApp_Api/v1/panel/update_product.php";
 
   public static final String GET_IMAGE = "CatalogApp_Api/files/";

@@ -59,6 +59,7 @@ import project.category.Category;
 import project.classes.App;
 import project.classes.Consts;
 import project.classes.MimeTypes;
+import project.management_panel.category.UpdateOrInsertCategoryActivity;
 import project.utils.Utils;
 
 public class UpdateOrInsertProductActivity extends AppCompatActivity {
@@ -142,9 +143,9 @@ public class UpdateOrInsertProductActivity extends AppCompatActivity {
                     .placeholder(this.getResources().getDrawable(R.drawable.logo))
                     .into(img);
         } else {
-            edtTitle.setText(" ");
-            edtDesc.setText(" ");
-            edtPrice.setText(" ");
+            edtTitle.setText("");
+            edtDesc.setText("");
+            edtPrice.setText("");
         }
 
     }
@@ -281,6 +282,7 @@ public class UpdateOrInsertProductActivity extends AppCompatActivity {
                             Toast.makeText(UpdateOrInsertProductActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                             return;
                         }
+                        Toast.makeText(UpdateOrInsertProductActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
 
                     } catch (JSONException e1) {
                         e1.printStackTrace();
@@ -324,6 +326,8 @@ public class UpdateOrInsertProductActivity extends AppCompatActivity {
                                 Toast.makeText(UpdateOrInsertProductActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                                 return;
                             }
+                            Toast.makeText(UpdateOrInsertProductActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+
                         } catch (JSONException e1) {
                             e1.printStackTrace();
                         }

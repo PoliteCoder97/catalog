@@ -55,9 +55,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     viewHolder.txtTitle.setText(" " + product.getTitle());
 
     GlideApp.with(context)
-      .load(Utils.checkVersionAndBuildUrl(Consts.GET_IMAGE_PRODUCT + product.getImg()))
-      .placeholder(context.getResources().getDrawable(R.drawable.logo))
-      .into(viewHolder.imgAdapter);
+            .load(Utils.checkVersionAndBuildUrl(Consts.GET_IMAGE_PRODUCT + product.getImg()))
+            .placeholder(context.getResources().getDrawable(R.drawable.logo))
+            .into(viewHolder.imgAdapter);
+
+
     viewHolder.lLayProduct.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {

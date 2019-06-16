@@ -162,7 +162,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initialNewstGoodsRclv(List<Product> productList) {
-        llayNewestGoods.setVisibility(View.VISIBLE);
+//        llayNewestGoods.setVisibility(View.VISIBLE);
 
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         rclvNewestGoods.setHasFixedSize(true);
@@ -188,7 +188,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initialMostSeenRclv(List<Product> productList) {
-        llayMostVisits.setVisibility(View.VISIBLE);
+//        llayMostVisits.setVisibility(View.VISIBLE);
 
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         rclvMostVisited.setHasFixedSize(true);
@@ -277,6 +277,7 @@ public class MainActivity extends BaseActivity {
 
                         if (e != null) {
                             e.printStackTrace();
+                            setupSlider(llRowHolder, App.preferences.getString(Consts.SLIDER, "[]"));
                             initialNewstGoodsRclv(null);
                             initialMostSeenRclv(null);
                             return;
@@ -285,6 +286,7 @@ public class MainActivity extends BaseActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(result);
 
+                            App.preferences.edit().putString("marketing_manager", jsonObject.getString("marketing_manager")).apply();
                             App.preferences.edit().putString(Consts.REFRESH_TOKEN, jsonObject.getString("refresh_token")).apply();
 
                             JSONArray mostVisitedProductsJa = jsonObject.getJSONArray("mostVisitedProducts");
@@ -296,7 +298,7 @@ public class MainActivity extends BaseActivity {
                             isShowShareButton = jsonObject.getBoolean("showShareButton");
                             isShowPanelButton = jsonObject.getBoolean("showPanelButton");
 
-//                            App.preferences.edit().putString(Consts.SLIDER,jsonObject.getJSONArray("slider").toString()).apply();
+                            App.preferences.edit().putString(Consts.SLIDER, jsonObject.getJSONArray("slider").toString()).apply();
                             setupSlider(llRowHolder, jsonObject.getJSONArray("slider").toString());
 
                             if (!isShowPanelButton) {
@@ -310,6 +312,20 @@ public class MainActivity extends BaseActivity {
                                     btnPanel.setVisibility(View.GONE);
                                 }
                             }
+
+                            Log.i("MAINACTIVITY", "newestGoodsja.length(): " +newestGoodsja.length());
+
+                            if (newestGoodsja.length() != 0) {
+                                llayNewestGoods.setVisibility(View.VISIBLE);
+                            } else {
+                                llayNewestGoods.setVisibility(View.INVISIBLE);
+                            }
+                            if (mostVisitedProductsJa.length() != 0) {
+                                llayMostVisits.setVisibility(View.VISIBLE);
+                            } else {
+                                llayMostVisits.setVisibility(View.INVISIBLE);
+                            }
+
 
                             for (int i = 0; i < newestGoodsja.length(); i++) {
                                 JSONObject jo = newestGoodsja.getJSONObject(i);

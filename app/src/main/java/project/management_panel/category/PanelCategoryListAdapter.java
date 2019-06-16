@@ -57,7 +57,6 @@ public class PanelCategoryListAdapter extends RecyclerView.Adapter<PanelCategory
         viewHolder.lLayPanel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //todo pick the image from gallery and show that to this imgView
                 EventBus.getDefault().post(new PanelCategoryListEventListener(category));
             }
         });

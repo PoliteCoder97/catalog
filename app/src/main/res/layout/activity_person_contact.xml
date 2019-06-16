@@ -31,6 +31,15 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:src="@drawable/untitled" />
+            <TextView
+                android:id="@+id/txtDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_margin="@dimen/view_xxlarg"
+                android:textSize="@dimen/text_medium"
+                android:text="Desription"
+                />
 
             <LinearLayout
                 android:id="@+id/lLayPhone"

@@ -12,6 +12,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.glide.slider.library.svg.GlideApp;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.politecoder.catalog.R;
@@ -72,6 +73,10 @@ public class PersonContactActivity extends AppCompatActivity {
     TextView txtWeb;
     @BindView(R.id.sv)
     ScrollView sv;
+    @BindView(R.id.imgPerson)
+    ImageView imgPerson;
+    @BindView(R.id.txtDesc)
+    TextView txtDesc;
 
 
     //filds
@@ -108,6 +113,12 @@ public class PersonContactActivity extends AppCompatActivity {
     private void initWidgets(Contact contact) {
         imgLeft.setImageDrawable(getResources().getDrawable(R.drawable.ic_arrow_back));
         txtTitle.setText(" " + person.getName());
+        txtDesc.setText(" " + person.getDesc());
+
+        GlideApp.with(this)
+                .load(Utils.checkVersionAndBuildUrl(Consts.GET_IMAGE_PERSON + person.getImg()))
+                .placeholder(this.getResources().getDrawable(R.drawable.logo))
+                .into(imgPerson);
 
         if (contact == null) {
             contact = App.database.getContactDao().getContact(person.getId());
@@ -248,9 +259,10 @@ public class PersonContactActivity extends AppCompatActivity {
                             return;
                         }
 
-                        Log.i("RESULT", "result: " + result);
+
                         try {
                             JSONObject jsonObject = new JSONObject(result);
+                            Log.i("PERSON", "result: " + jsonObject.toString(4));
                             if (jsonObject.getBoolean("error")) {
                                 Toast.makeText(PersonContactActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                                 return;

@@ -15,7 +15,9 @@
         android:supportsRtl="false"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name="project.management_panel.category.UpdateOrInsertCategoryActivity"></activity>
+        <activity android:name="project.management_panel.person.UpdateOrInsertPersonActivity"></activity>
+        <activity android:name="project.management_panel.person.PanelPersonListActivity" />
+        <activity android:name="project.management_panel.category.UpdateOrInsertCategoryActivity" />
         <activity android:name="project.management_panel.product.UpdateOrInsertProductActivity" />
         <activity android:name="project.management_panel.category.PanelCategoryListActivity" />
         <activity android:name="project.management_panel.product.PanelProductsListActivity" />

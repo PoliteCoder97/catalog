@@ -61,7 +61,7 @@ public class ShowCertificateActivity extends BaseActivity {
 
         GlideApp.with(this)
                 .load(Utils.checkVersionAndBuildUrl(Consts.GET_IMAGE_CERTIFICATE) + img)
-                .placeholder(getResources().getDrawable(R.drawable.ic_store_white_24dp))
+                .placeholder(getResources().getDrawable(R.drawable.logo))
                 .into(imageView);
     }
 

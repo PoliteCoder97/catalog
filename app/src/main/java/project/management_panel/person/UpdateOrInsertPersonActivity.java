@@ -1,4 +1,4 @@
-package project.management_panel.category;
+package project.management_panel.person;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -59,10 +59,11 @@ import project.category.Category;
 import project.classes.App;
 import project.classes.Consts;
 import project.classes.MimeTypes;
-import project.management_panel.product.UpdateOrInsertProductActivity;
+import project.management_panel.category.UpdateOrInsertCategoryActivity;
+import project.person.Person;
 import project.utils.Utils;
 
-public class UpdateOrInsertCategoryActivity extends AppCompatActivity {
+public class UpdateOrInsertPersonActivity extends AppCompatActivity {
     //widgets
     @BindView(R.id.imgLeft)
     ImageView imgLeft;
@@ -78,45 +79,36 @@ public class UpdateOrInsertCategoryActivity extends AppCompatActivity {
     TextView txtNONetTitle;
     @BindView(R.id.img)
     ImageView img;
-    @BindView(R.id.spCategory)
-    Spinner spCategory;
-    @BindView(R.id.edtTitle)
-    EditText edtTitle;
+    @BindView(R.id.edtName)
+    EditText edtName;
+    @BindView(R.id.edtDesc)
+    EditText edtDesc;
 
 
     //filds
     private boolean wating = false;
-    private List<Category> categoryList;
-    private int seen = 0;
+    private List<Person> personList;
     private static final int OPEN_DOCUMENT_CODE = 2;
     String realPath_1 = "";
     String file_1 = "";
     private int WRITE_SDCARD_STORAGE_REQ = 1;
-    private int productId = 0;
-    private int categoryId = 0;
-    private int parentId = -1;
+    private int personId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update_or_insert_category);
+        setContentView(R.layout.activity_update_or_insert_person);
         ButterKnife.bind(this);
 
         initFilds();
         initWidgets();
 
-        App.getHandler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                getCategoryListFromNet();
-            }
-        }, 100);
     }
 
 
     //------------------------ INITIALS ------------------------
     private void initFilds() {
-        categoryList = new ArrayList<>();
+        personList = new ArrayList<>();
         permissionHelper = new PermissionHelper(this, new String[]{
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
         }, WRITE_SDCARD_STORAGE_REQ);
@@ -124,113 +116,28 @@ public class UpdateOrInsertCategoryActivity extends AppCompatActivity {
 
     private void initWidgets() {
         imgLeft.setImageDrawable(getResources().getDrawable(R.drawable.ic_arrow_back));
-        txtTitle.setText("Update Category");
+        txtTitle.setText("Update Person");
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            categoryId = bundle.getInt("id");
-            parentId = bundle.getInt("parentId");
-            edtTitle.setText(" " + bundle.getString("title"));
+            personId = bundle.getInt("id");
+            edtName.setText(" " + bundle.getString("name"));
+            edtDesc.setText(" " + bundle.getString("desc"));
 
             GlideApp.with(this)
-                    .load(Utils.checkVersionAndBuildUrl(Consts.GET_IMAGE_CATEGORY + bundle.getString("img")))
+                    .load(Utils.checkVersionAndBuildUrl(Consts.GET_IMAGE_PERSON + bundle.getString("img")))
                     .placeholder(this.getResources().getDrawable(R.drawable.logo))
                     .into(img);
         } else {
-            edtTitle.setText("");
+            edtName.setText("");
+            edtDesc.setText("");
         }
 
     }
 
 
-    private void initSpinner() {
-
-        Category c = new Category();
-        c.setId(-1);
-        c.setTitle("No Parent");
-
-        if (!categoryList.contains(c))
-            categoryList.add(c);
-
-        ArrayAdapter<Category> aa = new ArrayAdapter<Category>(this, android.R.layout.simple_spinner_item, categoryList);
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spCategory.setAdapter(aa);
-        c = (Category) spCategory.getSelectedItem();
-        parentId = c.getId();
-
-        spCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                Category category = (Category) adapterView.getItemAtPosition(position);
-                parentId = category.getId();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
-
-    }
 
     //------------------------ GET DATA FROM NET ---------------------------
-    private void getCategoryListFromNet() {
-        app_loading.setVisibility(View.VISIBLE);
-        app_no_internet.setVisibility(View.GONE);
-
-        if (wating) {
-            return;
-        }
-        wating = true;
-
-        HashMap<String, List<String>> params = new HashMap<>();
-        params.put("token", Collections.singletonList(App.preferences.getString(Consts.TOKEN, "")));
-        params.put("refresh_token", Collections.singletonList(App.preferences.getString(Consts.REFRESH_TOKEN, "")));
-        params.put("personId", Collections.singletonList(String.valueOf(App.preferences.getInt(Consts.PERSON_ID, 0))));
-
-        Ion.with(UpdateOrInsertCategoryActivity.this)
-                .load(Utils.checkVersionAndBuildUrl(Consts.GET_PANEL_CATEGORIES))
-                .setBodyParameters(params)
-                .asString()
-                .setCallback(new FutureCallback<String>() {
-                    @Override
-                    public void onCompleted(Exception e, String result) {
-                        wating = false;
-                        app_loading.setVisibility(View.GONE);
-                        if (e != null) {
-                            app_no_internet.setVisibility(View.VISIBLE);
-                            btnNONet.setText("Retry");
-                            txtNONetTitle.setText("Error in internet Connection!");
-                            return;
-                        }
-
-                        Log.i("CATEGORY", "result: " + result);
-                        try {
-                            JSONObject allCategoryJsonObject = new JSONObject(result);
-
-                            if (allCategoryJsonObject.getBoolean("error")) {
-                                Toast.makeText(UpdateOrInsertCategoryActivity.this, allCategoryJsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                            JSONArray categoriesJa = allCategoryJsonObject.getJSONArray("categories");
-                            categoryList.clear();
-                            for (int i = 0; i < categoriesJa.length(); i++) {
-                                JSONObject cJo = categoriesJa.getJSONObject(i);
-                                Category category = new Category();
-                                category.setId(cJo.getInt("id"));
-                                category.setTitle(cJo.getString("title"));
-                                category.setImg(cJo.getString("img"));
-                                category.setParentId(cJo.getInt("parentId"));
-
-                                categoryList.add(category);
-                            }
-                        } catch (JSONException e2) {
-                        }
-
-                        initSpinner();
-                    }
-                });
-    }
 
     //------------------------ EVENTS ---------------------------
     @OnClick(R.id.imgLeft)
@@ -252,14 +159,13 @@ public class UpdateOrInsertCategoryActivity extends AppCompatActivity {
         params.put("token", Collections.singletonList(App.preferences.getString(Consts.TOKEN, "")));
         params.put("refresh_token", Collections.singletonList(App.preferences.getString(Consts.REFRESH_TOKEN, "")));
         params.put("personId", Collections.singletonList(String.valueOf(App.preferences.getInt(Consts.PERSON_ID, 0))));
-        params.put("categoryId", Collections.singletonList(String.valueOf(categoryId)));
-        params.put("parentId", Collections.singletonList(String.valueOf(parentId)));
-        params.put("title", Collections.singletonList(edtTitle.getText().toString().trim() + " "));
+        params.put("name", Collections.singletonList(edtName.getText().toString().trim() + " "));
+        params.put("desc", Collections.singletonList(edtDesc.getText().toString().trim() + " "));
 
 
         if (realPath_1.equals("") || realPath_1 == null) {
             Ion.with(this)
-                    .load(Utils.checkVersionAndBuildUrl("CatalogApp_Api/v1/panel/insert_update_category.php"))
+                    .load(Utils.checkVersionAndBuildUrl("CatalogApp_Api/v1/panel/insert_update_person.php"))
                     .setTimeout(Consts.DEFUALT_TIME_OUT)
                     .setBodyParameters(params)
                     .asString().setCallback(new FutureCallback<String>() {
@@ -269,19 +175,19 @@ public class UpdateOrInsertCategoryActivity extends AppCompatActivity {
                     wating = false;
 
                     if (e != null) {
-                        Log.i("UPDATE_CATEGORY", "error: " + e.toString());
+                        Log.i("UPDATE_PERSON", "error: " + e.toString());
                         return;
                     }
 
-                    Log.i("UPDATE_CATEGORY", "result: " + result);
+                    Log.i("UPDATE_PERSON", "result: " + result);
                     try {
                         JSONObject jsonObject = new JSONObject(result);
                         if (jsonObject.getBoolean("error")) {
-                            Toast.makeText(UpdateOrInsertCategoryActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UpdateOrInsertPersonActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                             return;
                         }
 
-                        Toast.makeText(UpdateOrInsertCategoryActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UpdateOrInsertPersonActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
 
 
                     } catch (JSONException e1) {
@@ -293,7 +199,7 @@ public class UpdateOrInsertCategoryActivity extends AppCompatActivity {
         }
 
         Ion.with(this)
-                .load(Utils.checkVersionAndBuildUrl("CatalogApp_Api/v1/panel/insert_update_category.php"))
+                .load(Utils.checkVersionAndBuildUrl("CatalogApp_Api/v1/panel/insert_update_person.php"))
                 .setTimeout(Consts.DEFUALT_TIME_OUT)
                 .uploadProgressHandler(new ProgressCallback() {
                     @Override
@@ -315,18 +221,18 @@ public class UpdateOrInsertCategoryActivity extends AppCompatActivity {
                         wating = false;
 
                         if (e != null) {
-                            Log.i("UPDATE_CATEGORY", "error: " + e.toString());
+                            Log.i("UPDATE_PERSON", "error: " + e.toString());
                             return;
                         }
 
-                        Log.i("UPDATE_CATEGORY", "result: " + strResult);
+                        Log.i("UPDATE_PERSON", "result: " + strResult);
                         try {
                             JSONObject jsonObject = new JSONObject(strResult);
                             if (jsonObject.getBoolean("error")) {
-                                Toast.makeText(UpdateOrInsertCategoryActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(UpdateOrInsertPersonActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                                 return;
                             }
-                            Toast.makeText(UpdateOrInsertCategoryActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UpdateOrInsertPersonActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
 
                         } catch (JSONException e1) {
                             e1.printStackTrace();
@@ -339,7 +245,7 @@ public class UpdateOrInsertCategoryActivity extends AppCompatActivity {
 
     @OnClick(R.id.rLayImg)
     void rLayImgClicked(View v) {
-        if (ContextCompat.checkSelfPermission(UpdateOrInsertCategoryActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        if (ContextCompat.checkSelfPermission(UpdateOrInsertPersonActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 == PackageManager.PERMISSION_GRANTED) {
             showFileChooser();
         }
@@ -553,9 +459,9 @@ public class UpdateOrInsertCategoryActivity extends AppCompatActivity {
             public void onPermissionDenied() {
 
                 final AlertDialog alertDialog;
-                AlertDialog.Builder builder = new AlertDialog.Builder(UpdateOrInsertCategoryActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(UpdateOrInsertPersonActivity.this);
                 @SuppressLint("InflateParams")
-                View permissioDialog = LayoutInflater.from(UpdateOrInsertCategoryActivity.this).inflate(R.layout.dialog_permission, null, false);
+                View permissioDialog = LayoutInflater.from(UpdateOrInsertPersonActivity.this).inflate(R.layout.dialog_permission, null, false);
                 Button btnPermissionOk, btnPermissionCancel;
 
 

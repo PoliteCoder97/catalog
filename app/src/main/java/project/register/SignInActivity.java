@@ -137,10 +137,14 @@ public class SignInActivity extends AppCompatActivity {
 
                             } else {
                                 Toast.makeText(SignInActivity.this, "user isn't register sign up", Toast.LENGTH_SHORT).show();
+                                if (jsonObject.getBoolean("goToSignUp")){
                                 Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
                                 intent.putExtra("phoneNumber", phoneNumber);
                                 SignInActivity.this.startActivity(intent);
                                 SignInActivity.this.finish();
+                                }else {
+                                    Toast.makeText(SignInActivity.this, "you cant go to this item", Toast.LENGTH_SHORT).show();
+                                }
                             }
 
                         } catch (JSONException e1) {

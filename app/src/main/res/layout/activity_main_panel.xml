@@ -42,7 +42,9 @@
             android:background="@drawable/btn_certificate_background"
             android:text="Persons"
             android:textAllCaps="false"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:visibility="visible"
+            />
 
 
     </LinearLayout>
