@@ -32,6 +32,7 @@ import project.classes.App;
 import project.classes.Consts;
 import project.management_panel.MainPanelActivity;
 import project.utils.Utils;
+import project.view.MainActivity;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -138,15 +139,17 @@ public class SignUpActivity extends AppCompatActivity {
                             }
 
                             if (jsonObject.getInt("isRegisterd") == 1) {
-                                App.preferences.edit().putBoolean(Consts.IS_SIGN_UP, true).apply();
-                                App.preferences.edit().putInt(Consts.PERSON_ID, jsonObject.getInt("personId")).apply();
-                                App.preferences.edit().putString(Consts.TOKEN, jsonObject.getString("token")).apply();
-                                App.preferences.edit().putString(Consts.REFRESH_TOKEN, jsonObject.getString("refresh_token")).apply();
+//                                App.preferences.edit().putBoolean(Consts.IS_SIGN_UP, true).apply();
+//                                App.preferences.edit().putInt(Consts.PERSON_ID, jsonObject.getInt("personId")).apply();
+//                                App.preferences.edit().putString(Consts.TOKEN, jsonObject.getString("token")).apply();
+//                                App.preferences.edit().putString(Consts.REFRESH_TOKEN, jsonObject.getString("refresh_token")).apply();
 
-                                Intent intent = new Intent(SignUpActivity.this, MainPanelActivity.class);
-                                intent.putExtra("name", name);
+                                Toast.makeText(SignUpActivity.this, "Succecefull Sign up ", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+//                                intent.putExtra("name", name);
                                 SignUpActivity.this.startActivity(intent);
                                 SignUpActivity.this.finish();
+
                                 return;
                             }
 
