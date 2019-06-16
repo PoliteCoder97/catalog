@@ -237,12 +237,23 @@ public class Utils {
         }
     }
 
-    public static void openWeb(Context context, String web) {
+    public static boolean openWeb(Context context, String url) {
+        boolean result = false;
+        if (!url.startsWith("http://") && !url.startsWith("https://"))
+            url = "http://" + url;
+
+        Uri webpage = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+
         try {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(web));
             context.startActivity(intent);
-        } catch (Exception ignored) {
+            result = true;
+        }catch (Exception e){
+            if (url.startsWith("http://")){
+                openWeb(context,url.replace("http://","https://"));
+            }
         }
+        return result;
     }
 
 

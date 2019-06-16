@@ -56,7 +56,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/view_small"
-                    android:src="@drawable/ic_store_white_24dp" />
+                    android:src="@drawable/mobile" />
 
                 <TextView
                     android:id="@+id/txtPhone"
@@ -83,7 +83,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/view_small"
-                    android:src="@drawable/ic_store_white_24dp" />
+                    android:src="@drawable/telegram" />
 
                 <TextView
                     android:id="@+id/txtTelegram"
@@ -110,7 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/view_small"
-                    android:src="@drawable/ic_store_white_24dp" />
+                    android:src="@drawable/whatsapp" />
 
                 <TextView
                     android:id="@+id/txtWhatsapp"
@@ -137,7 +137,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/view_small"
-                    android:src="@drawable/ic_store_white_24dp" />
+                    android:src="@drawable/facebook" />
 
                 <TextView
                     android:id="@+id/txtFacebook"
@@ -164,7 +164,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/view_small"
-                    android:src="@drawable/ic_store_white_24dp" />
+                    android:src="@drawable/email" />
 
                 <TextView
                     android:id="@+id/txtEmail"
@@ -191,7 +191,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/view_small"
-                    android:src="@drawable/ic_store_white_24dp" />
+                    android:src="@drawable/web" />
 
                 <TextView
                     android:id="@+id/txtWeb"

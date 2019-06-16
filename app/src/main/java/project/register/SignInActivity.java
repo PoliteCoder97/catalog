@@ -129,20 +129,25 @@ public class SignInActivity extends AppCompatActivity {
                             }
 
                             if (jsonObject.getInt("isRegisterd") == 1) {
-                                Toast.makeText(SignInActivity.this, "user is register", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(SignInActivity.this, PasswordActivity.class);
-                                intent.putExtra("phoneNumber", phoneNumber);
-                                SignInActivity.this.startActivity(intent);
-                                SignInActivity.this.finish();
+                                if (jsonObject.getInt("isMentor") == 1) {
+                                    Toast.makeText(SignInActivity.this, "user is register", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(SignInActivity.this, PasswordActivity.class);
+                                    intent.putExtra("phoneNumber", phoneNumber);
+                                    SignInActivity.this.startActivity(intent);
+                                    SignInActivity.this.finish();
+                                } else {
+                                    Toast.makeText(SignInActivity.this, "You havn't permission for continiue", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
 
                             } else {
                                 Toast.makeText(SignInActivity.this, "user isn't register sign up", Toast.LENGTH_SHORT).show();
-                                if (jsonObject.getBoolean("goToSignUp")){
-                                Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
-                                intent.putExtra("phoneNumber", phoneNumber);
-                                SignInActivity.this.startActivity(intent);
-                                SignInActivity.this.finish();
-                                }else {
+                                if (jsonObject.getBoolean("goToSignUp")) {
+                                    Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
+                                    intent.putExtra("phoneNumber", phoneNumber);
+                                    SignInActivity.this.startActivity(intent);
+                                    SignInActivity.this.finish();
+                                } else {
                                     Toast.makeText(SignInActivity.this, "you cant go to this item", Toast.LENGTH_SHORT).show();
                                 }
                             }
