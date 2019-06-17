@@ -74,6 +74,8 @@ public class MainActivity extends BaseActivity {
     //toolbar
     @BindView(R.id.imgRight)
     ImageView imgRight;
+    @BindView(R.id.imgLeft)
+    ImageView imgLeft;
     @BindView(R.id.txtTitle)
     TextView txtTitle;
 
@@ -156,6 +158,7 @@ public class MainActivity extends BaseActivity {
     //----------------------------------------- INITIALS --------------------------------------------
     private void initWidgets() {
         imgRight.setImageDrawable(getResources().getDrawable(R.drawable.menu));
+        imgLeft.setImageDrawable(getResources().getDrawable(R.drawable.logo));
         txtTitle.setText("Amal Office");
 
         if (App.preferences.getBoolean(Consts.IS_SIGN_UP, false)) {

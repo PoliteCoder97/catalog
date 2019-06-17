@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_above="@id/btnCall"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         tools:context="project.product.ProductActivity">
 
         <include
@@ -27,7 +35,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/imgProduct"
-            android:layout_toLeftOf="@id/btnCall"
             android:scrollbarStyle="insideOverlay">
 
             <LinearLayout
@@ -59,8 +66,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginRight="@dimen/view_larg"
                         android:layout_weight="0.3"
+                        android:layout_margin="@dimen/view_larg"
                         android:orientation="vertical">
 
                         <ImageView
@@ -68,6 +75,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:scaleType="centerInside"
+                            android:layout_margin="@dimen/view_medium"
                             android:src="@drawable/comment" />
 
                         <TextView
@@ -113,19 +121,19 @@
             android:textColor="@color/black"
             android:textSize="@dimen/text_xlarg" />
 
-        <Button
-            android:id="@+id/btnCall"
-            android:layout_width="wrap_content"
-            android:layout_height="120dp"
-            android:layout_below="@+id/txtPrice"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/btn_call_background"
-            android:gravity="center"
-            android:text="Call"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_larg" />
+
 
     </RelativeLayout>
 </ScrollView>
+    <Button
+        android:id="@+id/btnCall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#00ff00"
+        android:gravity="center"
+        android:text="Call"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_larg" />
+</RelativeLayout>

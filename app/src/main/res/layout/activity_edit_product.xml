@@ -75,31 +75,39 @@
                 <EditText
                     android:id="@+id/edtTitle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_margin="@dimen/view_small"
+                    android:background="@drawable/app_edt_background"
                     android:gravity="center"
                     android:hint="title"
                     android:textColor="@color/black"
+
                     android:textSize="@dimen/text_xxlarg" />
 
                 <EditText
                     android:id="@+id/edtDesc"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_margin="@dimen/view_small"
+                    android:background="@drawable/app_edt_background"
                     android:gravity="center"
                     android:hint="Description"
                     android:maxLines="3"
                     android:textColor="@color/black"
+
                     android:textSize="@dimen/text_larg" />
 
                 <EditText
                     android:id="@+id/edtPrice"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_margin="@dimen/view_small"
+                    android:background="@drawable/app_edt_background"
                     android:gravity="center"
                     android:hint="Price"
+                    android:inputType="number"
                     android:maxLines="3"
                     android:textColor="@color/black"
-                    android:inputType="number"
                     android:textSize="@dimen/text_larg" />
 
 

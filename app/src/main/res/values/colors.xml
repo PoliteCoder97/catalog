@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="colorPrimary">#FFFFFF</color>
-  <color name="colorPrimaryDark">#CACACA</color>
-  <color name="colorAccent">#D81B60</color>
-  <color name="bgBottomNavigation">#fe485a</color>
-  <color name="slider_indivator_current">#FFFFFF</color>
-  <color name="slider_indivator_second">#B6B6B6</color>
+  <color name="colorPrimary">@color/color5</color>
+  <color name="colorPrimaryDark">@color/color4</color>
+  <color name="colorAccent">@color/color1</color>
+  <color name="bgBottomNavigation">@color/color1</color>
+  <color name="slider_indivator_current">@color/color2</color>
+  <color name="slider_indivator_second">@color/color3</color>
 
   <color name="white">#FFFFFF</color>
   <color name="black">#333333</color>
-  <color name="colorCardBackground">#dddddd</color>
+  <color name="colorCardBackground">@color/color5</color>
+
+  <color name="color1">#F2798F</color>
+  <color name="color2">#0C59F2</color>
+  <color name="color3">#4B83F2</color>
+  <color name="color4">#8EACBF</color>
+  <color name="color5">#F2D5CE</color>
+
+
 </resources>

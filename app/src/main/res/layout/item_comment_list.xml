@@ -24,7 +24,7 @@
       android:layout_height="wrap_content"
       android:layout_margin="@dimen/view_small"
       android:layout_weight="0.1"
-      android:src="@drawable/ic_store_white_24dp"
+      android:src="@drawable/comment"
       />
 
     <TextView

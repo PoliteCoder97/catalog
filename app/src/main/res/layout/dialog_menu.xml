@@ -128,7 +128,7 @@
                 android:layout_marginLeft="@dimen/view_small"
                 android:layout_marginRight="@dimen/view_small"
                 android:background="@color/colorPrimary"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/llayLogout"
