@@ -19,10 +19,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import project.classes.Consts;
-import project.classes.EmptyListCallback;
 import project.utils.Utils;
 
-public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapter.ViewHolder> implements EmptyListCallback {
+public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapter.ViewHolder>{
     private final Context context;
     private final List<Category> categoryList;
 
@@ -74,8 +73,4 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
         }
     }
 
-    @Override
-    public boolean setOnListEmptyListener() {
-        return getItemCount() == 0;
-    }
 }

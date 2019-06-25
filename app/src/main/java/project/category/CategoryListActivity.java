@@ -131,7 +131,7 @@ public class CategoryListActivity extends BaseActivity {
         }
 
         //get list item count for showing empty list
-        if (adapter.setOnListEmptyListener()) {
+        if (App.database.getCategorydao().getCategoryList(parentId) == null || App.database.getCategorydao().getCategoryList(parentId).size() == 0) {
             app_empty_list.setVisibility(View.VISIBLE);
             rclv.setVisibility(View.GONE);
         } else {

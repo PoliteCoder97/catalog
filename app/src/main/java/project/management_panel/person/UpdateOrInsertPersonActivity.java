@@ -158,7 +158,7 @@ public class UpdateOrInsertPersonActivity extends AppCompatActivity {
         HashMap<String, List<String>> params = new HashMap<>();
         params.put("token", Collections.singletonList(App.preferences.getString(Consts.TOKEN, "")));
         params.put("refresh_token", Collections.singletonList(App.preferences.getString(Consts.REFRESH_TOKEN, "")));
-        params.put("personId", Collections.singletonList(String.valueOf(App.preferences.getInt(Consts.PERSON_ID, 0))));
+        params.put("personId", Collections.singletonList(String.valueOf(personId)));
         params.put("name", Collections.singletonList(edtName.getText().toString().trim() + " "));
         params.put("desc", Collections.singletonList(edtDesc.getText().toString().trim() + " "));
 
