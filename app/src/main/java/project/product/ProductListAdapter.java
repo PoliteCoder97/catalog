@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.amaloffice.catalog.R;
@@ -84,7 +85,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.lLayProduct)
-        CardView lLayProduct;
+        LinearLayout lLayProduct;
         //    @BindView(R.id.lLayProduct)
 //    LinearLayout lLayProduct;
         @BindView(R.id.imgAdapter)

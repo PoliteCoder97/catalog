@@ -2,8 +2,8 @@
 <resources>
   <color name="colorPrimary">@color/color5</color>
   <color name="colorPrimaryDark">@color/color4</color>
-  <color name="colorAccent">@color/color1</color>
-  <color name="bgBottomNavigation">@color/color1</color>
+  <color name="colorAccent">@color/color3</color>
+  <color name="bgBottomNavigation">@color/color2</color>
   <color name="slider_indivator_current">@color/color2</color>
   <color name="slider_indivator_second">@color/color3</color>
 

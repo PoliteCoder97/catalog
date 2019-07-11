@@ -7,6 +7,7 @@
     app:cardCornerRadius="@dimen/view_larg">
 <LinearLayout
     android:id="@+id/lLayPanel"
+    android:background="@drawable/app_button"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"

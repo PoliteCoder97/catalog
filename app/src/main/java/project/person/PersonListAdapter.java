@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.amaloffice.catalog.R;
@@ -66,7 +67,7 @@ public class PersonListAdapter extends RecyclerView.Adapter<PersonListAdapter.Vi
     @BindView(R.id.imageView)
     ImageView imageView;
     @BindView(R.id.llayPerson)
-    CardView llayPerson;
+    LinearLayout llayPerson;
 
     public ViewHolder(@NonNull View itemView) {
       super(itemView);

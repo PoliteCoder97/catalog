@@ -8,6 +8,7 @@
         android:id="@+id/lLayProduct"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/app_button"
         android:layout_margin="@dimen/view_small"
         app:cardCornerRadius="@dimen/view_xlarg">
 
