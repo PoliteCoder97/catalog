@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.amaloffice.catalog.R;
 import com.glide.slider.library.svg.GlideApp;
-import com.politecoder.catalog.R;
 
 import org.greenrobot.eventbus.EventBus;
 

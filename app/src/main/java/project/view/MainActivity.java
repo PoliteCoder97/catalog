@@ -21,12 +21,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amaloffice.catalog.R;
 import com.bumptech.glide.request.RequestOptions;
 import com.glide.slider.library.SliderLayout;
 import com.glide.slider.library.SliderTypes.DefaultSliderView;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
-import com.politecoder.catalog.R;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -130,8 +130,6 @@ public class MainActivity extends BaseActivity {
                 getDataFromNet();
             }
         }, 100);
-
-
     }
 
     @Override
@@ -165,7 +163,6 @@ public class MainActivity extends BaseActivity {
             btnLogIn.setVisibility(View.VISIBLE);
             btnPanel.setVisibility(View.GONE);
         }
-
 //        setupSlider(llRowHolder);
     }
 
@@ -197,7 +194,7 @@ public class MainActivity extends BaseActivity {
             return;
         }
 
-        ProductListAdapter productListAdapter = new ProductListAdapter(this, productList, true);
+        ProductListAdapter productListAdapter = new ProductListAdapter(this, productList, true, true);
         rclvNewestGoods.setAdapter(productListAdapter);
     }
 
@@ -212,11 +209,11 @@ public class MainActivity extends BaseActivity {
             llayMostVisits.setVisibility(View.GONE);
             return;
         }
-        ProductListAdapter productListAdapter = new ProductListAdapter(this, productList, true);
+        ProductListAdapter productListAdapter = new ProductListAdapter(this, productList, true,true);
         rclvMostVisited.setAdapter(productListAdapter);
     }
 
-    //-------------- Slider -------------------------------------
+    //-------------- Slider ------------------------------------------------------------------------
     private void setupSlider(LinearLayout container, String data) {
         SliderLayout sliderLayout = new SliderLayout(MainActivity.this);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -262,7 +259,7 @@ public class MainActivity extends BaseActivity {
         view.setLayoutParams(params);
         rootView.addView(view);
     }
-    //------------------------------------------- GET FROM NET -----------------------------------------------
+    //------------------------------------------- GET FROM NET -------------------------------------
 
     private void getDataFromNet() {
         app_loading.setVisibility(View.VISIBLE);
@@ -452,7 +449,7 @@ public class MainActivity extends BaseActivity {
                 });
     }
 
-    //----------------------------------------- Event Listeners --------------------------------------------
+    //----------------------------------------- Event Listeners ------------------------------------
     @OnClick(R.id.imgRight)
     void imgRightClicked(View v) {
         View menuDialog = LayoutInflater.from(this).inflate(R.layout.dialog_menu, null, false);
@@ -523,9 +520,8 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-
-        dialog.getWindow().getDecorView().setBackgroundResource(android.R.color.transparent);
         dialog.show();
+        dialog.getWindow().getDecorView().setBackgroundResource(android.R.color.transparent);
     }
 
     public void shareAPK(String bundle_id) {
@@ -669,6 +665,8 @@ public class MainActivity extends BaseActivity {
                             if (jsonObject.getBoolean("error")) {
                                 Toast.makeText(MainActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                                 App.preferences.edit().clear().apply();
+                                btnPanel.setVisibility(View.GONE);
+                                btnLogIn.setVisibility(View.VISIBLE);
                                 initWidgets();
                                 return;
                             }

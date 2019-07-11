@@ -2,9 +2,8 @@ package project.certificate;
 
 import android.content.Intent;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -14,15 +13,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.amaloffice.catalog.R;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
-import com.politecoder.catalog.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.security.cert.Certificate;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -146,7 +144,7 @@ public class CertificateActivity extends BaseActivity {
 
                                 Button button = new Button(CertificateActivity.this);
                                 button.setLayoutParams(layoutParams);
-                                button.setBackground(getResources().getDrawable(R.drawable.btn_certificate_background));
+                                button.setBackground(getResources().getDrawable(R.drawable.app_button));
                                 button.setText(" " + jo.getString("title"));
                                 button.setGravity(Gravity.CENTER);
 

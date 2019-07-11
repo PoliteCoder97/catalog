@@ -7,7 +7,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.politecoder.catalog.R;
+
+import com.amaloffice.catalog.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

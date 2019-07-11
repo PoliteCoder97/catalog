@@ -14,9 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amaloffice.catalog.R;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
-import com.politecoder.catalog.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

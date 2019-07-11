@@ -3,14 +3,15 @@ package project.product;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amaloffice.catalog.R;
 import com.glide.slider.library.svg.GlideApp;
-import com.politecoder.catalog.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,23 +62,26 @@ public class ProductActivity extends AppCompatActivity {
                 .placeholder(this.getResources().getDrawable(R.drawable.logo))
                 .into(imgProduct);
 
-        txtPrice.setText(" " + getIntent().getStringExtra("price"));
+        Log.i("PRICE", "price: " + getIntent().getStringExtra("price"));
+        String price;
+        price = getIntent().getStringExtra("price").equals(" $") ||
+                getIntent().getStringExtra("price").equals("$") ?
+                " " : getIntent().getStringExtra("price");
+        txtPrice.setText(" " + price);
+
         txtDesc.setText(" " + getIntent().getStringExtra("desc"));
 
         productId = getIntent().getIntExtra("id", 0);
-
     }
 
     private void initFilds() {
 
     }
-
-
     //------------------------------ EVENTS -------------------------------------
 
     @OnClick(R.id.btnCall)
     void btnCallClicked(View v) {
-        Utils.call(this, App.preferences.getString("marketing_manager","00989133671154"));
+        Utils.call(this, App.preferences.getString("marketing_manager", "00989133671154"));
     }
 
     @OnClick(R.id.imgLeft)

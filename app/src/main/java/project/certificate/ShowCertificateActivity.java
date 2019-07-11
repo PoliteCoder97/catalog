@@ -1,14 +1,13 @@
 package project.certificate;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.amaloffice.catalog.R;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.glide.slider.library.svg.GlideApp;
-import com.politecoder.catalog.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

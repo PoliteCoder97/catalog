@@ -31,12 +31,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amaloffice.catalog.R;
 import com.glide.slider.library.svg.GlideApp;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.ProgressCallback;
 import com.master.permissionhelper.PermissionHelper;
-import com.politecoder.catalog.R;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -152,12 +152,23 @@ public class UpdateOrInsertCategoryActivity extends AppCompatActivity {
         if (!categoryList.contains(c))
             categoryList.add(c);
 
-        ArrayAdapter<Category> aa = new ArrayAdapter<Category>(this, android.R.layout.simple_spinner_item, categoryList);
+        ArrayAdapter<Category> aa = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, categoryList);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spCategory.setAdapter(aa);
+
+        for (int i = 0 ;i<categoryList.size();i++) {
+         if (categoryList.get(i).getId() == parentId)
+            spCategory.setSelection(i);
+        }
+
+
         c = (Category) spCategory.getSelectedItem();
         parentId = c.getId();
+
+
+
 
         spCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

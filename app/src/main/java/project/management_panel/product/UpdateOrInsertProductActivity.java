@@ -31,12 +31,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amaloffice.catalog.R;
 import com.glide.slider.library.svg.GlideApp;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.ProgressCallback;
 import com.master.permissionhelper.PermissionHelper;
-import com.politecoder.catalog.R;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -156,6 +156,12 @@ public class UpdateOrInsertProductActivity extends AppCompatActivity {
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spCategory.setAdapter(aa);
+
+        for (int i = 0 ;i<categoryList.size();i++) {
+            if (categoryList.get(i).getId() == categoryId)
+                spCategory.setSelection(i);
+        }
+
         Category c =(Category) spCategory.getSelectedItem();
         categoryId = c.getId();
 

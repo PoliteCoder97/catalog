@@ -9,7 +9,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.politecoder.catalog.R;
+
+import com.amaloffice.catalog.R;
 
 import java.util.List;
 
