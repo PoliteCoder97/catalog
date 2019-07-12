@@ -260,9 +260,9 @@ public class UpdateOrInsertProductActivity extends AppCompatActivity {
         params.put("personId", Collections.singletonList(String.valueOf(App.preferences.getInt(Consts.PERSON_ID, 0))));
         params.put("productId", Collections.singletonList(String.valueOf(productId)));
         params.put("categoryId", Collections.singletonList(String.valueOf(categoryId)));
-        params.put("title", Collections.singletonList(edtTitle.getText().toString().trim() + " "));
-        params.put("desc", Collections.singletonList(edtDesc.getText().toString().trim() + " "));
-        params.put("price", Collections.singletonList(edtPrice.getText().toString().trim() + " "));
+        params.put("title", Collections.singletonList(edtTitle.getText().toString().trim()));
+        params.put("desc", Collections.singletonList(edtDesc.getText().toString().trim()));
+        params.put("price", Collections.singletonList(edtPrice.getText().toString().trim()));
 
 
         if (realPath_1.equals("") || realPath_1 == null) {

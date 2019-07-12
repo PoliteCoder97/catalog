@@ -3,6 +3,7 @@ package project.product;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -69,6 +70,7 @@ public class ProductActivity extends AppCompatActivity {
                 " " : getIntent().getStringExtra("price");
         txtPrice.setText(" " + price);
 
+        txtDesc.setMovementMethod(new ScrollingMovementMethod());
         txtDesc.setText(" " + getIntent().getStringExtra("desc"));
 
         productId = getIntent().getIntExtra("id", 0);

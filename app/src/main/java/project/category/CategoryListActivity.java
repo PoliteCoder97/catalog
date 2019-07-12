@@ -102,7 +102,11 @@ public class CategoryListActivity extends BaseActivity {
 
     private void initWidjets() {
         imgLeft.setImageDrawable(getResources().getDrawable(R.drawable.ic_arrow_back));
-        txtTitle.setText("Category");
+        Bundle bundle = getIntent().getExtras();
+        if (bundle!=null)
+        txtTitle.setText(bundle.getString("title"));
+        else
+            txtTitle.setText("Categry");
     }
 
     private int heightScrooled = 0;

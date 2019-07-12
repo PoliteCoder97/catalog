@@ -1,52 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+    tools:context="project.product.ProductActivity">
 
-    <RelativeLayout
+    <include
+        android:id="@+id/app_toolbar"
+        layout="@layout/app_toolbar" />
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/app_toolbar">
 
-        tools:context="project.product.ProductActivity">
-
-        <include
-            android:id="@+id/app_toolbar"
-            layout="@layout/app_toolbar" />
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/crd"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/app_toolbar"
-            android:layout_margin="@dimen/view_medium"
-            app:cardCornerRadius="@dimen/view_medium"
-            >
-        <ImageView
-            android:id="@+id/imgProduct"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent">
 
-            android:adjustViewBounds="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/logo" />
-        </android.support.v7.widget.CardView>
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/crd"
-            android:scrollbarStyle="insideOverlay">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/crd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/view_medium"
+                android:layout_marginLeft="@dimen/view_medium"
+                android:layout_marginTop="@dimen/view_medium"
+                android:layout_marginEnd="@dimen/view_medium"
+                android:layout_marginRight="@dimen/view_medium"
+                android:layout_marginBottom="@dimen/view_medium"
+                app:cardCornerRadius="@dimen/view_medium">
+
+                <ImageView
+                    android:id="@+id/imgProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/logo" />
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:id="@+id/txtPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/crd"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="left"
+                android:layout_marginStart="@dimen/view_larg"
+                android:layout_marginLeft="@dimen/view_larg"
+                android:layout_marginTop="@dimen/view_larg"
+                android:layout_marginEnd="@dimen/view_larg"
+                android:layout_marginRight="@dimen/view_larg"
+                android:layout_marginBottom="@dimen/view_larg"
+                android:gravity="center"
+                android:text="200 $"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_xlarg" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/crd"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -73,16 +90,16 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_weight="0.3"
                         android:layout_margin="@dimen/view_larg"
+                        android:layout_weight="0.3"
                         android:orientation="vertical">
 
                         <ImageView
                             android:id="@+id/imgComment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:scaleType="centerInside"
                             android:layout_margin="@dimen/view_medium"
+                            android:scaleType="centerInside"
                             android:src="@drawable/comment" />
 
                         <TextView
@@ -104,34 +121,18 @@
                     android:id="@+id/txtDesc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_gravity="left"
-                    android:layout_margin="@dimen/view_medium"
-                    android:gravity="center"
-                    android:justificationMode="inter_word"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/view_larg"
+                    android:padding="@dimen/view_medium"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/text_larg" />
+                    android:textSize="@dimen/text_medium"
+                    android:scrollbars="vertical"
+                    />
 
             </LinearLayout>
-        </ScrollView>
+        </RelativeLayout>
+    </ScrollView>
 
-        <TextView
-            android:id="@+id/txtPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/imgProduct"
-            android:layout_alignParentRight="true"
-            android:layout_gravity="left"
-            android:layout_margin="@dimen/view_larg"
-            android:gravity="center"
-            android:text="200 $"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_xlarg" />
-
-
-
-    </RelativeLayout>
-</ScrollView>
     <Button
         android:id="@+id/btnCall"
         android:layout_width="match_parent"

@@ -24,6 +24,8 @@
     android:background="@drawable/app_error_button"
     android:textColor="@color/white"
     android:textSize="@dimen/text_medium"
+      android:text="Retry"
+      android:textAllCaps="false"
     android:layout_weight="0.2"/>
 
 
