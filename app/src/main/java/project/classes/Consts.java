@@ -12,6 +12,7 @@ public class Consts {
   public static final String GET_PANEL_CATEGORIES = "CatalogApp_Api/v1/panel/get_all_categories.php";
   public static final String GET_PANEL_PERSONS = "CatalogApp_Api/v1/panel/get_all_persons.php";
   public static final String UPDATE_PANEL_PRODUCT= "CatalogApp_Api/v1/panel/update_product.php";
+  public static final String DELETE_USER = "CatalogApp_Api/v1/panel/delete_user.php";
 
   public static final String GET_IMAGE = "CatalogApp_Api/files/";
   public static final String GET_IMAGE_CATEGORY = "CatalogApp_Api/files/category/";

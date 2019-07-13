@@ -74,12 +74,7 @@ public class ProductListActivity extends BaseActivity {
         initFilds();
         initWidgets();
 
-        App.getHandler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                getDataFromNet();
-            }
-        }, 100);
+        App.getHandler().postDelayed(() -> getDataFromNet(), 100);
 
     }
 
@@ -138,6 +133,7 @@ public class ProductListActivity extends BaseActivity {
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
+
     }
 
     //--------------------------------- GET DATA FROM NET ---------------------------------------------

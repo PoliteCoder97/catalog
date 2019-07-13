@@ -29,12 +29,18 @@ public interface ProductDao {
 
   @Query("SELECT * FROM product")
   public List<Product> getAllProducts();
+
   @Query("SELECT * FROM product WHERE categoryId=:categoryId")
   public List<Product> getAllProducts(int categoryId);
+
   @Query("SELECT * FROM product WHERE seen >= 100 ")
   public List<Product> getMostVisite();
+
   @Query("SELECT * FROM product WHERE posted_date BETWEEN :now AND :past")
   public List<Product> getNewestProducts(Date now, Date past);
+
+  @Query("SELECT * FROM product WHERE title LIKE :title  ")
+  public List<Product> getSearchedProducts(String title);
 
 
 }
