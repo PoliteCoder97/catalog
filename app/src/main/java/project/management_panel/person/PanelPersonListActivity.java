@@ -164,6 +164,7 @@ public class PanelPersonListActivity extends AppCompatActivity {
               person.setName(jo.getString("name"));
               person.setDesc(jo.getString("desc"));
               person.setImg(jo.getString("img"));
+              person.setIsShow(jo.getInt("isShow"));
 
               personList.add(person);
             }
@@ -266,6 +267,7 @@ public class PanelPersonListActivity extends AppCompatActivity {
     intent.putExtra("name", event.getPerson().getName());
     intent.putExtra("desc", event.getPerson().getDesc());
     intent.putExtra("img", event.getPerson().getImg());
+    intent.putExtra("isShow", event.getPerson().getIsShow());
 
     this.startActivity(intent);
 

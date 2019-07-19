@@ -93,6 +93,7 @@ public class UpdateOrInsertPersonActivity extends AppCompatActivity {
   private int WRITE_SDCARD_STORAGE_REQ = 1;
   private int personId = 0;
   private PermissionHelper permissionHelper;
+  private boolean isShow;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -120,22 +121,13 @@ public class UpdateOrInsertPersonActivity extends AppCompatActivity {
     imgLeft.setImageDrawable(getResources().getDrawable(R.drawable.ic_arrow_back));
     txtTitle.setText("Update Person");
 
-    cbShowUser.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-      @Override
-      public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        if (b)
-          compoundButton.setText("show user");
-        else
-          compoundButton.setText("don't show user");
-      }
-    });
-
 
     Bundle bundle = getIntent().getExtras();
     if (bundle != null) {
       personId = bundle.getInt("id");
       edtName.setText(" " + bundle.getString("name"));
       edtDesc.setText(" " + bundle.getString("desc"));
+      isShow = bundle.getInt("isShow") == 1?true:false;
 
       GlideApp.with(this)
         .load(Utils.checkVersionAndBuildUrl(Consts.GET_IMAGE_PERSON + bundle.getString("img")))
@@ -146,6 +138,23 @@ public class UpdateOrInsertPersonActivity extends AppCompatActivity {
       edtDesc.setText("");
     }
 
+    if (isShow) {
+      cbShowUser.setChecked(true);
+      cbShowUser.setText("don't show user");
+    }else {
+      cbShowUser.setChecked(false);
+      cbShowUser.setText("show user");
+    }
+
+    cbShowUser.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+      @Override
+      public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        if (compoundButton.isChecked())
+          cbShowUser.setText("don't show user");
+        else
+          cbShowUser.setText("show user");
+      }
+    });
   }
 
   //------------------------ EVENTS ---------------------------

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+                android:background="@drawable/app_background"
     tools:context="project.product.ProductActivity">
 
     <include
@@ -138,7 +139,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#5AA508"
+        android:background="@drawable/app_button"
         android:gravity="center"
         android:text="Call"
         android:textAllCaps="false"

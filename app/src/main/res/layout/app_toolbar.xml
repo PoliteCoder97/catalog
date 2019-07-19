@@ -38,6 +38,7 @@
       android:layout_gravity="center"
       android:adjustViewBounds="true"
       android:layout_margin="@dimen/view_medium"
+      android:src="@drawable/logo"
       android:scaleType="centerInside"/>
   </LinearLayout>
 </android.support.v7.widget.CardView>

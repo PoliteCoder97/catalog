@@ -17,7 +17,7 @@ import project.person.PersonDao;
 import project.product.Product;
 import project.product.ProductDao;
 
-@Database(entities = {Product.class, Person.class, Comment.class, Category.class, Contact.class, PersonContact.class}, version = 18)
+@Database(entities = {Product.class, Person.class, Comment.class, Category.class, Contact.class, PersonContact.class}, version = 19)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 

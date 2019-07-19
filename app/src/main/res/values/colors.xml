@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="colorPrimary">@color/color5</color>
-  <color name="colorPrimaryDark">@color/color4</color>
-  <color name="colorAccent">@color/color3</color>
-  <color name="bgBottomNavigation">@color/color2</color>
-  <color name="slider_indivator_current">@color/color2</color>
-  <color name="slider_indivator_second">@color/color3</color>
+  <color name="colorPrimary">@color/cream</color>
+  <color name="colorPrimaryDark">@color/blue</color>
+  <color name="colorAccent">@color/red</color>
+  <color name="bgBottomNavigation">@color/red</color>
+  <color name="slider_indivator_current">@color/yellow</color>
+  <color name="slider_indivator_second">@color/cream</color>
 
   <color name="white">#FFFFFF</color>
-  <color name="black">#333333</color>
-  <color name="colorCardBackground">@color/color5</color>
+  <color name="black">@color/blue_lite</color>
+  <color name="colorCardBackground">@color/colorPrimary</color>
 
-  <color name="color1">#F2798F</color>
-  <color name="color2">#0C59F2</color>
-  <color name="color3">#4B83F2</color>
-  <color name="color4">#8EACBF</color>
-  <color name="color5">#F2D5CE</color>
+  <!--<color name="color1">#F2798F</color>-->
+  <!--<color name="color2">#0C59F2</color>-->
+  <!--<color name="color3">#4B83F2</color>-->
+  <!--<color name="color4">#8EACBF</color>-->
+  <!--<color name="color5">#F2D5CE</color>-->
+
+
+  <color name="blue">#132f63</color>
+  <color name="blue_lite">#04358F</color>
+  <color name="blue_whit_alpha">#cc132f63</color>
+  <color name="yellow">#fabb5a</color>
+  <color name="cream">#f7f1ea</color>
+  <color name="red">#FF786E</color>
+
 
 
 </resources>

@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -77,6 +78,8 @@ public class UpdateOrInsertSliderActivity extends AppCompatActivity {
     EditText edtName;
     @BindView(R.id.edtDesc)
     EditText edtDesc;
+    @BindView(R.id.cbShowUser)
+    CheckBox cbShowUser;
 
 
     //filds
@@ -113,6 +116,7 @@ public class UpdateOrInsertSliderActivity extends AppCompatActivity {
         imgLeft.setImageDrawable(getResources().getDrawable(R.drawable.ic_arrow_back));
         edtDesc.setVisibility(View.GONE);
         edtName.setVisibility(View.GONE);
+        cbShowUser.setVisibility(View.GONE);
 //        txtTitle.setText("Update Person");
 
         Bundle bundle = getIntent().getExtras();

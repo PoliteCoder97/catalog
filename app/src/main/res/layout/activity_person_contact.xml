@@ -1,227 +1,237 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/app_background"
+                tools:context="project.person.PersonContactActivity">
+
+  <include
+    android:id="@+id/app_toolbar"
+    layout="@layout/app_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"/>
+
+  <ScrollView
+    android:id="@+id/sv"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="project.person.PersonContactActivity">
+    android:layout_below="@+id/app_toolbar"
+    tools:visibility="invisible">
 
-    <include
-        android:id="@+id/app_toolbar"
-        layout="@layout/app_toolbar"
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical">
+
+      <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" />
+        app:cardCornerRadius="@dimen/view_larg"
+        android:layout_margin="@dimen/view_medium"
+        >
 
-    <ScrollView
-        android:id="@+id/sv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/app_toolbar"
-        tools:visibility="invisible">
+        <ImageView
+          android:id="@+id/imgPerson"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:adjustViewBounds="true"
+          android:src="@drawable/untitled"/>
+      </android.support.v7.widget.CardView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imgPerson"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:src="@drawable/untitled" />
-            <TextView
-                android:id="@+id/txtDesc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:layout_margin="@dimen/view_xxlarg"
-                android:textSize="@dimen/text_medium"
-                android:text="Desription"
-                />
-
-            <LinearLayout
-                android:id="@+id/lLayPhone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/view_small"
-                android:background="#dddddd"
-                android:gravity="center_vertical"
-                android:minHeight="50dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/view_small"
-                    android:src="@drawable/mobile" />
-
-                <TextView
-                    android:id="@+id/txtPhone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/view_small"
-                    android:text="09135646251"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_larg" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lLayTelegram"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/view_small"
-                android:background="#dddddd"
-                android:gravity="center_vertical"
-                android:minHeight="50dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/view_small"
-                    android:src="@drawable/telegram" />
-
-                <TextView
-                    android:id="@+id/txtTelegram"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/view_small"
-                    android:text="Telegram"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_larg" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lLayWhatsApp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/view_small"
-                android:background="#dddddd"
-                android:gravity="center_vertical"
-                android:minHeight="50dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/view_small"
-                    android:src="@drawable/whatsapp" />
-
-                <TextView
-                    android:id="@+id/txtWhatsapp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/view_small"
-                    android:text="Whats App"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_larg" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lLayFacebook"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/view_small"
-                android:background="#dddddd"
-                android:gravity="center_vertical"
-                android:minHeight="50dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/view_small"
-                    android:src="@drawable/facebook" />
-
-                <TextView
-                    android:id="@+id/txtFacebook"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/view_small"
-                    android:text="FaceBook"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_larg" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lLayEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/view_small"
-                android:background="#dddddd"
-                android:gravity="center_vertical"
-                android:minHeight="50dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/view_small"
-                    android:src="@drawable/email" />
-
-                <TextView
-                    android:id="@+id/txtEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/view_small"
-                    android:text="Email"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_larg" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lLayWeb"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/view_small"
-                android:background="#dddddd"
-                android:gravity="center_vertical"
-                android:minHeight="50dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/view_small"
-                    android:src="@drawable/web" />
-
-                <TextView
-                    android:id="@+id/txtWeb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/view_small"
-                    android:text="Web"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_larg" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </ScrollView>
-
-    <include
-        android:id="@+id/app_loading"
-        layout="@layout/app_loading"
+      <TextView
+        android:id="@+id/txtDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:visibility="gone"
+        android:layout_margin="@dimen/view_xxlarg"
+        android:text="Desription"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_medium"
         />
 
-    <include
-        android:id="@+id/app_no_internet"
-        layout="@layout/app_no_internet"
+      <LinearLayout
+        android:id="@+id/lLayPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:visibility="gone"
-        />
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/view_medium"
+        android:background="@drawable/app_button"
+        android:gravity="center_vertical"
+        android:minHeight="50dp"
+        android:orientation="horizontal">
+
+        <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="@dimen/view_small"
+          android:src="@drawable/mobile"/>
+
+        <TextView
+          android:id="@+id/txtPhone"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="@dimen/view_small"
+          android:text="09135646251"
+          android:textColor="@color/black"
+          android:textSize="@dimen/text_larg"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/lLayTelegram"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/view_medium"
+        android:background="@drawable/app_button"
+        android:gravity="center_vertical"
+        android:minHeight="50dp"
+        android:orientation="horizontal">
+
+        <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="@dimen/view_small"
+          android:src="@drawable/telegram"/>
+
+        <TextView
+          android:id="@+id/txtTelegram"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="@dimen/view_small"
+          android:text="Telegram"
+          android:textColor="@color/black"
+          android:textSize="@dimen/text_larg"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/lLayWhatsApp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/view_medium"
+        android:background="@drawable/app_button"
+        android:gravity="center_vertical"
+        android:minHeight="50dp"
+        android:orientation="horizontal">
+
+        <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="@dimen/view_small"
+          android:src="@drawable/whatsapp"/>
+
+        <TextView
+          android:id="@+id/txtWhatsapp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="@dimen/view_small"
+          android:text="Whats App"
+          android:textColor="@color/black"
+          android:textSize="@dimen/text_larg"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/lLayFacebook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/view_medium"
+        android:background="@drawable/app_button"
+        android:gravity="center_vertical"
+        android:minHeight="50dp"
+        android:orientation="horizontal">
+
+        <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="@dimen/view_small"
+          android:src="@drawable/facebook"/>
+
+        <TextView
+          android:id="@+id/txtFacebook"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="@dimen/view_small"
+          android:text="FaceBook"
+          android:textColor="@color/black"
+          android:textSize="@dimen/text_larg"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/lLayEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/view_medium"
+        android:background="@drawable/app_button"
+        android:gravity="center_vertical"
+        android:minHeight="50dp"
+        android:orientation="horizontal">
+
+        <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="@dimen/view_small"
+          android:src="@drawable/email"/>
+
+        <TextView
+          android:id="@+id/txtEmail"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="@dimen/view_small"
+          android:text="Email"
+          android:textColor="@color/black"
+          android:textSize="@dimen/text_larg"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/lLayWeb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/view_medium"
+        android:background="@drawable/app_button"
+        android:gravity="center_vertical"
+        android:minHeight="50dp"
+        android:orientation="horizontal">
+
+        <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="@dimen/view_small"
+          android:src="@drawable/web"/>
+
+        <TextView
+          android:id="@+id/txtWeb"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="@dimen/view_small"
+          android:text="Web"
+          android:textColor="@color/black"
+          android:textSize="@dimen/text_larg"/>
+      </LinearLayout>
+
+    </LinearLayout>
+
+  </ScrollView>
+
+  <include
+    android:id="@+id/app_loading"
+    layout="@layout/app_loading"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:visibility="gone"
+    />
+
+  <include
+    android:id="@+id/app_no_internet"
+    layout="@layout/app_no_internet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:visibility="gone"
+    />
 </RelativeLayout>

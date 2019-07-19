@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
@@ -16,7 +17,6 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -59,7 +59,6 @@ import project.category.Category;
 import project.classes.App;
 import project.classes.Consts;
 import project.classes.MimeTypes;
-import project.management_panel.product.UpdateOrInsertProductActivity;
 import project.utils.Utils;
 
 public class UpdateOrInsertCategoryActivity extends AppCompatActivity {
@@ -154,7 +153,7 @@ public class UpdateOrInsertCategoryActivity extends AppCompatActivity {
 
         ArrayAdapter<Category> aa = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, categoryList);
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        aa.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
 
         spCategory.setAdapter(aa);
 

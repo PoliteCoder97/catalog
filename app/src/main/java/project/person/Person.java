@@ -12,6 +12,7 @@ public class Person {
   private String name = "name";
   private String img = "img";
   private String desc = "desc";
+  private int isShow = 0;
 
 
   public Person() {
@@ -55,6 +56,14 @@ public class Person {
 
   public void setImg(String img) {
     this.img = img;
+  }
+
+  public int getIsShow() {
+    return isShow;
+  }
+
+  public void setIsShow(int isShow) {
+    this.isShow = isShow;
   }
 
   @Override

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+                android:background="@drawable/app_background"
     tools:context="project.management_panel.MainPanelActivity">
 
     <LinearLayout
@@ -23,7 +24,7 @@
             android:background="@drawable/app_button"
             android:text="Products"
             android:textAllCaps="false"
-            android:textColor="@color/black" />
+            android:textColor="@color/white" />
         <Button
             android:id="@+id/btnCategory"
             android:layout_width="match_parent"
@@ -32,7 +33,7 @@
             android:background="@drawable/app_button"
             android:text="Categories"
             android:textAllCaps="false"
-            android:textColor="@color/black" />
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/btnPerson"
@@ -42,7 +43,7 @@
             android:background="@drawable/app_button"
             android:text="Persons"
             android:textAllCaps="false"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:visibility="visible"
             />
         <Button
@@ -53,7 +54,7 @@
             android:background="@drawable/app_button"
             android:text="Slider"
             android:textAllCaps="false"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:visibility="visible"
             />
 

@@ -21,7 +21,7 @@
     android:id="@+id/btnNONet"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:background="@drawable/app_error_button"
+    android:background="@drawable/app_button"
     android:textColor="@color/white"
     android:textSize="@dimen/text_medium"
       android:text="Retry"
