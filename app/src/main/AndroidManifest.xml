@@ -1,45 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.amaloffice.catalog">
-    <!--package="com.politecoder.catalog">-->
-
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+          package="com.amaloffice.catalog">
+    <!-- package="com.politecoder.catalog"> -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
-        android:name="project.classes.App"
-        android:allowBackup="true"
-        android:icon="@drawable/logo"
-        android:label="@string/app_name"
-        android:largeHeap="true"
-        android:roundIcon="@drawable/logo"
-        android:supportsRtl="false"
-        android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
-        <activity android:name="project.management_panel.person.UpdateOrInsertPersonActivity"></activity>
-        <activity android:name="project.management_panel.person.PanelPersonListActivity" />
-        <activity android:name="project.management_panel.category.UpdateOrInsertCategoryActivity" />
-        <activity android:name="project.management_panel.product.UpdateOrInsertProductActivity" />
-        <activity android:name="project.management_panel.category.PanelCategoryListActivity" />
-        <activity android:name="project.management_panel.product.PanelProductsListActivity" />
-        <activity android:name="project.certificate.ShowCertificateActivity" />
-        <activity android:name="project.management_panel.MainPanelActivity" />
-        <activity android:name="project.register.PasswordActivity" />
-        <activity android:name="project.register.SignUpActivity" />
-        <activity android:name="project.register.SignInActivity" />
-        <activity android:name="project.certificate.CertificateActivity" />
-        <activity android:name="project.person.PersonContactActivity" />
-        <activity android:name="project.view.SplashActivity" />
-        <activity android:name="project.category.CategoryListActivity" />
-        <activity android:name="project.comment.CommentListActivity" />
-        <activity android:name="project.person.PersonListActivity" />
-        <activity android:name="project.product.ProductActivity" />
-        <activity android:name="project.product.ProductListActivity" />
-        <activity android:name="project.view.MainActivity">
+      android:name="project.classes.App"
+      android:allowBackup="true"
+      android:icon="@drawable/logo"
+      android:label="@string/app_name"
+      android:largeHeap="true"
+      android:roundIcon="@drawable/logo"
+      android:supportsRtl="false"
+      android:theme="@style/AppTheme"
+      android:usesCleartextTraffic="true">
+        <activity android:name="project.other.SearchActivity">
+        </activity>
+        <activity android:name="project.management_panel.slider.UpdateOrInsertSliderActivity"/>
+        <activity android:name="project.management_panel.slider.PanelSliderListActivity"/>
+        <activity android:name="project.management_panel.person.UpdateOrInsertPersonActivity"/>
+        <activity android:name="project.management_panel.person.PanelPersonListActivity"/>
+        <activity android:name="project.management_panel.category.UpdateOrInsertCategoryActivity"/>
+        <activity android:name="project.management_panel.product.UpdateOrInsertProductActivity"/>
+        <activity android:name="project.management_panel.category.PanelCategoryListActivity"/>
+        <activity android:name="project.management_panel.product.PanelProductsListActivity"/>
+        <activity android:name="project.certificate.ShowCertificateActivity"/>
+        <activity android:name="project.management_panel.MainPanelActivity"/>
+        <activity android:name="project.register.PasswordActivity"/>
+        <activity android:name="project.register.SignUpActivity"/>
+        <activity android:name="project.register.SignInActivity"/>
+        <activity android:name="project.certificate.CertificateActivity"/>
+        <activity android:name="project.person.PersonContactActivity"/>
+        <activity android:name="project.other.SplashActivity"/>
+        <activity android:name="project.category.CategoryListActivity"/>
+        <activity android:name="project.comment.CommentListActivity"/>
+        <activity android:name="project.person.PersonListActivity"/>
+        <activity android:name="project.product.ProductActivity"/>
+        <activity android:name="project.product.ProductListActivity"/>
+        <activity android:name="project.other.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
     </application>

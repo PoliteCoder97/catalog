@@ -29,6 +29,6 @@ public interface CategoryDao {
   @Query("SELECT * FROM category WHERE parentId = :parentId")
   public List<Category> getCategoryList(int parentId);
 
-  @Query("SELECT * FROM category WHERE title LIKE :title")
+  @Query("SELECT * FROM category WHERE title LIKE '%' || :title || '%'")
   public List<Category> getSearchedCategoryList(String title);
 }

@@ -1,4 +1,4 @@
-package project.view;
+package project.other;
 
 import android.app.ActivityOptions;
 import android.app.AlertDialog;

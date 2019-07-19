@@ -16,7 +16,8 @@ import butterknife.OnClick;
 import project.management_panel.category.PanelCategoryListActivity;
 import project.management_panel.person.PanelPersonListActivity;
 import project.management_panel.product.PanelProductsListActivity;
-import project.view.BaseActivity;
+import project.management_panel.slider.PanelSliderListActivity;
+import project.other.BaseActivity;
 
 public class MainPanelActivity extends BaseActivity {
 
@@ -76,6 +77,11 @@ public class MainPanelActivity extends BaseActivity {
     @OnClick(R.id.btnPerson)
     void btnPersonClicked(View v) {
         Intent intent = new Intent(MainPanelActivity.this, PanelPersonListActivity.class);
+        this.startActivity(intent);
+    }
+    @OnClick(R.id.btnSlider)
+    void btnSliderClicked(View v) {
+        Intent intent = new Intent(MainPanelActivity.this, PanelSliderListActivity.class);
         this.startActivity(intent);
     }
 }

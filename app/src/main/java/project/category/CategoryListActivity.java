@@ -35,7 +35,7 @@ import project.classes.App;
 import project.classes.Consts;
 import project.product.ProductListActivity;
 import project.utils.Utils;
-import project.view.BaseActivity;
+import project.other.BaseActivity;
 
 import static android.view.View.INVISIBLE;
 

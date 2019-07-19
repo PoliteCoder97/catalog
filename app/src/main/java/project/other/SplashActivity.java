@@ -1,7 +1,6 @@
-package project.view;
+package project.other;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import com.amaloffice.catalog.R;
 

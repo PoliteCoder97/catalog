@@ -23,7 +23,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       android:adjustViewBounds="true"
-      android:scaleType="centerInside"
+      android:scaleType="fitCenter"
       android:layout_weight="0.3"
       android:src="@drawable/logo"
       />

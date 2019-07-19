@@ -30,9 +30,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import project.classes.App;
 import project.classes.Consts;
-import project.management_panel.MainPanelActivity;
 import project.utils.Utils;
-import project.view.MainActivity;
+import project.other.MainActivity;
 
 public class SignUpActivity extends AppCompatActivity {
 

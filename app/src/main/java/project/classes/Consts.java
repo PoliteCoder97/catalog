@@ -13,6 +13,10 @@ public class Consts {
   public static final String GET_PANEL_PERSONS = "CatalogApp_Api/v1/panel/get_all_persons.php";
   public static final String UPDATE_PANEL_PRODUCT= "CatalogApp_Api/v1/panel/update_product.php";
   public static final String DELETE_USER = "CatalogApp_Api/v1/panel/delete_user.php";
+  public static final String DELETE_PRODUCT = "CatalogApp_Api/v1/panel/delete_product.php";
+  public static final String DELETE_CATEGORY = "CatalogApp_Api/v1/panel/delete_category.php";
+  public static final String GET_PANEL_SLIDES = "CatalogApp_Api/v1/panel/get_all_slides.php";
+  public static final String DELETE_SLIDER = "CatalogApp_Api/v1/panel/delete_slide.php";
 
   public static final String GET_IMAGE = "CatalogApp_Api/files/";
   public static final String GET_IMAGE_CATEGORY = "CatalogApp_Api/files/category/";
@@ -36,4 +40,6 @@ public class Consts {
 
   public static final String SLIDER = "slider";
     public static final String GET_SLIDER_IMAGE ="CatalogApp_Api/files/slider/";
+
+
 }

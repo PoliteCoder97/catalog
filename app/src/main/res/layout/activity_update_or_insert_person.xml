@@ -65,6 +65,20 @@
                 android:layout_margin="@dimen/view_small"
                 android:orientation="vertical">
 
+                <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:gravity="center"
+                  android:orientation="horizontal">
+
+                    <CheckBox
+                      android:id="@+id/cbShowUser"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:text="don't show"/>
+                </LinearLayout>
+
                 <EditText
                     android:id="@+id/edtName"
                     android:layout_width="match_parent"

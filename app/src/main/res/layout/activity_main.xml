@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="project.view.MainActivity">
+    tools:context="project.other.MainActivity">
 
     <include
         android:id="@+id/app_toolbar"

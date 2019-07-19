@@ -25,43 +25,49 @@ import project.utils.Utils;
 
 public class PanelProductListAdapter extends RecyclerView.Adapter<PanelProductListAdapter.ViewHolder> {
 
-    private final Context context;
-    private final List<Product> productList;
+  private final Context context;
+  private final List<Product> productList;
 
 
-    public PanelProductListAdapter(Context context, List<Product> productList) {
-        this.context = context;
-        this.productList = productList;
+  public PanelProductListAdapter(Context context, List<Product> productList) {
+    this.context = context;
+    this.productList = productList;
 
-    }
+  }
 
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_panel, viewGroup, false);
-        return new ViewHolder(view);
-    }
+  @NonNull
+  @Override
+  public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    View view = LayoutInflater.from(context).inflate(R.layout.item_panel, viewGroup, false);
+    return new ViewHolder(view);
+  }
 
 
+  @Override
+  public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    Product product = productList.get(i);
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        Product product = productList.get(i);
+    viewHolder.txtTitle.setText(" " + product.getTitle());
+    GlideApp.with(context)
+      .load(Utils.checkVersionAndBuildUrl(Consts.GET_IMAGE_PRODUCT + product.getImg()))
+      .placeholder(context.getResources().getDrawable(R.drawable.logo))
+      .into(viewHolder.img);
 
-        viewHolder.txtTitle.setText(" "+product.getTitle());
-        GlideApp.with(context)
-                .load(Utils.checkVersionAndBuildUrl(Consts.GET_IMAGE_PRODUCT + product.getImg()))
-                .placeholder(context.getResources().getDrawable(R.drawable.logo))
-                .into(viewHolder.img);
+    viewHolder.lLayPanelProduct.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        //todo pick the image from gallery and show that to this imgView
+        EventBus.getDefault().post(new PanelProductListEventListener(product));
+      }
+    });
 
-        viewHolder.lLayPanelProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //todo pick the image from gallery and show that to this imgView
-                EventBus.getDefault().post(new PanelProductListEventListener(product));
-            }
-        });
-
+    viewHolder.lLayPanelProduct.setOnLongClickListener(new View.OnLongClickListener() {
+      @Override
+      public boolean onLongClick(View view) {
+        EventBus.getDefault().post(new PanelProductLisOnLongtEventListener(product));
+        return false;
+      }
+    });
 
 
 //        ArrayAdapter<Category> aa = new ArrayAdapter<Category>(context, android.R.layout.simple_spinner_item, categoryList);
@@ -91,25 +97,25 @@ public class PanelProductListAdapter extends RecyclerView.Adapter<PanelProductLi
 //        });
 
 
+  }
+
+  @Override
+  public int getItemCount() {
+    return productList == null ? 0 : productList.size();
+  }
+
+  public class ViewHolder extends RecyclerView.ViewHolder {
+    @BindView(R.id.lLayPanel)
+    LinearLayout lLayPanelProduct;
+    @BindView(R.id.img)
+    ImageView img;
+    @BindView(R.id.txtTitle)
+    TextView txtTitle;
+
+
+    public ViewHolder(@NonNull View itemView) {
+      super(itemView);
+      ButterKnife.bind(this, itemView);
     }
-
-    @Override
-    public int getItemCount() {
-        return productList == null ? 0 : productList.size();
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.lLayPanel)
-        LinearLayout lLayPanelProduct;
-        @BindView(R.id.img)
-        ImageView img;
-        @BindView(R.id.txtTitle)
-        TextView txtTitle;
-
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
-    }
+  }
 }

@@ -1,4 +1,4 @@
-package project.view;
+package project.other;
 
 import android.content.Intent;
 import android.os.Bundle;

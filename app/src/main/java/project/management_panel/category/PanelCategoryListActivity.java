@@ -1,8 +1,9 @@
 package project.management_panel.category;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
@@ -35,11 +36,7 @@ import butterknife.OnClick;
 import project.category.Category;
 import project.classes.App;
 import project.classes.Consts;
-import project.management_panel.product.PanelProductListAdapter;
-import project.management_panel.product.PanelProductListEventListener;
-import project.management_panel.product.PanelProductsListActivity;
-import project.management_panel.product.UpdateOrInsertProductActivity;
-import project.product.Product;
+import project.other.SearchActivity;
 import project.utils.Utils;
 
 public class PanelCategoryListActivity extends AppCompatActivity {
@@ -47,6 +44,8 @@ public class PanelCategoryListActivity extends AppCompatActivity {
     //widgets
     @BindView(R.id.imgLeft)
     ImageView imgLeft;
+    @BindView(R.id.imgRight)
+    ImageView imgRight;
     @BindView(R.id.txtTitle)
     TextView txtTitle;
     @BindView(R.id.app_loading)
@@ -99,6 +98,7 @@ public class PanelCategoryListActivity extends AppCompatActivity {
     //------------------------- INITIALS -----------------------
     private void initWidgets() {
         imgLeft.setImageDrawable(getResources().getDrawable(R.drawable.ic_arrow_back));
+        imgRight.setImageDrawable(getResources().getDrawable(R.drawable.search));
         txtTitle.setText("Categories");
     }
 
@@ -247,6 +247,12 @@ public class PanelCategoryListActivity extends AppCompatActivity {
     void imgLeftClicked(View v) {
         this.onBackPressed();
     }
+    @OnClick(R.id.imgRight)
+    void imgRightClicked(View v) {
+        Intent intent=new Intent(this, SearchActivity.class);
+        intent.putExtra("type","Category");
+        this.startActivity(intent);
+    }
 
     @OnClick(R.id.btnAddCategory)
     void btnAddCategoryClicked(View v) {
@@ -270,5 +276,72 @@ public class PanelCategoryListActivity extends AppCompatActivity {
 
         this.startActivity(intent);
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onPanelCategoryListOnLongEventListener(PanelCategoryListOnLongEventListener event) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("delete user");
+        builder.setMessage("Do you sure to delete this category?");
+
+        builder.setPositiveButton("Yes", (dialogInterface, i) -> {
+
+            app_loading.setVisibility(View.VISIBLE);
+            app_no_internet.setVisibility(View.GONE);
+
+            if (wating) {
+                return;
+            }
+            wating = true;
+
+            HashMap<String, List<String>> params = new HashMap<>();
+            params.put("token", Collections.singletonList(App.preferences.getString(Consts.TOKEN, "")));
+            params.put("refresh_token", Collections.singletonList(App.preferences.getString(Consts.REFRESH_TOKEN, "")));
+            params.put("personId", Collections.singletonList(String.valueOf(App.preferences.getInt(Consts.PERSON_ID, 0))));
+            params.put("categoryId", Collections.singletonList(String.valueOf(event.getCategory().getId())));
+
+            Ion.with(PanelCategoryListActivity.this)
+              .load(Utils.checkVersionAndBuildUrl(Consts.DELETE_CATEGORY))
+              .setBodyParameters(params)
+              .asString()
+              .setCallback(new FutureCallback<String>() {
+                  @Override
+                  public void onCompleted(Exception e, String result) {
+                      dialogInterface.dismiss();
+                      wating = false;
+                      app_loading.setVisibility(View.GONE);
+                      if (e != null) {
+                          app_no_internet.setVisibility(View.VISIBLE);
+                          btnNONet.setText("Retry");
+                          txtNONetTitle.setText("Error in internet Connection!");
+                          return;
+                      }
+                      Log.i("DELETECATEGORY", "result: " + result);
+                      try {
+                          JSONObject jsonObject = new JSONObject(result);
+                          if (jsonObject.getBoolean("error")) {
+                              Toast.makeText(PanelCategoryListActivity.this, jsonObject.getString("message"), Toast.LENGTH_LONG).show();
+                              return;
+                          }
+
+                          categoryList.remove(event.getCategory());
+                          App.database.getCategorydao().delete(event.getCategory());
+                          panelCategoryListAdapter.notifyDataSetChanged();
+
+                      } catch (JSONException e2) {
+                      }
+
+                  }
+              });
+
+
+        });
+
+        builder.setNegativeButton("No", (dialogInterface, i) -> {
+            dialogInterface.dismiss();
+        });
+
+        builder.create().show();
     }
 }

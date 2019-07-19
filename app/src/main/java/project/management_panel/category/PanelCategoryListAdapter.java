@@ -25,42 +25,49 @@ import project.utils.Utils;
 
 public class PanelCategoryListAdapter extends RecyclerView.Adapter<PanelCategoryListAdapter.ViewHolder> {
 
-    private final Context context;
-    private final List<Category> categoryList;
+  private final Context context;
+  private final List<Category> categoryList;
 
 
-    public PanelCategoryListAdapter(Context context, List<Category> categoryList) {
-        this.context = context;
-        this.categoryList = categoryList;
+  public PanelCategoryListAdapter(Context context, List<Category> categoryList) {
+    this.context = context;
+    this.categoryList = categoryList;
 
-    }
+  }
 
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_panel, viewGroup, false);
-        return new ViewHolder(view);
-    }
+  @NonNull
+  @Override
+  public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    View view = LayoutInflater.from(context).inflate(R.layout.item_panel, viewGroup, false);
+    return new ViewHolder(view);
+  }
 
 
+  @Override
+  public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    Category category = categoryList.get(i);
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        Category category = categoryList.get(i);
+    viewHolder.txtTitle.setText(" " + category.getTitle());
+    GlideApp.with(context)
+      .load(Utils.checkVersionAndBuildUrl(Consts.GET_IMAGE_CATEGORY + category.getImg()))
+      .placeholder(context.getResources().getDrawable(R.drawable.logo))
+      .into(viewHolder.img);
 
-        viewHolder.txtTitle.setText(" "+category.getTitle());
-        GlideApp.with(context)
-                .load(Utils.checkVersionAndBuildUrl(Consts.GET_IMAGE_CATEGORY + category.getImg()))
-                .placeholder(context.getResources().getDrawable(R.drawable.logo))
-                .into(viewHolder.img);
+    viewHolder.lLayPanel.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        EventBus.getDefault().post(new PanelCategoryListEventListener(category));
 
-        viewHolder.lLayPanel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EventBus.getDefault().post(new PanelCategoryListEventListener(category));
-            }
-        });
+      }
+    });
 
+    viewHolder.lLayPanel.setOnLongClickListener(new View.OnLongClickListener() {
+      @Override
+      public boolean onLongClick(View view) {
+        EventBus.getDefault().post(new PanelCategoryListOnLongEventListener(category));
+        return false;
+      }
+    });
 
 
 //        ArrayAdapter<Category> aa = new ArrayAdapter<Category>(context, android.R.layout.simple_spinner_item, categoryList);
@@ -90,25 +97,25 @@ public class PanelCategoryListAdapter extends RecyclerView.Adapter<PanelCategory
 //        });
 
 
+  }
+
+  @Override
+  public int getItemCount() {
+    return categoryList == null ? 0 : categoryList.size();
+  }
+
+  public class ViewHolder extends RecyclerView.ViewHolder {
+    @BindView(R.id.lLayPanel)
+    LinearLayout lLayPanel;
+    @BindView(R.id.img)
+    ImageView img;
+    @BindView(R.id.txtTitle)
+    TextView txtTitle;
+
+
+    public ViewHolder(@NonNull View itemView) {
+      super(itemView);
+      ButterKnife.bind(this, itemView);
     }
-
-    @Override
-    public int getItemCount() {
-        return categoryList == null ? 0 : categoryList.size();
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.lLayPanel)
-        LinearLayout lLayPanel;
-        @BindView(R.id.img)
-        ImageView img;
-        @BindView(R.id.txtTitle)
-        TextView txtTitle;
-
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
-    }
+  }
 }

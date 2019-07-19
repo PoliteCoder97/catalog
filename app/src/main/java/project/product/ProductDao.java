@@ -23,6 +23,7 @@ public interface ProductDao {
 
   @Query("DELETE  FROM product WHERE categoryId = :categoryId")
   public void delete(int categoryId);
+
   @Query("DELETE  FROM product")
   public void delete();
 
@@ -39,7 +40,7 @@ public interface ProductDao {
   @Query("SELECT * FROM product WHERE posted_date BETWEEN :now AND :past")
   public List<Product> getNewestProducts(Date now, Date past);
 
-  @Query("SELECT * FROM product WHERE title LIKE :title  ")
+  @Query("SELECT * FROM product WHERE title LIKE '%' || :title || '%'")
   public List<Product> getSearchedProducts(String title);
 
 

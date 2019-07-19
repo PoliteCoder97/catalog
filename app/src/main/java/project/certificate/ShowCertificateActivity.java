@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import project.classes.Consts;
 import project.utils.Utils;
-import project.view.BaseActivity;
+import project.other.BaseActivity;
 
 public class ShowCertificateActivity extends BaseActivity {
 

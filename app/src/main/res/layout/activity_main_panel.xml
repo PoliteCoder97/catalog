@@ -45,6 +45,17 @@
             android:textColor="@color/black"
             android:visibility="visible"
             />
+        <Button
+            android:id="@+id/btnSlider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/view_medium"
+            android:background="@drawable/app_button"
+            android:text="Slider"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:visibility="visible"
+            />
 
 
     </LinearLayout>
