@@ -146,6 +146,7 @@ public class CertificateActivity extends BaseActivity {
                                 button.setLayoutParams(layoutParams);
                                 button.setBackground(getResources().getDrawable(R.drawable.app_button));
                                 button.setText(" " + jo.getString("title"));
+                                button.setTextColor(getResources().getColor(R.color.white));
                                 button.setGravity(Gravity.CENTER);
 
                                 button.setOnClickListener(new View.OnClickListener() {

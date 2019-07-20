@@ -28,9 +28,9 @@ import project.category.CategoryEventListener;
 import project.category.CategoryListAdapter;
 import project.classes.App;
 import project.management_panel.category.UpdateOrInsertCategoryActivity;
-import project.management_panel.product.PanelProductListEventListener;
 import project.management_panel.product.UpdateOrInsertProductActivity;
 import project.product.Product;
+import project.product.ProductEventListener;
 import project.product.ProductListAdapter;
 
 public class SearchActivity extends BaseActivity {
@@ -180,7 +180,7 @@ public class SearchActivity extends BaseActivity {
   }
 
   @Subscribe(threadMode = ThreadMode.MAIN)
-  public void onPanelProductListEventListener(PanelProductListEventListener event) {
+  public void onPanelProductListEventListener(ProductEventListener event) {
     Intent intent = new Intent(SearchActivity.this, UpdateOrInsertProductActivity.class);
     intent.putExtra("id", event.getProduct().getId());
     intent.putExtra("title", event.getProduct().getTitle());
@@ -191,7 +191,6 @@ public class SearchActivity extends BaseActivity {
     intent.putExtra("seen", event.getProduct().getSeen());
 
     this.startActivity(intent);
-
   }
 
 
@@ -204,6 +203,5 @@ public class SearchActivity extends BaseActivity {
     intent.putExtra("img", event.getCategory().getImg());
 
     this.startActivity(intent);
-
   }
 }

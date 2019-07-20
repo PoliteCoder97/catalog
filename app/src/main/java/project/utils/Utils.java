@@ -4,7 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.amaloffice.catalog.R;
+import com.bumptech.glide.request.RequestOptions;
+import com.glide.slider.library.SliderLayout;
+import com.glide.slider.library.SliderTypes.DefaultSliderView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -24,6 +33,51 @@ public class Utils {
         return Consts.HTTP_REQUEST + uri;
     }
 
+    //-------------- Slider ------------------------------------------------------------------------
+    public static void setupSlider(Context context , LinearLayout container,int displayWidth,  String data) {
+        SliderLayout sliderLayout = new SliderLayout(context);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        sliderLayout.setLayoutParams(layoutParams);
+//  int height = (int) (joRow.getInt("height") * scale + 0.5f);
+        sliderLayout.getPagerIndicator().setDefaultIndicatorColor(context.getResources().getColor(R.color.slider_indivator_current), context.getResources().getColor(R.color.slider_indivator_second));
+        addView(sliderLayout, container, 0, displayWidth / 2);
+//  addView(new LinearLayout(MainActivity.this), container, 12, 5); //add for extra margin on button of slider
+        fillSlider(context,sliderLayout, Utils.extractSlides(data));
+//  fillSlider(sliderLayout, Utils.extractSlides(App.preferences.getString(Consts.SLIDER,"[]"));
+    }
+
+    private static void fillSlider(Context context, SliderLayout sliderLayout, List<Slide> slides) {
+        RequestOptions centerCrop = new RequestOptions().optionalCenterCrop();
+        for (int i = 0; i < slides.size(); i++) {
+            DefaultSliderView defaultSliderView = new DefaultSliderView(context);
+            defaultSliderView
+              .image(Utils.checkVersionAndBuildUrl(Consts.GET_SLIDER_IMAGE + slides.get(i).getImageName()))//TODO set image slider
+              .setRequestOption(centerCrop)
+              .setOnSliderClickListener(null);
+            //add your extra information
+            defaultSliderView.bundle(new Bundle());
+            defaultSliderView.getBundle()
+              .putString("action", slides.get(i).getAction());
+            defaultSliderView.getBundle()
+              .putString("actionData", slides.get(i).getActionData());
+            sliderLayout.addSlider(defaultSliderView);
+        }
+    }
+
+    private static void addView(View view, ViewGroup rootView, int topMargin, int height) {
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+          height == 0 ? ViewGroup.LayoutParams.WRAP_CONTENT : height);
+
+        params.topMargin = topMargin;
+
+        //            inflatedView.setTag(i);
+        //            inflatedView.setOnClickListener(oclSendType);
+        //            TextView txtSubTitle = ((TextView) inflatedView.findViewById(R.id.tvSubTitle));
+        //            txtSubTitle.setText(sendTypeList.get(i).subTitle);
+        //            txtSubTitle.setTypeface(G.tf_fa_b);
+        view.setLayoutParams(params);
+        rootView.addView(view);
+    }
     public static List<Slide> extractSlides(String data) {
         List<Slide> slides = new ArrayList<>();
         try {

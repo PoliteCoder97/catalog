@@ -14,7 +14,6 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,9 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amaloffice.catalog.R;
-import com.bumptech.glide.request.RequestOptions;
-import com.glide.slider.library.SliderLayout;
-import com.glide.slider.library.SliderTypes.DefaultSliderView;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
@@ -58,7 +54,6 @@ import project.category.CategoryListActivity;
 import project.certificate.CertificateActivity;
 import project.classes.App;
 import project.classes.Consts;
-import project.classes.Slide;
 import project.management_panel.MainPanelActivity;
 import project.person.PersonListActivity;
 import project.product.Product;
@@ -222,52 +217,6 @@ public class MainActivity extends BaseActivity {
     rclvMostVisited.setAdapter(productListAdapter);
   }
 
-  //-------------- Slider ------------------------------------------------------------------------
-  private void setupSlider(LinearLayout container, String data) {
-    SliderLayout sliderLayout = new SliderLayout(MainActivity.this);
-    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-    sliderLayout.setLayoutParams(layoutParams);
-
-//                    int height = (int) (joRow.getInt("height") * scale + 0.5f);
-    sliderLayout.getPagerIndicator().setDefaultIndicatorColor(getResources().getColor(R.color.slider_indivator_current), getResources().getColor(R.color.slider_indivator_second));
-    addView(sliderLayout, container, 0, displayWidth / 2);
-//        addView(new LinearLayout(MainActivity.this), container, 12, 5); //add for extra margin on button of slider
-    fillSlider(sliderLayout, Utils.extractSlides(data));
-//        fillSlider(sliderLayout, Utils.extractSlides(App.preferences.getString(Consts.SLIDER,"[]"));
-  }
-
-  private void fillSlider(SliderLayout sliderLayout, List<Slide> slides) {
-    RequestOptions centerCrop = new RequestOptions().optionalCenterCrop();
-    for (int i = 0; i < slides.size(); i++) {
-      DefaultSliderView defaultSliderView = new DefaultSliderView(this);
-      defaultSliderView
-        .image(Utils.checkVersionAndBuildUrl(Consts.GET_SLIDER_IMAGE + slides.get(i).getImageName()))//TODO set image slider
-        .setRequestOption(centerCrop)
-        .setOnSliderClickListener(null);
-      //add your extra information
-      defaultSliderView.bundle(new Bundle());
-      defaultSliderView.getBundle()
-        .putString("action", slides.get(i).getAction());
-      defaultSliderView.getBundle()
-        .putString("actionData", slides.get(i).getActionData());
-      sliderLayout.addSlider(defaultSliderView);
-    }
-  }
-
-  private void addView(View view, ViewGroup rootView, int topMargin, int height) {
-    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-      height == 0 ? ViewGroup.LayoutParams.WRAP_CONTENT : height);
-
-    params.topMargin = topMargin;
-
-    //            inflatedView.setTag(i);
-    //            inflatedView.setOnClickListener(oclSendType);
-    //            TextView txtSubTitle = ((TextView) inflatedView.findViewById(R.id.tvSubTitle));
-    //            txtSubTitle.setText(sendTypeList.get(i).subTitle);
-    //            txtSubTitle.setTypeface(G.tf_fa_b);
-    view.setLayoutParams(params);
-    rootView.addView(view);
-  }
   //------------------------------------------- GET FROM NET -------------------------------------
 
   private void getDataFromNet() {
@@ -297,7 +246,10 @@ public class MainActivity extends BaseActivity {
 
           if (e != null) {
             e.printStackTrace();
-            setupSlider(llRowHolder, App.preferences.getString(Consts.SLIDER, "[]"));
+            Utils.setupSlider(MainActivity.this,
+              llRowHolder,
+              displayWidth,
+              App.preferences.getString(Consts.SLIDER, "[]"));
             initialNewstGoodsRclv(null);
             initialMostSeenRclv(null);
             return;
@@ -318,8 +270,12 @@ public class MainActivity extends BaseActivity {
             isShowShareButton = jsonObject.getBoolean("showShareButton");
             isShowPanelButton = jsonObject.getBoolean("showPanelButton");
 
-            App.preferences.edit().putString(Consts.SLIDER, jsonObject.getJSONArray("slider").toString()).apply();
-            setupSlider(llRowHolder, jsonObject.getJSONArray("slider").toString());
+            App.preferences.edit().putString(Consts.SLIDER,
+              jsonObject.getJSONArray("slider").toString()).apply();
+
+            Utils.setupSlider(MainActivity.this,
+              llRowHolder,
+              displayWidth, jsonObject.getJSONArray("slider").toString());
 
             if (!isShowPanelButton) {
               btnLogIn.setVisibility(View.GONE);
