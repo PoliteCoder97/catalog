@@ -19,6 +19,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import project.classes.Consts;
+import project.management_panel.category.PanelCategoryListOnLongEventListener;
 import project.utils.Utils;
 
 public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapter.ViewHolder>{
@@ -45,10 +46,19 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
                 .load(Utils.checkVersionAndBuildUrl(Consts.GET_IMAGE_CATEGORY + category.getImg()))
                 .placeholder(context.getResources().getDrawable(R.drawable.logo))
                 .into(viewHolder.imgAdapter);
+
         viewHolder.imgAdapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EventBus.getDefault().post(new CategoryEventListener(category));
+            }
+        });
+
+        viewHolder.imgAdapter.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                EventBus.getDefault().post(new PanelCategoryListOnLongEventListener(category));
+                return false;
             }
         });
     }

@@ -21,6 +21,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import project.classes.Consts;
+import project.management_panel.product.PanelProductLisOnLongtEventListener;
 import project.utils.Utils;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ViewHolder> {
@@ -70,6 +71,15 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             @Override
             public void onClick(View v) {
                 EventBus.getDefault().post(new ProductEventListener(product));
+            }
+        });
+
+        //use for search activity for delete product
+        viewHolder.lLayProduct.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                EventBus.getDefault().post(new PanelProductLisOnLongtEventListener(product));
+                return false;
             }
         });
     }
